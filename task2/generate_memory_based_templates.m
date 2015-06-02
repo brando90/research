@@ -1,4 +1,4 @@
-function [ templates_G ] = generate_memory_based_templates(G)
+function [ templates_G ] = generate_memory_based_templates(G, K)
 %generate_memory_based_templates = generates {{g_it^k}_i}_k
 %  generates templates_G = {{g_it^k}_i}_k with unit norm. i.e. |g_it^k| = 1
 [~, d, ~] = size(G);
