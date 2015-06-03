@@ -7,6 +7,5 @@ function [ G_R ] = generate_rotation_group_angle( delta_angle )
 %     
 % end
 G_R = 0:delta_angle:360;
-G_R = G_R(1:359);
 end
 
