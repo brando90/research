@@ -17,7 +17,7 @@ range = [0 255];
 templates = generate_random_virgin_img_templates(m,n,k,num_templates,range);
 templates_G = generate_memory_based_templates_for_img_rotations(templates,G);
 %% Vectorize Images
-templates_G = vectorize_templates(templates_G);
+templates_G = vectorize_img_templates(templates_G);
 I_v = I(:);
 gI_v = gI(:);
 %% Invariate Signature Creating

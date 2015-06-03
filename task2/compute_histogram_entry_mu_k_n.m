@@ -1,4 +1,4 @@
-function [ mu_k_n ] = compute_histogram_entry_mu_k_n(I,gt_matrix, n, delta)
+function [ mu_k_n ] = compute_histogram_entry_mu_k_n(I,gt_matrix,n,delta)
 %compute_histogram_entry_mu_k_n Summary = mu_k_n(I) = 1/|G|sum_g sigma(<I,gt> - ndelta)
 %   Detailed explanation = mu_k_n(I) = 1/|G|sum_g sigma(<I,gt> - ndelta)
 [~, size_G] = size(gt_matrix);
