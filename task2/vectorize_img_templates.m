@@ -8,7 +8,7 @@ for k=1:num_templates;
     G_tk = templates_G(:,:,:,:,k);
     for gi=1:size_G;
         v = G_tk(:,:,:,gi);
-        vectorized = v(:);
+        vectorized = vectorize_normalize(v);
         vectorized_templates_G(:,gi,k) = vectorized;
     end
 end

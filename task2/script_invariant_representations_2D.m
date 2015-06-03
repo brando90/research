@@ -9,6 +9,7 @@ G = generate_rotation_group_angle(delta_angle); %list of angles
 %% Image creation
 %I = generate_random_image(d, -1000, 1000);
 I = imread('lena.jpeg');
+I = im2double(I);
 gI = imrotate(I, G(1));
 [m, n, k] = size(I);
 range = [0 255];
@@ -18,8 +19,8 @@ templates = generate_random_virgin_img_templates(m,n,k,num_templates,range);
 templates_G = generate_memory_based_templates_for_img_rotations(templates,G);
 %% Vectorize Images
 templates_G = vectorize_img_templates(templates_G);
-I_v = I(:);
-gI_v = gI(:);
+I = vectorize_normalize(I);
+gI = vectorize_normalize(gI);
 %% Invariate Signature Creating
 sigma_I = create_signature_sigma(I, templates_G, N, delta);
 sigma_gI = create_signature_sigma(gI, templates_G, N, delta);
