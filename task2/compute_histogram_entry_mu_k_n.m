@@ -5,12 +5,6 @@ function [ mu_k_n ] = compute_histogram_entry_mu_k_n(I,gt_matrix,n,delta)
 mu_k_n = 0;
 for g=1:size_G;
     gt = gt_matrix(:,g);
-    disp('gt')
-    size(gt)
-    disp('I')
-    size(I)
-    disp('DOT')
-    dot(I, gt)
     soft_count = sigmf(dot(I, gt) - (n * delta),[1 0]);
     mu_k_n = mu_k_n + soft_count;
 end

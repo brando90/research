@@ -3,9 +3,12 @@
 num_templates = 8; %number of tempaltes
 N = 5; %number of components/bins in a histogram signature
 delta = 4;
-delta_angle = 90; %group rotation group
+delta_angle = 45; %group rotation group
 %% Generate Group of Transformations
-G = generate_rotation_group_angle(delta_angle); %list of angles
+%G = generate_rotation_group_angle(delta_angle); %list of angles
+disp('Rotation Angles')
+G = 0:delta_angle:360;
+%G = G(1:length(G)-1)
 %% Image creation
 %I = generate_random_image(d, -1000, 1000);
 I = imread('lena.jpeg');
@@ -31,6 +34,7 @@ for k = 1:m;
     mu_k_I = sigma_I(:, k);
     mu_k_gI = sigma_gI(:, k);
     dis = norm( mu_k_I - mu_k_gI , 2);
+    disp('distance');
     disp(dis);
     distances(k, 1) = dis;
 end

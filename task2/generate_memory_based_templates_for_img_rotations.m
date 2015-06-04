@@ -10,6 +10,7 @@ for k=1:num_templates;
     for j = 1:size_G;
         angle = G(j);
         gt_img = imrotate(t_img, angle);
+        size(gt_img)
         G_tk(:, :, :, j) = gt_img;
     end
     templates_G(:, :, :, :, k) = G_tk;
