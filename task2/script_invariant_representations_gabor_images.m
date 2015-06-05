@@ -6,23 +6,30 @@ delta = 4;
 delta_angle = 45; %group rotation group
 %% Generate Group of Transformations
 %G = generate_rotation_group_angle(delta_angle); %list of angles
-disp('Rotation Angles')
-G = 0:delta_angle:360;
-%G = G(1:length(G)-1)
+min_x = 1;
+max_x = 10;
+min_y = 1;
+max_y = 10;
+delta_x = 1;
+delta_y = 1;
+G = generate_partial_translation_group(min_x, max_x, delta_x, min_y, max_y, delta_y);
+% disp('Rotation Angles')
+% G = 0:delta_angle:360;
 %% Image creation
 %I = generate_random_image(d, -1000, 1000);
 I = imread('lena.jpeg');
 I = rgb2gray(I);
 I = im2double(I);
-gI = imrotate(I, G(1));
-[m, n, k] = size(I);
-range = [0 255];
+%gI = imrotate(I, G(1));
+gI = imtranslate(I, G(:, :, 1));
+[m, n, ~] = size(I);
+%range = [0 255];
 %% Template Creating 
 %generate random normalised templates_G = { { g_i*t^k }_i }_k
-templates = generate_random_virgin_img_templates(m,n,k,num_templates,range);
-templates_G = generate_memory_based_templates_for_img_rotations(templates,G);
+templates = get_gabor_templates(m, n, num_templates);
+templates_G = generate_memory_based_templates_translations(templates, G);
 %% Vectorize Images
-templates_G = vectorize_img_templates(templates_G);
+templates_G = vectorize_matrix_template(templates_G);
 I = vectorize_normalize(I);
 gI = vectorize_normalize(gI);
 %% Invariate Signature Creating
