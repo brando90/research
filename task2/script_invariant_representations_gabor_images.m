@@ -6,9 +6,9 @@ delta = 4;
 delta_angle = 45; %group rotation group
 %% Generate Group of Transformations
 %G = generate_rotation_group_angle(delta_angle); %list of angles
-min_x = 1;
+min_x = 0;
 max_x = 10;
-min_y = 1;
+min_y = 0;
 max_y = 10;
 delta_x = 1;
 delta_y = 1;
@@ -21,7 +21,7 @@ I = imread('lena.jpeg');
 I = rgb2gray(I);
 I = im2double(I);
 %gI = imrotate(I, G(1));
-gI = imtranslate(I, G(:, :, 1));
+gI = imtranslate(I, G(:, :, 100));
 [m, n, ~] = size(I);
 %range = [0 255];
 %% Template Creating 
