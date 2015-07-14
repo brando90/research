@@ -1,9 +1,7 @@
 %% Data
 x = 1:1:10;
-%x = rand(1,10);
 %% Parameter W
-W = [10 40 190];
-W = rand(1,8);
+W = [-1 -4 -19];
 %% Dimensions
 inputDim = length(x);
 filterDim = length(W);
