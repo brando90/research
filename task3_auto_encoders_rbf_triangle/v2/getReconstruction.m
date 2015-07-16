@@ -8,6 +8,7 @@ for k=1:1:numFilters;
     W_p_k = rot90(W_p(:,:,k),2);
     h_k = h(:, :, k);
     alpha = conv2(h_k, W_p_k, 'full');
-    x_tilde = max(alpha + c, ZEROS);
+    %x_tilde = max(alpha + c, ZEROS);
+    x_tilde = alpha + c;
 end;
 end
