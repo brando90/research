@@ -22,5 +22,6 @@ h = getLatenRepresentation(numFilters, convolvedDim, W,b,I);
 %% Reconstruct
 I_tilde = getReconstruction(numFilters, reconDim, W_p, c, h);
 %% Error
-err = sqrt(norm( I_tilde - I ,2));
+imshow(I_tilde);
+err = sqrt(norm(I_tilde - I ,2));
 disp(err);
