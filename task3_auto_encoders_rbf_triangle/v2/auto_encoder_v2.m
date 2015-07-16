@@ -2,16 +2,25 @@
 I = imread('lena.jpeg');
 I = rgb2gray(I);
 I = im2double(I);
-[inputDim, ~] = siz(x);
+[inputDim, ~] = size(I);
 %% Parameter W
-%W = [10 40 190];
-filterDim = 20;
-numFiters = 8;
-W = rand(filterDim, filterDim, numFilters);
-%% ConvolvedDim Dimensions
+filterDim = 5;
+numFilters = 3;
+W = randn(filterDim, filterDim, numFilters);
+W_p = randn(filterDim, filterDim, numFilters);
+%% Convolutions Dimensions
 convolvedDim = inputDim - filterDim + 1;
-%% Paramater b
-b = 0:1:(convolvedDim - 1)*(inputDim - filterDim + 1);
-b = reshape(b,convolvedDim - 1, convolvedDim - 1);
+reconDim = inputDim;
+%% Offsets b & c
+b = zeros(convolvedDim, convolvedDim, numFilters);
+for k=1:1:numFilters;
+    b_k = (k-1)*ones(convolvedDim * convolvedDim);
+end;
+c = ones(reconDim, reconDim);
 %% Compute Hidden layer
-h = getLatenRepresentation(W,b,x);
+h = getLatenRepresentation(numFilters, convolvedDim, W,b,I);
+%% Reconstruct
+I_tilde = getReconstruction(numFilters, reconDim, W_p, c, h);
+%% Error
+err = sqrt(norm( I_tilde - I ,2));
+disp(err);

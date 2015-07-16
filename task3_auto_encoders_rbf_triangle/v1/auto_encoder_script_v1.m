@@ -14,7 +14,6 @@ b = 0:1:convolvedDim - 1;
 h = getLatenRepresentation(W,b,x);
 %% Reconstruct from hidden layer
 c = 0:1:inputDim - 1;
-c = reshape
 x_tilde = getReconstruction(W,c,h);
 disp('Error')
 err = sqrt(norm(x_tilde - x, 2));
