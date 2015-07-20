@@ -13,7 +13,6 @@ parts(:, :, 4) = p4;
 [~, ~, num_parts] = size(parts);
 %% Build all combinations synthetic images from the artificial parts
 X = build_all_combination_of_synthetic_images(parts, num_parts, D);
-
 %% Learn the moving centers of the HBF for the whole image
 
 %% Learn the moving centers for the parts of the image
