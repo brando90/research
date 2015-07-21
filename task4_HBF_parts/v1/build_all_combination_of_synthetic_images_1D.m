@@ -1,23 +1,28 @@
-function [ X ] = build_all_combination_of_synthetic_images( parts,num_parts,D )
+function [ X_data, X_tensor ] = build_all_combination_of_synthetic_images( parts,num_parts,D )
 %build_all_combination_of_synthetic_images builds all perm. of P1,...,P4
 %   Forms the artificial data set containing all permutations of artificial
 %   images.
 indices = 1:1:num_parts; %indices for parts
 permutations = perms(indices); %all permutations of the indices
 [num_perms, ~] = size(permutations);
-X = zeros(D,D,num_parts,num_perms); % all the actual permutations of parts
+X_tensor = zeros(1,D,num_parts,num_perms); % all the actual permutations of parts
+X_data = zeros(1,D*num_parts,num_perms);
 %for every permutation combintation
 for index_perm=1:num_perms;
-    permutation_list = permutations(index_perm);
-    x_perm = zeros(D,D,num_parts);
+    current_permutation_list = permutations(index_perm);
+    x_current_perm = zeros(1,D,num_parts);
+    x_current_as_vector = zeros(1,D*num_parts);
     %for every index in the current permutation
-    for i=permutation_list;
+    start = 1;
+    for i=current_permutation_list;
         %get the current part (for the current permutation)
         part_i = parts(i);
         %the actual permutation of the parts for this permutation
-        x_perm(:,:,i) = part_i;
+        x_current_perm(:,:,i) = part_i; %[p_i1, p_i2, p_i3, p_i4]
+        x_current_as_vector(:,start + (i-1)*D)
     end;
-    X(:,:,:,index_perm) = x_perm;
+    X_data(:,:,:,index_perm) = x_current_perm;
+    X_data(:,:,index_perm) = x_current_as_vector;
 end;
 end
 
