@@ -4,6 +4,5 @@ function [ C, T ] = get_HBF_parameters( S )
 %   S is the training data set dim = (dim_data, num_data) = (1xD, N)
 N = size(S);
 
-
 end
 
