@@ -3,22 +3,18 @@ function [ C, T ] = learn_HBF_parameters( X_data, Y, C_weights, t_centers )
 %   get C's, t's by gradient descent assuming M=I
 %   X_data = (dim_data, num_data)=(Dxnum_parts,N)
 [D, N] = size(X_data); %D=dim of data, N=num of data points
-[K, ~] = size(t_centers); %K = number of hidden units
-C = zeros(K, D);
-T = zeros(D,K);
-disp('Y output dimension: ');
-size(Y)
+[~, K] = size(t_centers); %K = number of hidden units
+[~, D_p] = size(C_weights);
+C = zeros(size(C_weights));  %
+T = zeros(size(t_centers)); %
 F_star = f_star_all_data(X_data, C_weights, t_centers);
-disp('F_star, dimension of F_star: ')
-size(F_star)
 meu_c = 0.6;
 meu_t = 0.6;
-for iteration=1:100
+for iteration=1:10
     %%update weight c_k,j
-    %X_data_t = X_data.';
     delta = Y - F_star;
-    for j=1:K
-        for k=1:D
+    for k=1:K
+        for j=1:D_p
             c_kj = C_weights(k,j);
             total_change = 0;
             for i=1:N;

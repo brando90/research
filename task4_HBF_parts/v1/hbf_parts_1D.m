@@ -1,6 +1,6 @@
 %%%% Skeleton Code for Learning parts code
 %% Create artificial parts
-sqrtD = 3;
+sqrtD = 4;
 dim_part = sqrtD*sqrtD;
 %part1: reshape identity
 I = eye(sqrtD,sqrtD);
@@ -37,13 +37,20 @@ X_tensor = x_tensor + tensor;
 %% Learn the adjustable centers (& params) of the HBF for the whole image
 % Initialize parameters
 D_p = dim_data; %output dimension = input dimension
-K = N/2;
+K = dim_data/2;
 %C_weights = zeros(D,1,D_p);
 C_weights = rand(K,D_p); % C = [...,C_j,...]
 t_centers = zeros(dim_data, K); % t = [..., t_j, ...]
-t_centers = t_centers + X_data(:,1:K);
+%t_centers = t_centers + X_data(:,1:K);
+t_centers = t_centers + rand(dim_data, K);
 Y = X_data; %labels for the auto-encoder
 [C_weights, t_centers] = learn_HBF_parameters(X_data, Y, C_weights, t_centers);
 %% Learn the moving centers for the parts of the image
-
+K_part = K/num_parts; %TODO
+dim_part_out = dim_part;
+disp(K_part)
+t_centers_parts = randn(dim_part, K_part);
+C_weights_parts = randn(K_part, dim_part_out);
+Y_parts = parts;
+[C_weights_parts, t_centers_parts] = learn_HBF_parameters(parts,Y,C_weights_parts,t_centers_parts);
 %% Test if the concatenation of the centers are the same as the full centers
