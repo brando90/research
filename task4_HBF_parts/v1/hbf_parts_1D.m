@@ -42,7 +42,8 @@ K = N/2;
 C_weights = rand(K,D_p); % C = [...,C_j,...]
 t_centers = zeros(D*num_parts, K); % t = [..., t_j, ...]
 t_centers = t_centers + X_data(:,1:K);
-[C_weights, t_centers] = learn_HBF_parameters(X_data, C_weights, t_centers);
+Y = X_data; %labels for the auto-encoder
+[C_weights, t_centers] = learn_HBF_parameters(X_data, Y, C_weights, t_centers);
 %% Learn the moving centers for the parts of the image
 
 %% Test if the concatenation of the centers are the same as the full centers
