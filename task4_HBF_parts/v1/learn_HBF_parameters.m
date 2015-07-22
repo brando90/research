@@ -6,7 +6,11 @@ function [ C, T ] = learn_HBF_parameters( X_data, Y, C_weights, t_centers )
 [K, ~] = size(t_centers); %K = number of hidden units
 C = zeros(K, D);
 T = zeros(D,K);
-[F_star, ~] = f_star_all_data(X_data, C_weights, t_centers);
+disp('Y output dimension: ');
+size(Y)
+F_star = f_star_all_data(X_data, C_weights, t_centers);
+disp('F_star, dimension of F_star: ')
+size(F_star)
 meu_c = 0.6;
 meu_t = 0.6;
 for iteration=1:100
