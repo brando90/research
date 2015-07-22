@@ -19,7 +19,7 @@ for index_perm=1:num_perms;
         part_i = parts(i);
         %the actual permutation of the parts for this permutation
         x_current_perm(:,i) = part_i; %[p_i1, p_i2, p_i3, p_i4]
-        x_current_as_vector(:,start + (i-1)*D)
+        x_current_as_vector(:,start + (i-1)*D);
     end;
     X_tensor(:,:,index_perm) = x_current_perm;
     X_data(:,index_perm) = x_current_as_vector;
