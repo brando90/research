@@ -1,4 +1,4 @@
-function [ y ] = f_star(x, t, C )
+function [ y, G ] = f_star(x, C, t)
 %f_star = computes the HBF function for vector values
 %   ---> input x = data
 %   ---> outputs: y = [...,y_k,...]=[...,C_jG,...]
