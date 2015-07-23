@@ -1,6 +1,8 @@
 function [ parts ] = create_artificial_normalized_parts( num_parts, sqrt_dim_data, dim_part )
-I = eye(sqrt_dim_data,sqrt_dim_data);
-p1 = reshape(I, [dim_part, 1]);
+%part1
+% I = eye(sqrt_dim_data,sqrt_dim_data);
+% p1 = reshape(I, [dim_part, 1]);
+p1 = 1:2:2*dim_part
 %part2: reshape magic
 m = magic(sqrt_dim_data);
 p2 = reshape(m, [dim_part, 1]);

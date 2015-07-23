@@ -1,5 +1,6 @@
 %%%% Skeleton Code for Learning parts code
 %% Create artificial parts
+disp('START')
 sqrt_dim_part = 4;
 dim_part = sqrt_dim_part*sqrt_dim_part;
 num_parts = 4;
@@ -36,9 +37,10 @@ disp(t_centers_parts)
 %% Test if the concatenation of the centers are the same as the full centers
 %Does there exists, for every center, a concatentation of the smaller parts
 %such that, there i
-t_centers_parts_collection = zeros(dim_part,K_part,num_parts);
+tart_centers_parts_collection = zeros(dim_part,K_part,num_parts);
 for i=1:num_parts
     t_centers_parts_collection(:,:,i) = t_centers_parts;
 end
 count = number_of_centeres_made_by_parts(num_parts, t_centers, t_centers_parts_collection);
+disp('count');
 disp(count);
