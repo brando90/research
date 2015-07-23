@@ -24,12 +24,11 @@ for index_perm=1:num_perms
         end_i = start + D - 1;
     end
     if norm((x_current_as_vector), 2) == 0
-        X_tensor(:,:,index_perm) = squeeze(x_current_perm);
         X_data(:,index_perm) = x_current_as_vector; 
     else
-        X_tensor(:,:,index_perm) = squeeze(x_current_perm)/norm((x_current_as_vector), 2);
         X_data(:,index_perm) = x_current_as_vector/ norm((x_current_as_vector), 2);
     end
+    X_tensor(:,:,index_perm) = squeeze(x_current_perm);
 end
 end
 

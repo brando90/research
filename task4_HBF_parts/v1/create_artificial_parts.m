@@ -1,4 +1,4 @@
-function [ parts ] = create_artificial_normalized_parts( num_parts, sqrt_dim_data, dim_part )
+function [ parts ] = create_artificial_parts( num_parts, sqrt_dim_data, dim_part )
 %part1
 % p1 = eye(sqrt_dim_data,sqrt_dim_data);
 p1 = 1:2:2*dim_part;
@@ -22,6 +22,4 @@ parts(:, 1) = p1;
 parts(:, 2) = p2;
 parts(:, 3) = p3;
 parts(:, 4) = p4;
-parts = normalize_parts(parts);
 end
-
