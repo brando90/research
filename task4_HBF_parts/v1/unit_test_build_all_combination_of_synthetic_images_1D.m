@@ -1,5 +1,16 @@
 %% Unit test build_all_combination_of_synthetic_images_1D
-p1 = [1 2 3 4];
-p2 = [5 6 7 8];
-p3 = [9 10 11 12];
-p4 = [13 14 15 16];
+num_parts = 4;
+p1 = [1; 2; 3 ];
+p2 = [5; 6; 7 ];
+p3 = [9; 10; 11];
+p4 = [13; 14; 15];
+[D, ~] = size(p1);
+parts = zeros(D, num_parts);
+parts(:, 1) = p1;
+parts(:, 2) = p2;
+parts(:, 3) = p3;
+parts(:, 4) = p4;
+%%
+[X_data, X_tensor] = build_all_combination_of_synthetic_images_1D(parts,num_parts,D);
+disp(X_data)
+disp(X_tensor)
