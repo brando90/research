@@ -26,15 +26,16 @@ Y = X_data; %labels for the auto-encoder
 [C_weights, t_centers] = learn_HBF_parameters(X_data, Y, C_weights, t_centers);
 %% Learn the moving centers for the parts of the image
 collection_parts = squeeze(x_tensor(:,1,:));
-disp('collection_parts')
-size(collection_parts)
 K_part = K/4;
 t_centers_parts = rand(dim_part, K_part);
-disp('t_centers_parts')
-size(t_centers_parts)
 C_weights_parts = rand(K_part,dim_part);
-disp('C_weights_parts')
-disp(size(C_weights_parts))
 Y = collection_parts;
 [C_weights_parts, t_centers_parts] = learn_HBF_parameters(collection_parts, Y, C_weights_parts, t_centers_parts);
 %% Test if the concatenation of the centers are the same as the full centers
+%Does there exists, for every center, a concatentation of the smaller parts
+%such that, there i
+disp('t_centers')
+size(t_centers)
+disp('t_centers_parts')
+size(t_centers_parts)
+centeres_made_by_parts(t_centers,t_centers_parts);

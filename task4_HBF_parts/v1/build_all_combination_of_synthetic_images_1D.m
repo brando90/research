@@ -1,4 +1,4 @@
-function [ X_data, X_tensor ] = build_all_combination_of_synthetic_images_1D( parts,num_parts,D )
+function [ X_data, X_tensor ] = build_all_combination_of_synthetic_images_1D( parts, num_parts,D )
 %build_all_combination_of_synthetic_images builds all perm. of P1,...,P4
 %   Forms the artificial data set containing all permutations of artificial
 %   images.
@@ -19,10 +19,10 @@ for index_perm=1:num_perms;
         part_i = parts(i);
         %the actual permutation of the parts for this permutation
         x_current_perm(:,i) = part_i; %[p_i1, p_i2, p_i3, p_i4]
-        x_current_as_vector(:,start + (i-1)*D);
+        x_current_as_vector(:,start + (i-1)*D) = part_i;
     end;
-    X_tensor(:,:,index_perm) = x_current_perm;
-    X_data(:,index_perm) = x_current_as_vector;
+    X_tensor(:,:,index_perm) = squeeze(x_current_perm)/norm((x_current_as_vector), 2);
+    X_data(:,index_perm) = x_current_as_vector/ norm((x_current_as_vector), 2);
 end;
 end
 
