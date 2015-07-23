@@ -35,5 +35,6 @@ size(t_centers_parts)
 C_weights_parts = rand(K_part,dim_part);
 disp('C_weights_parts')
 disp(size(C_weights_parts))
-[C_weights_parts, t_centers_parts] = learn_HBF_parameters(X_data, Y, C_weights_parts, t_centers_parts);
+Y = collection_parts;
+[C_weights_parts, t_centers_parts] = learn_HBF_parameters(collection_parts, Y, C_weights_parts, t_centers_parts);
 %% Test if the concatenation of the centers are the same as the full centers
