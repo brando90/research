@@ -34,8 +34,8 @@ Y = collection_parts;
 %% Test if the concatenation of the centers are the same as the full centers
 %Does there exists, for every center, a concatentation of the smaller parts
 %such that, there i
-disp('t_centers')
-size(t_centers)
-disp('t_centers_parts')
-size(t_centers_parts)
-centeres_made_by_parts(t_centers,t_centers_parts);
+t_centers_parts_collection = zeros(dim_part,K_part,num_parts);
+for i=1:num_parts
+    t_centers_parts_collection(:,:,i) = t_centers_parts;
+end
+number_of_centeres_made_by_parts(num_parts, t_centers, t_centers_parts_collection);
