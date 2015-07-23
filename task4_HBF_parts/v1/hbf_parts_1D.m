@@ -31,6 +31,8 @@ t_centers_parts = rand(dim_part, K_part);
 C_weights_parts = rand(K_part,dim_part);
 Y = collection_parts;
 [C_weights_parts, t_centers_parts] = learn_HBF_parameters(collection_parts, Y, C_weights_parts, t_centers_parts);
+disp('t_centers_parts')
+disp(t_centers_parts)
 %% Test if the concatenation of the centers are the same as the full centers
 %Does there exists, for every center, a concatentation of the smaller parts
 %such that, there i
@@ -38,4 +40,5 @@ t_centers_parts_collection = zeros(dim_part,K_part,num_parts);
 for i=1:num_parts
     t_centers_parts_collection(:,:,i) = t_centers_parts;
 end
-number_of_centeres_made_by_parts(num_parts, t_centers, t_centers_parts_collection);
+count = number_of_centeres_made_by_parts(num_parts, t_centers, t_centers_parts_collection);
+disp(count);

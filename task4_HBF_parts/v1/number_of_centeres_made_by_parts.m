@@ -17,7 +17,13 @@ for i=1:number_centers_whole
             current_perm_center = t_centers_parts(perm_index);
             conjuction_vec(j:j+(j-1)*dim_parts, 1) = current_perm_center;
         end
+        size(conjuction_vec)
+        size(t_i)
+        t_i
+        conjuction_vec
         similarity = dot(conjuction_vec, t_i);
+        disp(similarity)
+        disp(conjuction_vec.' * t_i)
         if 0.8<similarity && similarity <1.1
             count = count + 1;
         end

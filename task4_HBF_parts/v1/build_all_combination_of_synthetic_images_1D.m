@@ -21,6 +21,8 @@ for index_perm=1:num_perms;
         x_current_perm(:,i) = part_i; %[p_i1, p_i2, p_i3, p_i4]
         x_current_as_vector(:,start + (i-1)*D) = part_i;
     end;
+    norm((x_current_as_vector), 2)
+    x_current_perm
     X_tensor(:,:,index_perm) = squeeze(x_current_perm)/norm((x_current_as_vector), 2);
     X_data(:,index_perm) = x_current_as_vector/ norm((x_current_as_vector), 2);
 end;
