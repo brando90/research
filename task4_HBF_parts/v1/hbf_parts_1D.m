@@ -1,31 +1,10 @@
 %%%% Skeleton Code for Learning parts code
 %% Create artificial parts
-sqrtD = 4;
-dim_part = sqrtD*sqrtD;
+sqrt_dim_part = 4;
+dim_part = sqrt_dim_part*sqrt_dim_part;
+num_parts = 4;
+parts = create_artificial_normalized_parts(num_parts, sqrt_dim_part, dim_part);
 %part1: reshape identity
-I = eye(sqrtD,sqrtD);
-p1 = reshape(I, [dim_part, 1]);
-%part2: reshape magic
-m = magic(sqrtD);
-p2 = reshape(m, [dim_part, 1]);
-%part3: reshape enumaration
-offset = -50;
-start_index = 1-50;
-end_index = dim_part - 50;
-step =1;
-p3 = start_index:step:end_index;
-p3 = reshape(p3, [dim_part,1]);
-%part4: same number
-constant = pi;
-p4 = constant * ones(dim_part,1);
-%% collect parts
-parts = zeros(dim_part, num_parts);
-parts(:, 1) = p1;
-parts(:, 2) = p2;
-parts(:, 3) = p3;
-parts(:, 4) = p4;
-parts = normalize_parts(parts);
-[~, num_parts] = size(parts); % (D x num_parts)
 %% Build all combinations synthetic images from the artificial parts
 [data, tensor] = build_all_combination_of_synthetic_images_1D(parts, num_parts, dim_part);
 [dim_data, num_perms] = size(data);
@@ -46,11 +25,15 @@ t_centers = t_centers + rand(dim_data, K);
 Y = X_data; %labels for the auto-encoder
 [C_weights, t_centers] = learn_HBF_parameters(X_data, Y, C_weights, t_centers);
 %% Learn the moving centers for the parts of the image
-K_part = K/num_parts; %TODO
-dim_part_out = dim_part;
-disp(K_part)
-t_centers_parts = randn(dim_part, K_part);
-C_weights_parts = randn(K_part, dim_part_out);
-Y_parts = parts;
-[C_weights_parts, t_centers_parts] = learn_HBF_parameters(parts,Y,C_weights_parts,t_centers_parts);
+collection_parts = squeeze(x_tensor(:,1,:));
+disp('collection_parts')
+size(collection_parts)
+K_part = K/4;
+t_centers_parts = rand(dim_part, K_part);
+disp('t_centers_parts')
+size(t_centers_parts)
+C_weights_parts = rand(K_part,dim_part);
+disp('C_weights_parts')
+disp(size(C_weights_parts))
+[C_weights_parts, t_centers_parts] = learn_HBF_parameters(X_data, Y, C_weights_parts, t_centers_parts);
 %% Test if the concatenation of the centers are the same as the full centers
