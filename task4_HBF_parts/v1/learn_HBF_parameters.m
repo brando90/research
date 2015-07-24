@@ -1,4 +1,4 @@
-function [ C, T ] = learn_HBF_parameters( X_data, Y, C_weights, t_centers )
+function [ C, T ] = learn_HBF_parameters( X_data, Y, C_weights, t_centers, lambda )
 %get_HBF_parameters = get C's, t's assuming M=I
 %   get C's, t's by gradient descent assuming M=I
 %   X_data = (dim_data, num_data)=(Dxnum_parts,N)
@@ -10,7 +10,9 @@ T = zeros(size(t_centers)); %
 F_star = f_star_all_data(X_data, C_weights, t_centers);
 meu_c = 0.6;
 meu_t = 0.6;
-for iteration=1:10
+iterations = 100;
+array_cost = zeros(iterations, 1);
+for iteration=1:iterations
     %%update weight c_k,j
     delta = Y - F_star;
     for k=1:K
@@ -48,6 +50,9 @@ for iteration=1:10
     end
     C_weights = C;
     t_centers = T;
+    current_cost = compute_regularized_cost_Hf_Pf(X_data, X_data, C_weights, t_centers, lambda);
+    array_cost(iteration) = current_cost;
 end
+plot(1:iterations, array_cost);
 end
 

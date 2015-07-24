@@ -1,11 +1,12 @@
-function [ count ] = number_of_centeres_made_by_parts(num_parts, t_centers, t_centers_parts_collection)
+function [ all_match_vectors, all_number_of_matches ] = number_of_centeres_made_by_parts(num_parts, t_centers, t_centers_parts_collection, tau)
 %Does there exists, for every center, a concatentation of the smaller parts
 %such that, there i (count how many)
-count = 0;
-[~,number_centers_whole] = size(t_centers);
+[~, number_centers_whole] = size(t_centers);
 [dim_parts, ~, ~] = size(t_centers_parts_collection);
 indices = 1:num_parts;
 all_perms = perms(indices);
+all_match_vectors = zeros(length(all_perms), number_centers_whole);
+all_number_of_matches = zeros(1, number_centers_whole);
 for i=1:number_centers_whole
     t_i = t_centers(:,i);
     for collection_perm_index=1:length(all_perms)
@@ -22,14 +23,11 @@ for i=1:number_centers_whole
             end_i = start + dim_parts - 1;
         end
         similarity = dot(conjuction_vec, t_i);
-        %disp(similarity)
-        %conjuction_vec
-        if 0.8<similarity && similarity <1.1
-%             conjuction_vec
-%             similarity
-            count = count + 1;
+        if tau<similarity && similarity <1.1
+            all_match_vectors(collection_perm_index,i) = 1;
         end
     end
+    all_number_of_matches(i) = nnz(all_match_vectors(:,i));
 end
 end
 

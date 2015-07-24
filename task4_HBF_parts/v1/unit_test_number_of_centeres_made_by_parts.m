@@ -24,5 +24,7 @@ end
 similarity = dot(t1_whole, t1_whole);
 disp(similarity);
 %% test the number of centers made by parts
-count = number_of_centeres_made_by_parts(num_parts, centers_whole, centers_parts_collection);
-disp(count);
+tau = 0.8;
+[all_match_vectors, all_number_of_matches] = number_of_centeres_made_by_parts(num_parts, centers_whole, centers_parts_collection, tau);
+disp(all_match_vectors);
+disp(all_number_of_matches);
