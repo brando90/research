@@ -8,9 +8,11 @@ function [ C, T ] = learn_HBF_parameters( X_data, Y, C_weights, t_centers, lambd
 C = zeros(size(C_weights));  %
 T = zeros(size(t_centers)); %
 F_star = f_star_all_data(X_data, C_weights, t_centers);
-meu_c = 0.6;
-meu_t = 0.6;
-iterations = 100;
+meu_c = 5*10^10;
+meu_t = 5*10^10;
+% meu_c = 1;
+% meu_t = 1;
+iterations = 50;
 array_cost = zeros(iterations, 1);
 for iteration=1:iterations
     %%update weight c_k,j
@@ -26,6 +28,7 @@ for iteration=1:iterations
                 G_xi_tk = exp(-1*norm(x_i - t_k)^2);
                 total_change = total_change + delta_i*(-2)*G_xi_tk;
             end
+            total_change
             c_kj = c_kj - meu_c*(total_change);
             C(k,j) = c_kj;
         end
