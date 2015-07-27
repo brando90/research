@@ -1,4 +1,4 @@
-disp('----> Running simulations...');
+disp('------------->>> Running simulations...');
 %% Create vectors to learn from
 %N = 100; %size of data
 %D = 4*10; %dim of data
@@ -6,16 +6,16 @@ disp('----> Running simulations...');
 X = loadMNISTImages('./data/common/train-images-idx3-ubyte');
 y = loadMNISTLabels('./data/common/train-labels-idx1-ubyte');
 [D, ~] = size(X);
-N = 500;
+N = 100;
 X = X(:,1:N);
 y = y(1:N);
-disp('-> Size(X) = ');
+disp('---> Size(X) = ');
 disp(size(X));
-disp('-> Size(y) = ')
+disp('---> Size(y) = ')
 disp(size(y));
 %% Parameters
 lambda = 0; %reg param
-K = 4; %num hidden units
+K = 200; %num hidden units
 c = rand(K,1);
 t = rand(D,K);
 %t = X(:,1:K);
