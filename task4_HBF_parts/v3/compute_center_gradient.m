@@ -9,7 +9,7 @@ function [ dh_dt ] = compute_center_gradient( X, Y, c, t, lambda )
 %       lambda = regularization param (1 x 1)
 %   outputs:
 %       dh_dt = gradient wrt c (D x K)
-[~, N] = size(X);
+[D, N] = size(X);
 K = length(c);
 dh_dt = zeros(D, K);
 for k=1:K

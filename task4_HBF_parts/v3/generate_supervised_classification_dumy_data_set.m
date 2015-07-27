@@ -14,7 +14,7 @@ first_number_of_sequence = 1:2:2*num_examples_for_a_class;
 for n=1:num_examples_for_a_class
     first_num = first_number_of_sequence(n);
     x1(1,n) = first_num;
-    for i=1:D
+    for i=2:D
         x1(i,n) = x1(i-1,n) + 2;
     end
     x1(:,n) = x1(:,n)/ norm(x1(:,n), 2);
@@ -26,7 +26,7 @@ first_number_of_sequence = 1:0.1:1+0.1 *(num_examples_for_a_class-1);
 for n=1:num_examples_for_a_class
     first_num = first_number_of_sequence(i);
     x2(1,n) = first_num;
-    for i=1:D
+    for i=2:D
         x2(i,n) = x2(i-1,n)^2 + pi;
     end
     x2(:,n) = x2(:,n)/ norm(x2(:,n), 2);
@@ -43,7 +43,7 @@ first_number_of_sequence = 1:num_examples_for_a_class;
 for n=1:num_examples_for_a_class
     first_num = first_number_of_sequence(n);
     x4(1,n) = first_num;
-    for i=1:D
+    for i=2:D
         x4(i,n) = -1.1* x4(i-1,n);
     end
     x4(:,n) = x4(:,n)/ norm(x4(:,n), 2);
