@@ -22,12 +22,12 @@ end
 y1 = 1*ones(D, num_examples_for_a_class);
 % x_2
 x2 = zeros(D, num_examples_for_a_class);
-first_number_of_sequence = 1:0.1:1+0.1 *(num_examples_for_a_class-1);
+first_number_of_sequence = 1:0.001:1+0.001 *(num_examples_for_a_class-1);
 for n=1:num_examples_for_a_class
-    first_num = first_number_of_sequence(i);
+    first_num = first_number_of_sequence(n);
     x2(1,n) = first_num;
     for i=2:D
-        x2(i,n) = x2(i-1,n)^2 + pi;
+        x2(i,n) = 1.05*x2(i-1,n) + pi*n;
     end
     x2(:,n) = x2(:,n)/ norm(x2(:,n), 2);
 end
@@ -44,7 +44,7 @@ for n=1:num_examples_for_a_class
     first_num = first_number_of_sequence(n);
     x4(1,n) = first_num;
     for i=2:D
-        x4(i,n) = -1.1* x4(i-1,n);
+        x4(i,n) = -1.1*x4(i-1,n);
     end
     x4(:,n) = x4(:,n)/ norm(x4(:,n), 2);
 end
@@ -53,4 +53,3 @@ y4 = 4*ones(D, num_examples_for_a_class);
 X = [x1 x2 x3 x4];
 Y = [y1; y2; y3; y4];
 end
-
