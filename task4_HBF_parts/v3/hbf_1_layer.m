@@ -12,5 +12,5 @@ mu_t = 1;
 %% Learn the parameters
 visualize = 1;
 err = 1;
-iterations = 100;
+iterations = 0;
 [c, t] = learn_HBF_parameters_1_hidden_layer(X, y, c, t, lambda, mu_c, mu_t, err, iterations, visualize);

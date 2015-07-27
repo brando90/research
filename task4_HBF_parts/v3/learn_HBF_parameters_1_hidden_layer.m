@@ -18,7 +18,9 @@ c_new = zeros(K,1);
 t_new =  zeros(D,K);
 if iterations == 0 
     current_error = compute_Hf(X, Y, c, t, lambda);
-    iterations = 0;
+    i = 1;
+    errors = cell(1,1);
+    errors{1,1} = current_error;
     while current_error > err
         % Compute Gradients
         dhf_dc = compute_weight_gradient(X, Y, c, t, lambda); % Computes gradient wrt to weights c's
@@ -27,7 +29,12 @@ if iterations == 0
         c_new = c_new - mu_c * dhf_dc;
         t_new = t_new - mu_t * dhf_dt;
         current_error = compute_Hf(X, Y, c_new, t_new, lambda);
-        iterations = iterations + 1;
+        errors{i} = current_error;
+        i = i + 1;
+    end
+    if visualize
+        iteration_axis = 1:i;
+        plot(iteration_axis, cell2mat(errors) );
     end
 else
     errors = zeros(iterations,1);
