@@ -6,7 +6,7 @@ disp('------------->>> Running simulations...');
 X = loadMNISTImages('./data/common/train-images-idx3-ubyte');
 y = loadMNISTLabels('./data/common/train-labels-idx1-ubyte');
 [D, ~] = size(X);
-N = 100;
+N = 500;
 X = X(:,1:N);
 y = y(1:N);
 disp('---> Size(X) = ');

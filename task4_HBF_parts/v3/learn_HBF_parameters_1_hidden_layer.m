@@ -24,6 +24,8 @@ while abs(current_error - prev_error) > prec
     % Compute Gradients
     dhf_dc = compute_weight_gradient(X, Y, c, t, lambda); % Computes gradient wrt to weights c's
     dhf_dt = compute_center_gradient(X, Y, c, t, lambda); % Computes gradient wrt to ceters t's
+    dhf_dc
+    dhf_dt
     % Update parameters
     c = c - mu_c * dhf_dc;
     t = t - mu_t * dhf_dt;
