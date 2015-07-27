@@ -1,4 +1,4 @@
-function [ c_new, t_new ] = learn_HBF_parameters_1_hidden_layer_iterations( X,Y,c,t,lambda,mu_c,mu_t,iterations,visualize )
+function [ c, t ] = learn_HBF_parameters_1_hidden_layer_iterations( X,Y,c,t,lambda,mu_c,mu_t,iterations,visualize )
 %learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
 %   Inputs:
 %       X = data matrix (D x N)
@@ -13,18 +13,15 @@ function [ c_new, t_new ] = learn_HBF_parameters_1_hidden_layer_iterations( X,Y,
 %   Outputs:
 %       c_new = learned weights (K x 1)
 %       t_new = learned centers (D x K)
-[D, K] = size(t);
-c_new = zeros(K,1);
-t_new =  zeros(D,K);
 errors = zeros(iterations,1);
 for i=1:iterations
     % Compute Gradients
     dhf_dc = compute_weight_gradient(X, Y, c, t, lambda); % Computes gradient wrt to weights c's
     dhf_dt = compute_center_gradient(X, Y, c, t, lambda); % Computes gradient wrt to ceters t's
     % Update parameters
-    c_new = c_new - mu_c * dhf_dc;
-    t_new = t_new - mu_t * dhf_dt;
-    current_error = compute_Hf(X, Y, c_new, t_new, lambda);
+    c = c - mu_c * dhf_dc;
+    t = t - mu_t * dhf_dt;
+    current_error = compute_Hf(X, Y, c, t, lambda);
     errors(i) = current_error;
 end
 if visualize
