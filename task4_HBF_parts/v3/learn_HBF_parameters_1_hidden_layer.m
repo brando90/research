@@ -15,6 +15,14 @@ function [ c, t ] = learn_HBF_parameters_1_hidden_layer(X,Y,c,t,lambda,mu_c,mu_t
 %       t = learned centers (D x K)
 current_error = compute_Hf(X, Y, c, t, lambda);
 prev_error = inf;
+disp('- prev_error: ');
+disp(prev_error);
+disp('- current_error: ');
+disp(current_error);
+disp('- abs(current_error - prev_error)');
+disp(abs(current_error - prev_error));
+disp('- precision');
+disp(prec);
 i = 1;
 errors = cell(1,1);
 errors{1,1} = current_error;
