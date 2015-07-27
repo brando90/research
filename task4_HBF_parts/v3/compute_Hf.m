@@ -15,6 +15,6 @@ for i=1:N
     delta_i = y_i - f_i;
     empirical_risk = empirical_risk + delta_i^2;
 end
-regularization_penalty = 0;
+regularization_penalty = 0; %TODO
 regularized_cost_hf =  empirical_risk + lambda * regularization_penalty;
 end
