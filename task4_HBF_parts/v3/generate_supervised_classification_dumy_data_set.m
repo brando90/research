@@ -19,7 +19,7 @@ for n=1:num_examples_for_a_class
     end
     x1(:,n) = x1(:,n)/ norm(x1(:,n), 2);
 end
-y1 = 1*ones(D, num_examples_for_a_class);
+y1 = 1*ones(num_examples_for_a_class,1);
 % x_2
 x2 = zeros(D, num_examples_for_a_class);
 first_number_of_sequence = 1:0.001:1+0.001 *(num_examples_for_a_class-1);
@@ -31,14 +31,14 @@ for n=1:num_examples_for_a_class
     end
     x2(:,n) = x2(:,n)/ norm(x2(:,n), 2);
 end
-y2 = 2*ones(D, num_examples_for_a_class);
+y2 = 2*ones(num_examples_for_a_class,1);
 % x_3
 x3 = zeros(D, num_examples_for_a_class);
 x3 = x3 + -1*ones(D, num_examples_for_a_class);
 x3 = x3 / norm(x3(:,1), 2);
-y3 = 3*ones(D, num_examples_for_a_class);
+y3 = 3*ones(num_examples_for_a_class,1);
 % x_4
-x4 = zeros(D, num_examples_for_a_class);
+x4 = zeros(num_examples_for_a_class);
 first_number_of_sequence = 1:num_examples_for_a_class;
 for n=1:num_examples_for_a_class
     first_num = first_number_of_sequence(n);
@@ -48,7 +48,7 @@ for n=1:num_examples_for_a_class
     end
     x4(:,n) = x4(:,n)/ norm(x4(:,n), 2);
 end
-y4 = 4*ones(D, num_examples_for_a_class);
+y4 = 4*ones(num_examples_for_a_class,1);
 %% Collect data 
 X = [x1 x2 x3 x4];
 Y = [y1; y2; y3; y4];

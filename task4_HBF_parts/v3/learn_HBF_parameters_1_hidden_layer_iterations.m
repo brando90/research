@@ -29,4 +29,3 @@ if visualize
     plot(iteration_axis, errors);
 end
 end
-

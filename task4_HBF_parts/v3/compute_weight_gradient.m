@@ -29,4 +29,3 @@ for k=1:K
     dh_dc(k) = dh_dc(k) + regularization_derivative * lambda;
 end
 end
-
