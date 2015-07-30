@@ -3,15 +3,16 @@ disp('------------->>> Running simulations...');
 %N = 100; %size of data
 %D = 4*10; %dim of data
 %[X, y] = generate_supervised_classification_dumy_data_set(N, D);
-X = loadMNISTImages('./data/common/train-images-idx3-ubyte');
-y = loadMNISTLabels('./data/common/train-labels-idx1-ubyte');
+addpath('../common')
+X = loadMNISTImages('../common/data/train-images-idx3-ubyte');
+y = loadMNISTLabels('../common/data/train-labels-idx1-ubyte');
 [D, ~] = size(X);
 N = 500;
 X = X(:,1:N);
 y = y(1:N);
-disp('---> Size(X) = ');
+disp('---> Size(X) = (D, N)');
 disp(size(X));
-disp('---> Size(y) = ')
+disp('---> Size(y) = (N, 1)')
 disp(size(y));
 %% Parameters
 lambda = 0; %reg param
