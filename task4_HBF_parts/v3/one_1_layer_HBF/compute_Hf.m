@@ -2,7 +2,7 @@ function [ regularized_cost_hf ] = compute_Hf( X, Y, c, t, lambda )
 %compute_Hf - computes regularized cost 
 %H[F] = sum (y_i, f(x_i))^2 + lambda || Pf ||^2
 %   Inputs:
-%       c - weights (K x 1)
+%       c = weights (K x 1)
 %       t = centers (D  x K)
 %   Outputs:
 %       regularized_cost_hf = cost H[f]=sum(y_i,f(x_i))^2+lambda||Pf||^2
