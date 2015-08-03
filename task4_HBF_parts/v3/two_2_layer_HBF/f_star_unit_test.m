@@ -11,5 +11,5 @@ c = (1:K2)';
 t_2 = rand(K1, K2);
 t_1 = rand(Dp, Dd, Np);
 %% do f(x)
-f = f_start( x, c, t_1, t_2, Np, Dp );
+f = f_star( x, c, t_1, t_2, Np, Dp );
 disp(f);

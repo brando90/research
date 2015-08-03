@@ -1,4 +1,4 @@
-function [ f ] = f_start( x, c, t_1, t_2, Np, Dp )
+function [ f ] = f_star( x, c, t_1, t_2, Np, Dp )
 %f_start - computes 2 layer HBF predictor
 %   Computes f^*(x) = sum_i c_i a^(3)_i
 %   Inputs:
@@ -10,7 +10,8 @@ function [ f ] = f_start( x, c, t_1, t_2, Np, Dp )
 %   Outputs:
 %       f = f^*(x) = sum_i c_i a^(3)_i
 x_parts = reshape(x, [Dp, Np])'; % Np x Dp
-t_1_perm = perm(t_1, [2,1,3]); % Dd x Dp x Np
+t_1_perm = permute(t_1, [2,1,3]); % Dd x Dp x Np
+[~, Dd, ~] = size(t_1);
 a = zeros([Np, Dd]); % Np x Dd
 for np=1:Np
     x_np = x_parts(np,:); %1 x Dp
