@@ -1,4 +1,4 @@
-disp('------------->>> Running simulations...');
+disp('------------->>> Running simulations 1 layer HBF...');
 %% Create vectors to learn from
 %N = 100; %size of data
 %D = 4*10; %dim of data
@@ -7,8 +7,9 @@ addpath('../common')
 X = loadMNISTImages('../common/data/train-images-idx3-ubyte');
 y = loadMNISTLabels('../common/data/train-labels-idx1-ubyte');
 [D, ~] = size(X);
-N = 500;
+N = 10;
 X = X(:,1:N);
+size(X(:,1))
 y = y(1:N);
 disp('---> Size(X) = (D, N)');
 disp(size(X));
