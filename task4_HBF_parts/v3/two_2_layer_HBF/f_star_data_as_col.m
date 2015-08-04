@@ -1,4 +1,4 @@
-function [ f, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t_1, t_2, Np, Dp )
+function [ f, z_l1, z_l2, a_l2, a_l3 ] = f_star_data_as_col( x, c, t_1, t_2, Np, Dp )
 %f_start - computes 2 layer HBF predictor
 %   Computes f^*(x) = sum_i c_i a^(3)_i
 %   Inputs:
