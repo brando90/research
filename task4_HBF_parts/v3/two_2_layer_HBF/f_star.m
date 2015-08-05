@@ -10,7 +10,7 @@ function [ f, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t_1, t_2, Np, Dp )
 %   Outputs:
 %       f = f^*(x) = sum_i c_i a^(3)_i
 %       a_l3 = activations l3 (K2 x 1)
-%       z_l2 = inputs l2 (Np x Dd)
+%       z_l2 = inputs l2 (K2 x 1)
 %       a_l2 = activations l2 (Np x Dd)
 %       z_l1 = inputs l1 (Np x Dd)
 x_parts = reshape(x, [Dp, Np])'; % Np x Dp

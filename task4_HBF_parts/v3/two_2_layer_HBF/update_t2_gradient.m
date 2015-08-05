@@ -4,14 +4,13 @@ function [ t2 ] = update_t2_gradient(t2,c,y,f,z_l2,a_l2,lambda,mu_t2)
 %       t2 := t2 - mu_c * dJ/dt2
 %   Input:
 %       t2 = weights (K1 x K2)
+%       c = weights (K2 x 1)
 %       y = label (1 x 1)
 %       f = f(x) (1 x 1)
-%       z_l1 = inputs l2 (Np x Dd)
-%       z_l2 = inputs l1 (Np x Dd)
+%       z_l2 = inputs l1 (K2 x 1)
 %       a_l2 = activations l2 (Np x Dd)
-%       a_l3 = activations l3 (K2 x 1)
 %       lambda = reg param (1 x 1)
-%       mu_c = step size (1 x 1)
+%       mu_t2 = step size (1 x 1)
 %   Output:
 %       t2 = updated weights (K2 x 1)
 
@@ -23,7 +22,10 @@ function [ t2 ] = update_t2_gradient(t2,c,y,f,z_l2,a_l2,lambda,mu_t2)
 
 %a_k2 = bsxfun(@times, c', bsxfun(@minus, b, t))
 alpha = c .* exp(-1 * z_l2);
-dJ_dt2 = 2*(y - f) * bsxfun(@times, alpha, bsxfun(@minus, a_l2, t2) );
+[Np, Dd] = size(a_l2);
+K1 = Np * Dd;
+a_l2_col = reshape(a_l2', [K1, 1]);
+dJ_dt2 = 2*(y - f) * bsxfun(@times, alpha' , bsxfun(@minus, a_l2_col, t2) );
 dJ_dt2 = dJ_dt2 + lambda * 0; %TODO
 t2 = t2 - mu_t2 * dJ_dt2;
 end
