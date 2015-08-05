@@ -30,5 +30,6 @@ K1 = Np * Dd;
 a_l2_k1 = reshape(a_l2', [K1, 1])'; %1 x K1
 z_l2 = pdist2(a_l2_k1, t_2'); %1 x K2
 a_l3 = exp( -1 * z_l2)'; %K2  x 1
+z_l2 = z_l2';
 f = dot(a_l3, c);
 end

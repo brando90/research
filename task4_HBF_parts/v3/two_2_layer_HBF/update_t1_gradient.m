@@ -1,9 +1,9 @@
-function [ t1 ] = update_t1_gradient(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1)
+function [ t1 ] = update_t1_gradient(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1,Dp)
 %update_t1_gradient - updates the t1 parameter of a 2 layer HBF
 %   Updates t1 according to:
 %       t1 := t1 - mu_c * dJ/dt1
 %   Input:
-%       x = data (Dp x 1)
+%       x = data (D x 1)
 %       y = label (1 x 1)
 %       f = f(x) (1 x 1)
 %       z_l1 = inputs l2 (Np x Dd)
@@ -16,14 +16,16 @@ function [ t1 ] = update_t1_gradient(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1)
 %       mu_c = step size (1 x 1)
 %   Output:
 %       t1 = updated weights (K2 x 1)
-[Np, Dp] = size(a_l2);
+[Np, Dd] = size(a_l2);
 x_parts = reshape(x, [Dp, Np])'; % Np x Dp
-K1 = Np * Dp;
+K1 = Np * Dd;
 a_l2_col_vec = reshape(a_l2, [K1, 1]);
 alpha = bsxfun(@minus, a_l2_col_vec, t2);
+size(c)
+size(z_l2)
 alpha = bsxfun(@times, c .* z_l2, alpha);
 alpha = bsxfun(@times, reshape(exp(z_l1'),[K1, 1]) , alpha);
-alpha = reshape(alpha, [Np, Dp]);
+alpha = reshape(alpha, [Np, Dd]);
 alpha = sum(alpha, 2);
 xi_t1 = bsxfun(@minus, x_parts, t1);
 dJ_dt1 = permute(bsxfun(@minus, alpha, permute(xi_t1, [1, 3, 2])), [1, 3, 2]);
