@@ -14,11 +14,10 @@ t1 = rand(Dp, Dd, Np);
 lambda = 0;
 mu_t1 = 1;
 %% call f(x)
-[ f, z_l1, z_l2, a_l2, ~ ] = f_star( x, c, t_1, t_2, Np, Dp );
+[f, z_l1, z_l2, a_l2, ~ ] = f_star(x,c,t1,t2,Np,Dp);
 %% update gradient
-dJ_dt1_ij_loops = compute_t1_gradient_loops(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1);
-disp('Print t1');
-disp(t1);
+dJ_dt1_ij_loops = compute_t1_gradient_loops(t1,x,y,f,z_l1,z_l2,a_l2,c,t2);
+dJ_dt1 = compute_t1_gradient(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda);
 %% Check the gradient is correct
 % J_plus = J(y, x, c, t2, t1, Np, Dp);
 % J_minus = J(y, x, c, t2, t1, Np, Dp);

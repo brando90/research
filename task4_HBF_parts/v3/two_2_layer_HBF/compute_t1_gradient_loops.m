@@ -1,4 +1,4 @@
-function [ dJ_dt1 ] = compute_t1_gradient_loops(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1,Dp)
+function [ dJ_dt1 ] = compute_t1_gradient_loops(t1,x,y,f,z_l1,z_l2,a_l2,c,t2)
 %compute_t1_gradient_loops - computes the t1 parameter of a 2 layer HBF
 %   Computes t1 according to:
 %       t1 := t1 - mu_c * dJ/dt1
@@ -17,12 +17,12 @@ function [ dJ_dt1 ] = compute_t1_gradient_loops(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lam
 %       mu_c = step size (1 x 1)
 %   Output:
 %       dJ_dt1 = gradeint (Dp x Dd x Np)
-[Dp, ~, ~] = size(t1);
+[Dp, ~, ~] = size(t1); %(Dp x Dd x Np)
 [Np, Dd] = size(a_l2);
 K2 = length(c);
-t2_tensor = reshape(t2, Dp, Nd, K2);
-x_parts = reshape(x, [Dp, Np])';
-dJ_dt1 = zero(size(t1));
+t2_tensor = reshape(t2, Dd, Np, K2);
+x_parts = reshape(x, [Dp, Np]);
+dJ_dt1 = zeros(Dp, Dd, Np);
 for i=1:Dd
     xi = x_parts(:,i);
     for j=1:Np
