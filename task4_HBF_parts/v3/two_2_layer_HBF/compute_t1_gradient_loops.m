@@ -16,7 +16,7 @@ function [ dJ_dt1_ij ] = compute_t1_gradient_loops(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,
 %       lambda = reg param (1 x 1)
 %       mu_c = step size (1 x 1)
 %   Output:
-%       t1 = updated weights (K2 x 1)
+%       t1 = updated weights (Dp x Dd x Np)
 [Dp, ~, ~] = size(t1);
 [Np, Dd] = size(a_l2);
 K2 = length(c);
