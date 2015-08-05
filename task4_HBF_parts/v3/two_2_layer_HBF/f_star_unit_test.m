@@ -1,4 +1,4 @@
-%% f_start unit test
+%% f_star unit test
 %% dimensions
 Dp = 3;
 Np = 4;

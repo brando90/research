@@ -1,4 +1,4 @@
-function [ c, t1, t2 ] = learn_HBF_parameters_2_hidden_layer(X,Y,c,t1,t2,lambda,mu_c,mu_t2,mu_t1,prec,visualize)
+function [ c, t1, t2 ] = learn_HBF_parameters_2_hidden_layer(X,y,c,t1,t2,lambda,mu_c,mu_t2,mu_t1,prec,visualize)
 %learn_HBF_parameters_1_hidden_later - learns HBF params for 2 layers
 %   Inputs:
 %       X = data matrix (D x N)
@@ -17,8 +17,8 @@ function [ c, t1, t2 ] = learn_HBF_parameters_2_hidden_layer(X,Y,c,t1,t2,lambda,
 %       t1 = centers (K_1 x K_2)
 %       t2 = centers (D_p x D_d x N_p)
 [~, N] = size(X);
-[Dp, ~, ~] = size(t2);
-current_error = compute_Hf(X, Y, c, t, lambda);
+[Dp, ~, Np] = size(t2);
+current_error = compute_Hf(X,y,c,t1,t2,Np,Dp,lambda);
 prev_error = inf;
 i = 1;
 errors = cell(1,1);
@@ -28,9 +28,9 @@ while abs(current_error - prev_error) > prec
     %% choose random data point x,y
     i_rand = randi(N);
     x = X(:,i_rand);
-    y = Y(i_rand);
+    y = y(i_rand);
     %% Update parameters
-    [f, z_l1, z_l2, a_l2, a_l3] = f_star(x,c,t_1,t_2,Np,Dp);
+    [f, z_l1, z_l2, a_l2, a_l3] = f_star(x,c,t1,t2,Np,Dp);
     c_new = update_c_gradient(c,y,f,a_l3,lambda,mu_c);
     t1_new = update_t1_gradient(t1,c,x,y,f,z_l1,z_l2,a_l2,a_l3,lambda, mu_t1);
     t2_new = update_t2_gradient(t2,x,y,f,z_l1,z_l2,a_l2,a_l3,lambda, mu_t2);
@@ -39,7 +39,7 @@ while abs(current_error - prev_error) > prec
     t2 = t2_new;
     %% update errors
     prev_error = current_error;
-    current_error = compute_Hf(X, Y, c, t, lambda);
+    current_error = compute_Hf(X, y, c, t, lambda);
     errors{i} = current_error;
     i = i + 1;
 end
