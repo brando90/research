@@ -5,7 +5,7 @@ function [ f, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t_1, t_2, Np, Dp )
 %       x = data point (D x 1)
 %           x = [x1, ..., x_np, ..., x_Np]
 %       c = weights (K2 x 1)
-%       t_2 = centers (K1 x K2) = (Np)
+%       t_2 = centers (K1 x K2)
 %       t_1 = centers (Dp x Dd x Np)
 %   Outputs:
 %       f = f^*(x) = sum_i c_i a^(3)_i
