@@ -1,4 +1,4 @@
-function [ t1 ] = update_t1_gradient(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1,Dp)
+function [ t1 ] = update_t1_gradient(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1)
 %update_t1_gradient - updates the t1 parameter of a 2 layer HBF
 %   Updates t1 according to:
 %       t1 := t1 - mu_c * dJ/dt1
@@ -17,6 +17,7 @@ function [ t1 ] = update_t1_gradient(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1,D
 %       mu_c = step size (1 x 1)
 %   Output:
 %       t1 = updated weights (K2 x 1)
+[Dp, ~, ~] = size(t1);
 [Np, Dd] = size(a_l2);
 x_parts = reshape(x, [Dp, Np])'; % Np x Dp
 K1 = Np * Dd;

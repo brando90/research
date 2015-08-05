@@ -32,7 +32,7 @@ while abs(current_error - prev_error) > prec
     %% Update parameters
     [f, z_l1, z_l2, a_l2, a_l3] = f_star(x_i,c,t1,t2,Np,Dp);
     c_new = update_c_gradient(c,i,f,a_l3,lambda,mu_c);
-    t1_new = update_t1_gradient(t1,x_i,y_i,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1,Dp);
+    t1_new = update_t1_gradient(t1,x_i,y_i,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1);
     t2_new = update_t2_gradient(t2,c,y_i,f,z_l2,a_l2,lambda,mu_t2);
     c =c_new;
     t1 = t1_new;
