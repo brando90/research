@@ -14,7 +14,7 @@ empirical_risk = 0;
 for i=1:N
     x_i = X(:, i);
     [f_i, ~, ~, ~, ~] = f_star(x_i, c, t_1, t_2, Np, Dp);
-    y_i = Y(i);
+    y_i = y(i);
     delta_i = y_i - f_i;
     empirical_risk = empirical_risk + delta_i^2;
 end

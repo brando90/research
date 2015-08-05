@@ -4,8 +4,8 @@ function [ c, t1, t2 ] = learn_HBF_parameters_2_hidden_layer(X,y,c,t1,t2,lambda,
 %       X = data matrix (D x N)
 %       Y = labels (N x 1)
 %       c = weights (K2 x 1)
-%       t2 = centers (Dp x Dd x Np)
-%       t1 = centers (K1 x K2)
+%       t2 = centers (K1 x K2)
+%       t1 = centers (Dp x Dd x Np)
 %       lambda = regularization param (1 x 1)
 %       mu_c = (1 x 1)
 %       mu_t1 = (1 x 1)
@@ -17,7 +17,7 @@ function [ c, t1, t2 ] = learn_HBF_parameters_2_hidden_layer(X,y,c,t1,t2,lambda,
 %       t1 = centers (K_1 x K_2)
 %       t2 = centers (D_p x D_d x N_p)
 [~, N] = size(X);
-[Dp, ~, Np] = size(t2);
+[Dp, ~, Np] = size(t1);
 current_error = compute_Hf(X,y,c,t1,t2,Np,Dp,lambda);
 prev_error = inf;
 i = 1;
@@ -27,19 +27,19 @@ errors{1,1} = current_error;
 while abs(current_error - prev_error) > prec
     %% choose random data point x,y
     i_rand = randi(N);
-    x = X(:,i_rand);
-    y = y(i_rand);
+    x_i = X(:,i_rand);
+    y_i = y(i_rand);
     %% Update parameters
-    [f, z_l1, z_l2, a_l2, a_l3] = f_star(x,c,t1,t2,Np,Dp);
-    c_new = update_c_gradient(c,y,f,a_l3,lambda,mu_c);
-    t1_new = update_t1_gradient(t1,c,x,y,f,z_l1,z_l2,a_l2,a_l3,lambda, mu_t1);
-    t2_new = update_t2_gradient(t2,x,y,f,z_l1,z_l2,a_l2,a_l3,lambda, mu_t2);
+    [f, z_l1, z_l2, a_l2, a_l3] = f_star(x_i,c,t1,t2,Np,Dp);
+    c_new = update_c_gradient(c,i,f,a_l3,lambda,mu_c);
+    t1_new = update_t1_gradient(t1,x_i,y_i,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1,Dp);
+    t2_new = update_t2_gradient(t2,c,y_i,f,z_l2,a_l2,lambda,mu_t2);
     c =c_new;
     t1 = t1_new;
     t2 = t2_new;
     %% update errors
     prev_error = current_error;
-    current_error = compute_Hf(X, y, c, t, lambda);
+    current_error = compute_Hf(X,y,c,t1,t2,Np,Dp,lambda);
     errors{i} = current_error;
     i = i + 1;
 end
