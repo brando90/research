@@ -13,7 +13,7 @@ disp('---> Size(y) = (N, 1)')
 disp(size(y));
 %% Parameters
 c = rand(K2, 1);
-t1 = rand(Dp, Dd, Np)
+t1 = rand(Dp, Dd, Np);
 t2 = rand(K1, K2);
 mu_c = 0.9;
 mu_t1 = 0.9;
