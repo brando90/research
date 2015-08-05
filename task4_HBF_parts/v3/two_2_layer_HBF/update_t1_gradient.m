@@ -26,9 +26,12 @@ c_z_l2 = (c .* z_l2)'; % 1 x K2
 alpha = bsxfun(@times, c_z_l2, alpha); %K1 x K2
 alpha = bsxfun(@times, reshape(exp(z_l1'),[K1, 1]) , alpha);
 alpha = sum(alpha, 2); %K1 x 1
-xi_t1 = bsxfun(@minus, x_parts, t1);
-dJ_dt1 = permute(bsxfun(@minus, alpha, permute(xi_t1, [1, 3, 2])), [1, 3, 2]);
-dJ_dt1 = -4*(y-f)*dJ_dt1*dJ_dt1;
+xi_t1 = bsxfun(@minus, x_parts', permute(t1, [1,3,2]));
+% alpha K1 x 1
+% xi_t1 Dp x Np x Dd
+dJ_dt1 = bsxfun(@minus, reshape(alpha,[Dd, Np]), permute(xi_t1, [3, 2, 1]));
+dJ_dt1 = permute(dJ_dt1,[3,1,2]);
+dJ_dt1 = -4*(y-f)*dJ_dt1;
 dJ_dt1 = dJ_dt1 + lambda * 0;
 %% update
 t1 = t1 - mu_t1 * dJ_dt1;
