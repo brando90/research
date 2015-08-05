@@ -27,5 +27,6 @@ K1 = Np * Dd;
 a_l2_col = reshape(a_l2', [K1, 1]);
 dJ_dt2 = 2*(y - f) * bsxfun(@times, alpha' , bsxfun(@minus, a_l2_col, t2) );
 dJ_dt2 = dJ_dt2 + lambda * 0; %TODO
+%% update
 t2 = t2 - mu_t2 * dJ_dt2;
 end
