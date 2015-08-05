@@ -18,6 +18,12 @@ mu_t1 = 1;
 %% update gradient
 dJ_dt1_ij_loops = compute_t1_gradient_loops(t1,x,y,f,z_l1,z_l2,a_l2,c,t2);
 dJ_dt1 = compute_t1_gradient(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda);
+disp('===> dJ_dt1_ij_loops');
+disp(dJ_dt1_ij_loops);
+disp('===> dJ_dt1');
+disp(dJ_dt1);
+disp('------> difference');
+disp(dJ_dt1_ij_loops - dJ_dt1);
 %% Check the gradient is correct
 % J_plus = J(y, x, c, t2, t1, Np, Dp);
 % J_minus = J(y, x, c, t2, t1, Np, Dp);
