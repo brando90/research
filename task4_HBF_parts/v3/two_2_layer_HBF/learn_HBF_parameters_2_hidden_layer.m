@@ -39,7 +39,7 @@ while abs(current_error - prev_error) > prec
     t2 = t2_new;
     %% update errors
     prev_error = current_error;
-    current_error = compute_Hf(X,y,c,t1,t2,Np,Dp,lambda);
+    current_error = compute_Hf(X,y,c,t1_new,t2_new,Np,Dp,lambda);
     errors{i} = current_error;
     i = i + 1;
 end

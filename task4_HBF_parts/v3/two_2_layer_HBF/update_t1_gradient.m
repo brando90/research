@@ -20,11 +20,11 @@ function [ t1 ] = update_t1_gradient(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1,D
 [Np, Dd] = size(a_l2);
 x_parts = reshape(x, [Dp, Np])'; % Np x Dp
 K1 = Np * Dd;
-a_l2_col_vec = reshape(a_l2, [K1, 1]); %K1 x 1
+a_l2_col_vec = reshape(a_l2', [K1, 1]); %K1 x 1
 alpha = bsxfun(@minus, a_l2_col_vec, t2); %K1 x K2
-c_z_l2 = (c .* z_l2)'; % 1 x K2
+c_z_l2 = (c .* exp(-1 * z_l2))'; % 1 x K2
 alpha = bsxfun(@times, c_z_l2, alpha); %K1 x K2
-alpha = bsxfun(@times, reshape(exp(z_l1'),[K1, 1]) , alpha);
+alpha = bsxfun(@times, reshape(exp(-1 * z_l1'),[K1, 1]) , alpha);
 alpha = sum(alpha, 2); %K1 x 1
 xi_t1 = bsxfun(@minus, x_parts', permute(t1, [1,3,2]));
 % alpha K1 x 1
