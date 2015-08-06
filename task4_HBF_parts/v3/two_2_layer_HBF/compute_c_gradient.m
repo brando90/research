@@ -11,6 +11,6 @@ function [ dJ_dc ] = compute_c_gradient(y,f,a_l3)
 %       mu_c = step size (1 x 1)
 %   Output:
 %       c = updated weights (K2 x 1)
-dJ_dc = 2 * (y - f) * a_l3;
+dJ_dc = -2 * (y - f) * a_l3;
 end
 
