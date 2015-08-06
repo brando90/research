@@ -34,7 +34,7 @@ for i=1:Dd
             t2_k2ij = t2_tensor(i,j,k2);
             c_k2 = c(k2);
             z_l2_k2 = z_l2(k2);
-            new_delta = c_k2*-1*exp(-1 * z_l2_k2)*2*(a_l2_ij - t2_k2ij);
+            new_delta = c_k2*-1*exp(-z_l2_k2)*2*(a_l2_ij - t2_k2ij);
             alpha_ij = alpha_ij + new_delta;
         end
         alpha_ij = 2*(y-f)*-1*exp(-z_l1_ij)*2*(xi - t_l1_ij);

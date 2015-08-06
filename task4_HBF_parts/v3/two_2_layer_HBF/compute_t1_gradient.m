@@ -1,7 +1,7 @@
 function [ dJ_dt1 ] = compute_t1_gradient(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda)
 %compute_t1_gradient_loops - computes the t1 parameter of a 2 layer HBF
-%   Computes t1 according to:
-%       t1 := t1 - mu_c * dJ/dt1
+%   Computes dJ_dt1 according to:
+%       dJ_dt1
 %   Input:
 %       t1 = centers (Dp x Dd x Np)
 %       x = data (D x 1)
@@ -23,9 +23,9 @@ x_parts = reshape(x, [Dp, Np])'; % Np x Dp
 K1 = Np * Dd;
 a_l2_col_vec = reshape(a_l2', [K1, 1]); %K1 x 1
 alpha = bsxfun(@minus, a_l2_col_vec, t2); %K1 x K2
-c_z_l2 = (c .* exp(-1 * z_l2))'; % 1 x K2
+c_z_l2 = (c .* exp(-z_l2))'; % 1 x K2
 alpha = bsxfun(@times, c_z_l2, alpha); %K1 x K2
-alpha = bsxfun(@times, reshape(exp(-1 * z_l1'),[K1, 1]) , alpha);
+alpha = bsxfun(@times, reshape(exp(-z_l1'),[K1, 1]) , alpha);
 alpha = sum(alpha, 2); %K1 x 1
 xi_t1 = bsxfun(@minus, x_parts', permute(t1, [1,3,2]));
 % alpha K1 x 1
@@ -33,5 +33,5 @@ xi_t1 = bsxfun(@minus, x_parts', permute(t1, [1,3,2]));
 dJ_dt1 = bsxfun(@minus, reshape(alpha,[Dd, Np]), permute(xi_t1, [3, 2, 1]));
 dJ_dt1 = permute(dJ_dt1,[3,1,2]);
 dJ_dt1 = -4*(y-f)*dJ_dt1;
-dJ_dt1 = dJ_dt1 + lambda * 0;
+dJ_dt1 = dJ_dt1 + lambda * 0; %TODO
 end
