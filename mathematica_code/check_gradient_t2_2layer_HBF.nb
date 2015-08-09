@@ -1,0 +1,102 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      2463,         93]
+NotebookOptionsPosition[      2138,         76]
+NotebookOutlinePosition[      2494,         92]
+CellTagsIndexPosition[      2451,         89]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"f", "[", 
+   RowBox[{"a_", ",", " ", 
+    RowBox[{"{", 
+     RowBox[{"c1_", ",", " ", "c2_", ",", " ", "c3_"}], "}"}], ",", " ", 
+    RowBox[{"{", 
+     RowBox[{"t1_", ",", " ", "t2_", ",", " ", "t3_"}], "}"}]}], " ", "]"}], 
+  "=", " ", 
+  RowBox[{
+   RowBox[{"c1", " ", 
+    RowBox[{"Exp", "[", 
+     RowBox[{"-", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"a", " ", "-", " ", "t1"}], ")"}], "^", "2"}]}], "]"}]}], "+", 
+   RowBox[{"c2", " ", 
+    RowBox[{"Exp", "[", 
+     RowBox[{"-", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"a", " ", "-", " ", "t2"}], ")"}], "^", "2"}]}], "]"}]}], "+", 
+   RowBox[{"c3", " ", 
+    RowBox[{"Exp", "[", 
+     RowBox[{"-", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"a", " ", "-", " ", "t3"}], ")"}], "^", "2"}]}], 
+     "]"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.64813731266045*^9, 3.648137409752308*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"c1", " ", 
+   SuperscriptBox["\[ExponentialE]", 
+    RowBox[{"-", 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"a", "-", "t1"}], ")"}], "2"]}]]}], "+", 
+  RowBox[{"c2", " ", 
+   SuperscriptBox["\[ExponentialE]", 
+    RowBox[{"-", 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"a", "-", "t2"}], ")"}], "2"]}]]}], "+", 
+  RowBox[{"c3", " ", 
+   SuperscriptBox["\[ExponentialE]", 
+    RowBox[{"-", 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"a", "-", "t3"}], ")"}], "2"]}]]}]}]], "Output",
+ CellChangeTimes->{{3.6481374009420424`*^9, 3.6481374122479277`*^9}}]
+}, Open  ]]
+},
+WindowSize->{1440, 414},
+WindowMargins->{{0, Automatic}, {Automatic, -1}},
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
+2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 912, 29, 28, "Input"],
+Cell[1494, 53, 628, 20, 36, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
