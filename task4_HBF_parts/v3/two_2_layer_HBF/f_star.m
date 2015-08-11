@@ -1,4 +1,4 @@
-function [ f, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t1, t2, Np, Dp )
+function [ f, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t1, t2 )
 %f_start - computes 2 layer HBF predictor
 %   Computes f^*(x) = sum_i c_i a^(3)_i
 %   Inputs:
@@ -12,10 +12,10 @@ function [ f, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t1, t2, Np, Dp )
 %       a_l3 = activations l3 (K2 x 1)
 %       z_l2 = inputs l2 (K2 x 1)
 %       a_l2 = activations l2 (Np x Dd)
-%       z_l1 = inputs l1 (Np x Dd)
+%     `  z_l1 = inputs l1 (Np x Dd)
+[Dp, Dd, Np] = size(t1);
 x_parts = reshape(x, [Dp, Np])'; % Np x Dp
 t_1_perm = permute(t1, [2,1,3]); % Dd x Dp x Np
-[~, Dd, ~] = size(t1);
 a_l2 = zeros([Np, Dd]); % Np x Dd
 z_l1 = zeros([Np, Dd]); % Np x Dd
 for np=1:Np

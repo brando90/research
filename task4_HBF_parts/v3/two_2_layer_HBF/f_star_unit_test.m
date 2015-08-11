@@ -13,7 +13,7 @@ c = (1:K2)';
 t_2 = rand(K1, K2);
 t_1 = rand(Dp, Dd, Np);
 %% do f(x)
-[ f, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t_1, t_2, Np, Dp );
+[ f, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t_1, t_2);
 disp(['f = ', num2str(f)]);
 disp(size(f) == [1, 1])
 disp(size(z_l1) == [Np, Dd])
@@ -34,8 +34,10 @@ c = (1:K2)'
 t_2 = (1:K2)
 t_1 = 5
 %% do f(x)
-[ f, z_l1, z_l2, a_l2, a_l3 ] = f_star_loop( x, c, t1, t2, Np, Dp )
-disp(['f = ', num2str(f)]);
+[ f_loops, z_l1, z_l2, a_l2, a_l3 ] = f_star_loop( x, c, t1, t2);
+[ f_vectorized, z_l1, z_l2, a_l2, a_l3 ] = f_star_loop( x, c, t1, t2);
+f_loops
+f_vectorized
 disp(size(f) == [1, 1])
 disp(size(z_l1) == [Np, Dd])
 disp(size(z_l2) == [K2, 1] )
