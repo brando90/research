@@ -10,10 +10,10 @@ K1 = Dd * Np;
 %% fake data & params
 x = (1:Dp*Np)';
 c = (1:K2)';
-t_2 = rand(K1, K2);
-t_1 = rand(Dp, Dd, Np);
+t2 = rand(K1, K2);
+t1 = rand(Dp, Dd, Np);
 %% do f(x)
-[ f, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t_1, t_2);
+[ f, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t1, t2);
 disp(['f = ', num2str(f)]);
 disp(size(f) == [1, 1])
 disp(size(z_l1) == [Np, Dd])
@@ -31,11 +31,12 @@ K1 = Dd * Np;
 %% fake data & params
 x = (1:Dp*Np)'
 c = (1:K2)'
-t_2 = (1:K2)
-t_1 = 5
+t2 = (1:K2)
+t1 = 5
 %% do f(x)
-[ f_loops, z_l1, z_l2, a_l2, a_l3 ] = f_star_loop( x, c, t1, t2);
+[ f_loops, ~, ~, ~, ~ ] = f_star_loop( x, c, t1, t2);
 [ f_vectorized, z_l1, z_l2, a_l2, a_l3 ] = f_star_loop( x, c, t1, t2);
+disp('Should be approx 0.404881')
 f_loops
 f_vectorized
 disp(size(f) == [1, 1])
@@ -43,3 +44,17 @@ disp(size(z_l1) == [Np, Dd])
 disp(size(z_l2) == [K2, 1] )
 disp(size(a_l2) == [Np, Dd] )
 disp(size(a_l3) == [K2 , 1] )
+%% Test3
+%% dimensions
+disp('Test 3');
+%% fake data & params
+x = 1
+c = 4
+t2 = 3
+t1 = 2
+%% do f(x)
+[ f_loops, ~, ~, ~, ~ ] = f_star_loop( x, c, t1, t2);
+[ f_vectorized, z_l1, z_l2, a_l2, a_l3 ] = f_star_loop( x, c, t1, t2)
+disp('Should be approx 0.00391961')
+f_loops
+f_vectorized

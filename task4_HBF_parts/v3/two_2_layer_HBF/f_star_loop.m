@@ -22,9 +22,9 @@ for np=1:Np
     x_np = x_parts(:,np);
     t1_np = t1(:,:, np);
     for dd=1:Dd
-        t1_np_dd = t1_np(:, dd, np);
-        z_l1_np_dd = norm(t1_np_dd - x_np, 2)^2;
-        a_l1_np_dd = exp(-z_l1_np_dd);
+        t1_np_dd = t1_np(:, dd, np)
+        z_l1_np_dd = norm(t1_np_dd - x_np, 2)^2
+        a_l1_np_dd = exp(-z_l1_np_dd)
         % insert
         a_l2(np, dd) = a_l1_np_dd;
         z_l1(np, dd) = z_l1_np_dd;
