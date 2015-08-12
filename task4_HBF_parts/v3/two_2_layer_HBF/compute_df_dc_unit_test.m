@@ -12,15 +12,19 @@ c = (1:K2)';
 t2 = rand(K1, K2);
 t1 = rand(Dp, Dd, Np);
 %% call f(x)
-[f, ~, ~, ~, a_l3 ] = f_star(x,c,t1,t2,Np,Dp);
+[f, ~, ~, ~, a_l3 ] = f_star(x,c,t1,t2);
 %% gradient
-dJ_dc = compute_c_gradient(y,f,a_l3);
+dJ_df = -2*(y-f);
+df_dc = compute_df_dc(a_l3);
+dJ_dc = dJ_df*df_dc;
 eps = 1e-10;
 for i=1:length(c);
+    disp('-----index i:');
+    disp(i);
     e_i = zeros(K2, 1);
     e_i(i) = eps;
-    derivative = (J(y, x, c + e_i, t2, t1, Np, Dp) - J(y, x, c - e_i, t2, t1, Np, Dp) ) / (2*eps);
-    disp('derivative');
+    derivative = (J(y, x, c + e_i, t2, t1) - J(y, x, c - e_i, t2, t1) ) / (2*eps);
+    disp('Numerical Derivative');
     disp(derivative);
     disp('dJ_dc');
     disp(dJ_dc(i));
