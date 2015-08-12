@@ -22,16 +22,16 @@ for np=1:Np
     x_np = x_parts(:,np);
     t1_np = t1(:,:, np);
     for dd=1:Dd
-        t1_np_dd = t1_np(:, dd, np)
-        z_l1_np_dd = norm(t1_np_dd - x_np, 2)^2
-        a_l1_np_dd = exp(-z_l1_np_dd)
+        t1_np_dd = t1_np(:, dd);
+        z_l1_np_dd = norm(t1_np_dd - x_np, 2)^2;
+        a_l1_np_dd = exp(-z_l1_np_dd);
         % insert
         a_l2(np, dd) = a_l1_np_dd;
         z_l1(np, dd) = z_l1_np_dd;
     end
 end
 %% Compute components of 2nd layer z_l2 and a_l2
-K1 = Dp*Np;
+K1 = Dd*Np;
 K2 = length(c);
 a_l2_vec = reshape(a_l2', [K1,1]);
 z_l2 = zeros(K2, 1);
