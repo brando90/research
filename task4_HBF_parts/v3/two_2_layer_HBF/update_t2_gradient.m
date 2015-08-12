@@ -21,7 +21,9 @@ function [ t2 ] = update_t2_gradient(t2,c,y,f,z_l2,a_l2,lambda,mu_t2)
 % end
 
 %a_k2 = bsxfun(@times, c', bsxfun(@minus, b, t))
-dJ_dt2 = compute_t2_gradient(t2,c,y,f,z_l2,a_l2);
+df_dt2 = compute_df_dt2_loops(t2,c,y,f,z_l2,a_l2);
+dJ_df = -2*(y - f);
+dJ_dt2 = dJ_df * df_dt2;
 dJ_dt2 = dJ_dt2 + lambda * 0; %TODO
 %% update
 t2 = t2 - mu_t2 * dJ_dt2;
