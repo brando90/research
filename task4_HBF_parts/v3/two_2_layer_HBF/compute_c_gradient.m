@@ -1,4 +1,4 @@
-function [ dJ_dc ] = compute_c_gradient(y,f,a_l3)
+function [ dJ_dc ] = compute_dJ_dc(y,f,a_l3)
 %compute_c_gradient - updates the c parameter of a 2 layer HBF
 %   computes c according to:
 %       dJ_dc
