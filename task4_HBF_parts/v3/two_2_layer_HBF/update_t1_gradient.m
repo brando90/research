@@ -17,7 +17,10 @@ function [ t1 ] = update_t1_gradient(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,mu_t1,lambda)
 %       mu_c = step size (1 x 1)
 %   Output:
 %       t1 = updated weights (Dp x Dd x Np)
-dJ_dt1 = compute_t1_gradient(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda);
+df_dt1 = compute_df_dt1_loops(t1,x,z_l1,z_l2,a_l2,c,t2);
+dJ_f = -2*(y-f);
+dJ_dt1 = dJ_f * df_dt1;
+dJ_dt1 = dJ_dt1 + lambda * 0; % TODO
 %% update
 t1 = t1 - mu_t1 * dJ_dt1;
 end

@@ -25,6 +25,8 @@ for np=1:Np
         t1_np_dd = t1_np(:, dd);
         z_l1_np_dd = norm(t1_np_dd - x_np, 2)^2;
         a_l1_np_dd = exp(-z_l1_np_dd);
+%         a_l1_np_dd = -z_l1_np_dd;
+%         a_l1_np_dd = sin(-z_l1_np_dd);
         % insert
         a_l2(np, dd) = a_l1_np_dd;
         z_l1(np, dd) = z_l1_np_dd;
@@ -43,5 +45,7 @@ for k2=1:K2
 end
 %% Output later 3rd layer
 a_l3 = exp(-z_l2);
+% a_l3 = -z_l2;
+% a_l3 = sin(-z_l2);
 f = c' * a_l3;
 end

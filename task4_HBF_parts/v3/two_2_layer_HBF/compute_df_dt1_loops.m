@@ -1,20 +1,15 @@
-function [ dJ_dt1 ] = compute_t1_gradient_loops(t1,x,y,f,z_l1,z_l2,a_l2,c,t2)
-%compute_t1_gradient_loops - computes the t1 parameter of a 2 layer HBF
+function [ dJ_dt1 ] = compute_df_dt1_loops(t1,x,z_l1,z_l2,a_l2,c,t2)
 %   Computes t1 according to:
-%       t1 := t1 - mu_c * dJ/dt1
+%       df/dt1
 %   Input:
 %       t1 = centers (Dp x Dd x Np)
 %       x = data (D x 1)
-%       y = label (1 x 1)
-%       f = f(x) (1 x 1)
 %       z_l1 = inputs l2 (Np x Dd)
 %       z_l2 = inputs l1 (K2 x 1)
 %       a_l2 = activations l2 (Np x Dd)
 %       a_l3 = activations l3 (K2 x 1)
 %       c = weights (K2 x 1)
 %       t2 = centers (K1 x K2)
-%       lambda = reg param (1 x 1)
-%       mu_c = step size (1 x 1)
 %   Output:
 %       dJ_dt1 = gradeint (Dp x Dd x Np)
 [Dp, ~, ~] = size(t1); %(Dp x Dd x Np)
@@ -37,7 +32,7 @@ for i=1:Dd
             new_delta = c_k2*-1*exp(-z_l2_k2)*2*(a_l2_ij - t2_k2ij);
             alpha_ij = alpha_ij + new_delta;
         end
-        alpha_ij = 2*(y-f)*-1*exp(-z_l1_ij)*2*(xi - t_l1_ij);
+        alpha_ij = exp(-z_l1_ij)*2*(xi - t_l1_ij);
         dJ_dt1(:,i,j) = alpha_ij;
     end
 end

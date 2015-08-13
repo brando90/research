@@ -1,7 +1,6 @@
-function [ dJ_dt1 ] = compute_t1_gradient(t1,x,y,f,z_l1,z_l2,a_l2,c,t2,lambda)
-%compute_t1_gradient_loops - computes the t1 parameter of a 2 layer HBF
+function [ dJ_dt1 ] = compute_df_dt1_vectorized(t1,x,z_l1,z_l2,a_l2,c,t2,lambda)
 %   Computes dJ_dt1 according to:
-%       dJ_dt1
+%       df_dt1
 %   Input:
 %       t1 = centers (Dp x Dd x Np)
 %       x = data (D x 1)
