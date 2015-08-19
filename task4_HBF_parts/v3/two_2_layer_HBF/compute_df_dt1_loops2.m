@@ -1,4 +1,4 @@
-function [ dJ_dt1 ] = compute_df_dt1_loops(t1,x,z_l1,z_l2,a_l2,c,t2)
+function [ dJ_dt1 ] = compute_df_dt1_loops2(t1,x,z_l1,z_l2,a_l2,c,t2)
 %   Computes t1 according to:
 %       df/dt1
 %   Input:
@@ -15,7 +15,6 @@ function [ dJ_dt1 ] = compute_df_dt1_loops(t1,x,z_l1,z_l2,a_l2,c,t2)
 [Dp, ~, ~] = size(t1); %(Dp x Dd x Np)
 [Np, Dd] = size(a_l2);
 K2 = length(c);
-t2_tensor = reshape(t2, Dd, Np, K2);
 x_parts = reshape(x, [Dp, Np]);
 dJ_dt1 = zeros(Dp, Dd, Np);
 for i=1:Dd
@@ -26,10 +25,9 @@ for i=1:Dd
         z_l1_ij = z_l1(j,i);
         alpha_ij = 0;
         for k2=1:K2
-            t2_k2ij = t2_tensor(i,j,k2);
-            %t2_k2 = t2(:,k2);
-            %index = (i-1)*Dd+j;
-            %t2_k2ij = t2_k2(index);
+            t2_k2 = t2(:,k2);
+            index = (i-1)*Dd+j;
+            t2_k2ij = t2_k2(index);
             c_k2 = c(k2);
             z_l2_k2 = z_l2(k2);
             new_delta = c_k2*-1*exp(-z_l2_k2)*2*(a_l2_ij - t2_k2ij);
