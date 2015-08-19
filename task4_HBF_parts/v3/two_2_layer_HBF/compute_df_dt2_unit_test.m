@@ -16,6 +16,8 @@ x = 1
 c = [10 11 12]'
 t1 = 1
 t2 = [1 2 3] % (K1 x K2) = (1 x 3)
+K1 = 1;
+K2 = 3;
 %% call f(x)
 [ f, z_l1, z_l2, a_l2, ~ ] = f_star_loops(x,c,t1,t2)
 %% gradient

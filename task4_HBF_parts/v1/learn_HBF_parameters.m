@@ -28,7 +28,7 @@ for iteration=1:iterations
                 G_xi_tk = exp(-1*norm(x_i - t_k)^2);
                 total_change = total_change + delta_i*(-2)*G_xi_tk;
             end
-            total_change
+            %total_change
             c_kj = c_kj - meu_c*(total_change);
             C(k,j) = c_kj;
         end

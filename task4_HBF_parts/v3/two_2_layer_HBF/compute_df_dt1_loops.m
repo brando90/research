@@ -32,7 +32,7 @@ for i=1:Dd
             new_delta = c_k2*-1*exp(-z_l2_k2)*2*(a_l2_ij - t2_k2ij);
             alpha_ij = alpha_ij + new_delta;
         end
-        alpha_ij = exp(-z_l1_ij)*2*(xi - t_l1_ij);
+        alpha_ij = alpha_ij*exp(-z_l1_ij)*2*(xi - t_l1_ij);
         dJ_dt1(:,i,j) = alpha_ij;
     end
 end
