@@ -24,7 +24,8 @@ prec = 0.5;
 visualize = 1;
 lambda = 0;
 %% Learn the parameters
-[c, t1, t2] = learn_HBF_parameters_2_hidden_layer(X,y,c,t1,t2,lambda,mu_c,mu_t1,mu_t2, prec, visualize);
+%[c, t1, t2] = learn_HBF_parameters_2_hidden_layer(X,y,c,t1,t2,lambda,mu_c,mu_t1,mu_t2, prec, visualize);
+[c, t1, t2] = learn_HBF_parameters_2_hidden_layer_iterations(X,y,c,t1,t2,lambda,mu_c,mu_t1,mu_t2, visualize);
 %% Print some results
 disp('Parameters:');
 disp('c');

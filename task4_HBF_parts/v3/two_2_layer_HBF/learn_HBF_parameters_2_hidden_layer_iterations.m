@@ -1,4 +1,4 @@
-function [ c, t1, t2 ] = learn_HBF_parameters_2_hidden_layer(X,y,c,t1,t2,lambda,mu_c,mu_t2,mu_t1,prec,visualize)
+function [ c, t1, t2 ] = learn_HBF_parameters_2_hidden_layer_iterations(X,y,c,t1,t2,lambda,mu_c,mu_t2,mu_t1,visualize)
 %learn_HBF_parameters_1_hidden_later - learns HBF params for 2 layers
 %   Inputs:
 %       X = data matrix (D x N)
@@ -19,12 +19,13 @@ function [ c, t1, t2 ] = learn_HBF_parameters_2_hidden_layer(X,y,c,t1,t2,lambda,
 [~, N] = size(X);
 [Dp, ~, Np] = size(t1);
 current_error = compute_Hf(X,y,c,t1,t2,Np,Dp,lambda);
-prev_error = inf;
-i = 1;
+%prev_error = inf;
+%i = 1;
 errors = cell(1,1);
 errors{1,1} = current_error;
 %while the current error is too large
-while abs(current_error - prev_error) > prec
+iterations = 1000; %TODO remove hard coding
+for i=1:iterations
     %% choose random data point x,y
     i_rand = randi(N);
     x_i = X(:,i_rand);
@@ -38,14 +39,14 @@ while abs(current_error - prev_error) > prec
     t1 = t1_new;
     t2 = t2_new;
     %% update errors
-    prev_error = current_error;
+    %prev_error = current_error;
     current_error = compute_Hf(X,y,c,t1_new,t2_new,Np,Dp,lambda);
     errors{i} = current_error;
-    i = i + 1;
+    %i = i + 1;
 end
 if visualize
     errors = cell2mat(errors);
-    iteration_axis = 1:length(errors);
+    iteration_axis = 1:iterations;
     plot(iteration_axis, errors );
 end
 end
