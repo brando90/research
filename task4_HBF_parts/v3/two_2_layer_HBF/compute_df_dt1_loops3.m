@@ -23,6 +23,7 @@ for i=1:Np
         z_l1_ij = z_l1(i,j);
         a_l2_ij = a_l2(i,j);
         t_l1_ij = t1(:,i,j);
+        alpha_ij = 0;
         for k2=1:K2
             ck2 = c(k2);
             t2_k2 = t2(:, k2);
@@ -33,5 +34,6 @@ for i=1:Np
             alpha_ij = alpha_ij + new_delta;
         end
         alpha_ij = alpha_ij * exp(-z_l1_ij)*2*(xi_part - t_l1_ij);
+        dJ_dt1(:,i,j) = alpha_ij;
     end
 end

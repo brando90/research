@@ -79,35 +79,40 @@ t1
 % call f(x)
 [f, z_l1, z_l2, a_l2, a_l3 ] = f_star_loops(x,c,t1,t2)
 % gradient
-df_dt1_loops = compute_df_dt1_loops(t1,x,z_l1,z_l2,a_l2,c,t2);
-df_dt1_loops2 = compute_df_dt1_loops2(t1,x,z_l1,z_l2,a_l2,c,t2);
+df_dt1_loops = compute_df_dt1_loops3(t1,x,z_l1,z_l2,a_l2,c,t2);
+df_dt1_loops2 = compute_df_dt1_loops3(t1,x,z_l1,z_l2,a_l2,c,t2);
+dJ_dt1_numerical = compute_numerical_derivatives( x, c, t1, t2 );
 eps = 1e-10;
-%eps = 10000;
 for np=1:Np
-    np
-    for dd=1:Dd
-        dd
-        for dp=1:Dp
-            dp
-            disp('===');
-            e_dd_dp_np = zeros(Dp, Dd, Np);
-            e_dd_dp_np(dp,dd,np) = eps;
-            f_e1 = f_star_loops(x,c,t1+e_dd_dp_np,t2);
-            f_e2 = f_star_loops(x,c,t1-e_dd_dp_np,t2);
-            numerical_derivative = (f_e1 - f_e2)/(2*eps);
-            disp('dp, dd, np')
-            disp([dp, dd, np]);
-            disp('+++++> Numerical Derivative');
-            disp(numerical_derivative);
-%             disp('dJ_dt2_vectorized');
-%             disp(dJ_dt2_vectorized(dd, dp, np);
-            disp('dJ_dt1_loops');
-            disp(df_dt1_loops(dp, dd, np));
-            disp('dJ_dt1_loops2');
-            disp(df_dt1_loops2(dp, dd, np));
-        end
-    end
+    dJ_dt1_numerical_np = dJ_dt1_numerical(:,:,np);
+    dJ_dt1_numerical_np
+    df_dt1_loops2_np = 
 end
+% for np=1:Np
+%     np
+%     for dd=1:Dd
+%         dd
+%         for dp=1:Dp
+%             dp
+%             disp('===');
+%             e_dd_dp_np = zeros(Dp, Dd, Np);
+%             e_dd_dp_np(dp,dd,np) = eps;
+%             f_e1 = f_star_loops(x,c,t1+e_dd_dp_np,t2);
+%             f_e2 = f_star_loops(x,c,t1-e_dd_dp_np,t2);
+%             numerical_derivative = (f_e1 - f_e2)/(2*eps);
+%             disp('dp, dd, np')
+%             disp([dp, dd, np]);
+%             disp('+++++> Numerical Derivative');
+%             disp(numerical_derivative);
+% %             disp('dJ_dt2_vectorized');
+% %             disp(dJ_dt2_vectorized(dd, dp, np);
+%             disp('dJ_dt1_loops');
+%             disp(df_dt1_loops(dp, dd, np));
+%             disp('dJ_dt1_loops2');
+%             disp(df_dt1_loops2(dp, dd, np));
+%         end
+%     end
+% end
 % t1_v1 = zeros(Dp, Dd, Np);
 % t1_v2 = 10000 * ones(Dp, Dd, Np);
 % for dd=1:Dd
