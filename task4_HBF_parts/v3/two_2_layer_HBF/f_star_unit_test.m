@@ -14,7 +14,7 @@ t2 = rand(K1, K2);
 t1 = rand(Dp, Dd, Np);
 %% do f(x)
 [ f_loops, ~, ~, ~, ~ ] = f_star_loops( x, c, t1, t2);
-[ f_vectorized, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t1, t2);
+[ f_vectorized, z_l1, z_l2, a_l2, a_l3 ] = f_star_vec( x, c, t1, t2);
 disp(['f_loops = ', num2str(f_loops)]);
 disp(['f_vectorized = ', num2str(f_vectorized)]);
 % disp(size(f) == [1, 1])
@@ -37,7 +37,7 @@ t2 = (1:K2);
 t1 = 5;
 % do f(x)
 [ f_loops, ~, ~, ~, ~ ] = f_star_loops( x, c, t1, t2);
-[ f_vectorized, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t1, t2);
+[ f_vectorized, z_l1, z_l2, a_l2, a_l3 ] = f_star_vec( x, c, t1, t2);
 disp('Should be approx 0.404881')
 f_loops
 f_vectorized
@@ -51,7 +51,7 @@ t2 = 3;
 t1 = 2;
 % do f(x)
 [ f_loops, ~, ~, ~, ~ ] = f_star_loops( x, c, t1, t2);
-[ f_vectorized, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t1, t2);
+[ f_vectorized, z_l1, z_l2, a_l2, a_l3 ] = f_star_vec( x, c, t1, t2);
 disp('Should be approx 0.00391961')
 f_loops
 f_vectorized
@@ -65,7 +65,7 @@ t2 = [1 2; 3 4; 5 6]';
 t1 = [5 6 7; 8 9 10]';
 % do f(x)
 [ f_loops, ~, ~, ~, ~ ] = f_star_loops( x, c, t1, t2);
-[ f_vectorized, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t1, t2);
+[ f_vectorized, z_l1, z_l2, a_l2, a_l3 ] = f_star_vec( x, c, t1, t2);
 disp('Should be approx 0.101069')
 f_loops
 f_vectorized
@@ -81,7 +81,7 @@ t1(:,:,1) = [1 1; 2 2; 3 3]';
 t1(:,:,2) = [1 2; 2 3; 3 4]';
 % do f(x)
 [ f_loops, ~, ~, ~, ~ ] = f_star_loops( x, c, t1, t2);
-[ f_vectorized, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t1, t2);
+[ f_vectorized, z_l1, z_l2, a_l2, a_l3 ] = f_star_vec( x, c, t1, t2);
 disp('Should be approx 5.943048016e-04')
 f_loops
 f_vectorized

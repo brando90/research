@@ -15,8 +15,8 @@ for np=1:Np
         for dp=1:Dp
             e_dd_dp_np = zeros(Dp, Dd, Np);
             e_dd_dp_np(dp,dd,np) = eps;
-            f_e1 = f_star_loops(x,c,t1+e_dd_dp_np,t2);
-            f_e2 = f_star_loops(x,c,t1-e_dd_dp_np,t2);
+            f_e1 = f_star(x,c,t1+e_dd_dp_np,t2);
+            f_e2 = f_star(x,c,t1-e_dd_dp_np,t2);
             numerical_derivative = (f_e1 - f_e2)/(2*eps);
             dJ_dt1_numerical(dp,dd,np) = numerical_derivative;
         end

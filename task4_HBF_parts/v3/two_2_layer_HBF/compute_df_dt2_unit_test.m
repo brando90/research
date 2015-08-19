@@ -19,7 +19,7 @@ t2 = [1 2 3] % (K1 x K2) = (1 x 3)
 K1 = 1;
 K2 = 3;
 %% call f(x)
-[ f, z_l1, z_l2, a_l2, ~ ] = f_star_loops(x,c,t1,t2)
+[ f, z_l1, z_l2, a_l2, ~ ] = f_star(x,c,t1,t2)
 %% gradient
 dJ_dt2_vectorized = compute_df_dt2_vectorized(t2,c,z_l2,a_l2);
 dJ_dt2_loops = compute_df_dt2_loops(t2,c,z_l2,a_l2);
@@ -30,7 +30,7 @@ for k1=1:K1;
         e_k1k2 = zeros(K1, K2);
         e_k1k2(k1,k2) = eps
         %derivative = (J(y, x, c, t2 + e_k1k2, t1, Np, Dp) - J(y, x, c , t2 - e_k1k2, t1, Np, Dp) ) / (2*eps);
-        derivative = (f_star_loops(x, c, t1, t2 + e_k1k2) - f_star_loops(x, c , t1, t2 - e_k1k2) ) / (2*eps);
+        derivative = (f_star(x, c, t1, t2 + e_k1k2) - f_star(x, c , t1, t2 - e_k1k2) ) / (2*eps);
         disp('k1, k2')
         disp([k1,k2]);
         disp('Numerical Derivative');

@@ -1,5 +1,5 @@
 function [ f, z_l1, z_l2, a_l2, a_l3 ] = f_star_loops( x, c, t1, t2)
-%f_start - computes 2 layer HBF predictor
+%f_star_loops - computes 2 layer HBF predictor
 %   Computes f^*(x) = sum_i c_i a^(3)_i
 %   Inputs:
 %       x = data point (D x 1)

@@ -11,7 +11,7 @@ function [c] = update_c_gradient(c,y,f,a_l3,lambda,mu_c)
 %       mu_c = step size (1 x 1)
 %   Output:
 %       c = updated weights (K2 x 1)
-df_dc = compute_df_dc(y,f,a_l3);
+df_dc = compute_df_dc(a_l3);
 dJ_df = -2*(y - f);
 dJ_dc = dJ_df*df_dc;
 dJ_dc = dJ_dc + lambda * 0; %TODO
