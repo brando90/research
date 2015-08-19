@@ -1,4 +1,4 @@
-function [ dJ_dt1_numerical ] = compute_numerical_derivatives( x, c, t1, t2 )
+function [ dJ_dt1_numerical ] = compute_numerical_derivatives( x, c, t1, t2, eps)
 %   Computes t1 according to:
 %       df/dt1 numerically
 %   Input:
@@ -8,6 +8,7 @@ function [ dJ_dt1_numerical ] = compute_numerical_derivatives( x, c, t1, t2 )
 %       t2 = centers (K1 x K2)
 %   Output:
 %       dJ_dt1 = gradeint (Dp x Dd x Np)
+[Dp, Dd, Np] = size(t1);
 dJ_dt1_numerical = zeros(Dp, Dd, Np);
 for np=1:Np
     for dd=1:Dd
@@ -17,9 +18,8 @@ for np=1:Np
             f_e1 = f_star_loops(x,c,t1+e_dd_dp_np,t2);
             f_e2 = f_star_loops(x,c,t1-e_dd_dp_np,t2);
             numerical_derivative = (f_e1 - f_e2)/(2*eps);
+            dJ_dt1_numerical(dp,dd,np) = numerical_derivative;
         end
-        dJ_dt1_numerical(dp,dd,np) = numerical_derivative;
     end
 end
 end
-

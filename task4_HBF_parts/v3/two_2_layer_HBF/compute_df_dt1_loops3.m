@@ -12,8 +12,7 @@ function [ dJ_dt1 ] = compute_df_dt1_loops3(t1,x,z_l1,z_l2,a_l2,c,t2)
 %       t2 = centers (K1 x K2)
 %   Output:
 %       dJ_dt1 = gradeint (Dp x Dd x Np)
-[Dp, ~, ~] = size(t1); %(Dp x Dd x Np)
-[Np, Dd] = size(a_l2);
+[Dp, Dd, Np] = size(t1); %(Dp x Dd x Np)
 K2 = length(c);
 x_parts = reshape(x, [Dp, Np]);
 dJ_dt1 = zeros(Dp, Dd, Np);
@@ -22,7 +21,7 @@ for i=1:Np
     for j=1:Dd
         z_l1_ij = z_l1(i,j);
         a_l2_ij = a_l2(i,j);
-        t_l1_ij = t1(:,i,j);
+        t_l1_ij = t1(:,j,i);
         alpha_ij = 0;
         for k2=1:K2
             ck2 = c(k2);
@@ -33,7 +32,7 @@ for i=1:Np
             new_delta = ck2*(exp(-z_l2_k2))*2*(a_l2_ij - t2_k2_ij);
             alpha_ij = alpha_ij + new_delta;
         end
-        alpha_ij = alpha_ij * exp(-z_l1_ij)*2*(xi_part - t_l1_ij);
-        dJ_dt1(:,i,j) = alpha_ij;
+        alpha_ij = -1 * alpha_ij * exp(-z_l1_ij)*2*(xi_part - t_l1_ij);
+        dJ_dt1(:,j,i) = alpha_ij;
     end
 end

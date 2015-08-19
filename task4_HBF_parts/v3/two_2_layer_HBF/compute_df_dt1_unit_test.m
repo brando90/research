@@ -81,12 +81,15 @@ t1
 % gradient
 df_dt1_loops = compute_df_dt1_loops3(t1,x,z_l1,z_l2,a_l2,c,t2);
 df_dt1_loops2 = compute_df_dt1_loops3(t1,x,z_l1,z_l2,a_l2,c,t2);
-dJ_dt1_numerical = compute_numerical_derivatives( x, c, t1, t2 );
 eps = 1e-10;
+dJ_dt1_numerical = compute_numerical_derivatives( x, c, t1, t2, eps);
+disp('---- Derivatives ----');
 for np=1:Np
+    np
     dJ_dt1_numerical_np = dJ_dt1_numerical(:,:,np);
     dJ_dt1_numerical_np
-    df_dt1_loops2_np = 
+    df_dt1_loops2_np = df_dt1_loops(:,:,np);
+    df_dt1_loops2_np
 end
 % for np=1:Np
 %     np
