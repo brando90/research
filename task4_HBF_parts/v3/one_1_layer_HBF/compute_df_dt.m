@@ -1,7 +1,14 @@
-function [ output_args ] = compute_df_dt( input_args )
-%UNTITLED22 Summary of this function goes here
-%   Detailed explanation goes here
-
-
+function [ df_dt ] = compute_df_dt( xi, c, t, lambda )
+%update df_dt
+K = length(c);
+df_dt = zeros(D, K);
+for k=1:K
+    ck = c(k);
+    tk = t(:,k);
+    norm_squared = norm(diff_xi_tk, 2)^2;
+    Gi_prime = -exp(-norm_squared);
+    df_dt(:, k) = -2*ck*Gi_prime*(xi - tk);
+    regularization_derivative = 0; %TODO
+    df_dt(:, k) = df_dt(:, k) + regularization_derivative * lambda;
 end
-
+end

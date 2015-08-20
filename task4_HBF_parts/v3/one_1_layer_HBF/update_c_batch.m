@@ -4,7 +4,7 @@ dHf_dc = 0;
 for i=1:N
     xi = X(:,i);
     yi = y(i);
-    df_dc = compute_df_dc(xi, yi, c, t, lambda);
+    df_dc = compute_df_dc(xi, c, t, lambda);
     fi = f(xi, yi, c, t);
     delta_i = fi - yi;
     dJ_dc = (-2 * delta_i) * df_dc;
@@ -12,4 +12,3 @@ for i=1:N
 end
 c_new = t - mu_c * dHf_dc;
 end
-

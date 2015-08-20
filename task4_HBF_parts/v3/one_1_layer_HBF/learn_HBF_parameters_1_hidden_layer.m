@@ -21,9 +21,9 @@ errors = cell(1,1);
 errors{1,1} = current_error;
 while abs(current_error - prev_error) > prec
     prev_error = current_error;
-    % Compute Gradients
-    c_new = update_t_batch(X, y, c, t, mu_c, lambda); % Computes gradient wrt to weights c's
-    t_new = update_c_batch(X, y, c, t, mu_t, lambda); % Computes gradient wrt to ceters t's
+    % Update parameters
+    c = update_t_batch(X, y, c, t, mu_c, lambda); % Computes gradient wrt to weights c's
+    t = update_c_batch(X, y, c, t, mu_t, lambda); % Computes gradient wrt to ceters t's
     % Update parameters
     current_error = compute_Hf(X, y, c, t, lambda);
     errors{i} = current_error;
