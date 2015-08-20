@@ -7,7 +7,7 @@ addpath('../common')
 X = loadMNISTImages('../common/data/train-images-idx3-ubyte');
 y = loadMNISTLabels('../common/data/train-labels-idx1-ubyte');
 [D, ~] = size(X);
-N = 10;
+N = 1000;
 X = X(:,1:N);
 size(X(:,1))
 y = y(1:N);
@@ -21,8 +21,8 @@ K = 200; %num hidden units
 c = rand(K,1);
 t = rand(D,K);
 %t = X(:,1:K);
-mu_c = 1000;
-mu_t = 1000;
+mu_c = 1;
+mu_t = 1;
 %% Learn the parameters
 visualize = 1;
 prec = 0.01;
