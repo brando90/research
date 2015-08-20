@@ -1,4 +1,4 @@
-disp('-------------------------->>> Running simulations 2 layer HBF...');
+disp('-------------------------->>> 2HBF...');
 %% Create vectors to learn from
 addpath('../common')
 N = 10

@@ -1,4 +1,4 @@
-disp('-------------------------->>> Running simulations 2 layer HBF...');
+disp('-------------------------->>> 1HBF...');
 %% Create vectors to learn from
 addpath('../common')
 N = 10
@@ -28,8 +28,6 @@ prec = 0.01;
 %% Print some results
 disp('Parameters:');
 disp('c');
-disp(c);
-disp('t1');
-disp(t1);
-disp('t2');
-disp(t2);
+disp(c_new);
+disp('t');
+disp(t_new);
