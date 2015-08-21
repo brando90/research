@@ -1,6 +1,6 @@
 disp('-------------------------->>> 2HBF...');
 %% Create vectors to learn from
-addpath('../common')
+%addpath('../common')
 N = 10
 D = 6
 Dp = D/2

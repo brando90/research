@@ -1,10 +1,16 @@
 function [ X, Y ] = generate_supervised_classification_dumy_data_set( N, D)
 %generate_supervised_dumy_data_set - generates data set for 1-layer test
 %   Generates data set to test 1-layer HBF architecture
+%       number of different labels = 4
+%       num_examples_for_a_class = N/num_different_labels
 %   Input:
-%   N = size of data; needs to be multiple of 4
-%   D = dimension of data
-%   Y
+%       N = size of data; needs to be multiple of 4
+%       D = dimension of data
+%   Output:
+%       X = [x1 x2 x3 x4];
+%           xi (D x num_examples_for_a_class)
+%       Y = [y1; y2; y3; y4]
+%           yi (num_examples_for_a_class x 1)
 num_different_labels = 4;
 num_examples_for_a_class = N/num_different_labels;
 %% Generate data
