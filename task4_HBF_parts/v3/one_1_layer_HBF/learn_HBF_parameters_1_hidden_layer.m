@@ -16,19 +16,19 @@ function [ c, t ] = learn_HBF_parameters_1_hidden_layer(X,y,c,t,lambda,mu_c,mu_t
 current_error = compute_Hf(X, y, c, t, lambda);
 prev_error = inf;
 i = 1;
-%print_errors_debug(prev_error,current_error, prec, i);
 errors = cell(1,1);
 errors{1,1} = current_error;
 while abs(current_error - prev_error) > prec
     prev_error = current_error;
     % Update parameters
-    c = update_c_batch(X, y, c, t, mu_c, lambda);
-    t = update_t_batch(X, y, c, t, mu_t, lambda);
-    % Update parameters
+    c_new = update_c_batch(X, y, c, t, mu_c, lambda);
+    t_new = update_t_batch(X, y, c, t, mu_t, lambda);
+    c = c_new;
+    t = t_new;
+    % Calculate current errors
     current_error = compute_Hf(X, y, c, t, lambda);
     errors{i} = current_error;
     i = i + 1;
-    %print_errors_debug(prev_error,current_error, prec, i);
 end
 if visualize
     errors = cell2mat(errors);
@@ -36,4 +36,3 @@ if visualize
     plot(iteration_axis, errors );
 end
 end
-
