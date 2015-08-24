@@ -4,7 +4,7 @@ function [all_combinations, y_labels] = generate_all_data_list_dict(list_dict)
 %   Output:
 %       all_combinations = all combinations of alphabet words (Dp*N, Dp^N)
 % Np = number of slots/locations to place a vocab word (1 x 1)
-[Dp, Dd, Np] = size(list_dict); 
+[Dp, Dd, Np] = size(list_dict);
 first_dictionary = list_dict(:,:,1);
 current_combinations = first_dictionary;
 prev_combinations = current_combinations;
@@ -28,5 +28,5 @@ for n=2:Np
     prev_combinations = current_combinations;
 end
 all_combinations = current_combinations;
-y_labels = (1:Dd^Np)'
+y_labels = (1:Dd^Np)';
 end

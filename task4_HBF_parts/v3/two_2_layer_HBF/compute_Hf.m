@@ -1,4 +1,4 @@
-function [ regularized_cost_hf ] = compute_Hf(X,y,c,t_1,t_2,Np,Dp,lambda )
+function [ regularized_cost_hf ] = compute_Hf(X,y,c,t1,t2,lambda )
 %compute_Hf - computes regularized cost 
 %H[F] = sum (y_i, f(x_i))^2 + lambda || Pf ||^2
 %   Inputs:
@@ -13,7 +13,7 @@ function [ regularized_cost_hf ] = compute_Hf(X,y,c,t_1,t_2,Np,Dp,lambda )
 empirical_risk = 0;
 for i=1:N
     x_i = X(:, i);
-    [f_i, ~, ~, ~, ~] = f_star(x_i, c, t_1, t_2);
+    [f_i, ~, ~, ~, ~] = f_star(x_i, c, t1, t2);
     y_i = y(i);
     delta_i = y_i - f_i;
     empirical_risk = empirical_risk + delta_i^2;

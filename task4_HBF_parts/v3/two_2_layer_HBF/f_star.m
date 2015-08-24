@@ -13,5 +13,8 @@ function [ f, z_l1, z_l2, a_l2, a_l3 ] = f_star( x, c, t1, t2 )
 %       z_l2 = inputs l2 (K2 x 1)
 %       a_l2 = activations l2 (Np x Dd)
 %       z_l1 = inputs l1 (Np x Dd)
+
 [ f, z_l1, z_l2, a_l2, a_l3 ] = f_star_loops( x, c, t1, t2 );
+
+%[ f, z_l1, z_l2, a_l2, a_l3 ] = f_star_vec( x, c, t1, t2 );
 end
