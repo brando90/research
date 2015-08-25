@@ -7,6 +7,7 @@ function [ f ] = f_star( x, c, t)
 %       t = centers (D x K)
 %   Outputs:
 %       f = f^*(x)
-a = exp(-pdist2(x', t').^2);
+z = pdist2(x', t').^2;
+a = exp(-z);
 f = dot(a, c);
 end

@@ -6,11 +6,14 @@ for i=1:N
     xi = X(:,i);
     yi = y(i);
     df_dc = compute_df_dc(xi, c, t, lambda);
+    %eps = 1e-10;
+    %df_dc = compute_df_dc_numerical_derivatives(xi, c, t, eps);
     fi = f_star(xi, c, t);
     delta_i = fi - yi;
     dJ_df = -2 * delta_i;
     dJ_dc = dJ_df * df_dc;
     dHf_dc = dHf_dc + dJ_dc;
 end
+%dHf_dc
 c_new = c - mu_c * dHf_dc;
 end

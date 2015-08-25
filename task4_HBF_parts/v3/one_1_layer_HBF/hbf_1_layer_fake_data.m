@@ -22,24 +22,29 @@ y
 X
 size(X)
 size(y)
-X = repmat(X,1,100);
-y = repmat(y,100,1);
+X = repmat(X,1,10);
+y = repmat(y,10,1);
 size(X)
 size(y)
 %% Parameters
 lambda = 0; %reg param
-c = rand(K,1)
-t = rand(D,K)
+% c = rand(K,1)
+% t = rand(D,K)
+c = y(1:K)
+t = X(:,1:K)
 %t = X(:,1:K);
 mu_c = 0.9;
 mu_t = 0.9;
 visualize = 1;
 %% intitial training error
 initial_training_error = compute_Hf(X,y,c,t,lambda);
+f = f_star(X(:,3),c,t)
+y(3)
 %% Learn the parameters
 %prec = 0.01;
 %[c_new, t_new] = learn_HBF_parameters_1_hidden_layer(X, y, c, t, lambda, mu_c, mu_t, prec, visualize);
-iterations = 100;
+
+iterations = 10;
 [c, t] = learn_HBF_parameters_1_hidden_layer_iterations(X,y,c,t,lambda,mu_c,mu_t,iterations,visualize);
 %% Print some results
 disp('Parameters:');
