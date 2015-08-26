@@ -15,6 +15,8 @@ function [ c, t ] = learn_HBF_parameters_1_hidden_layer_iterations(X,y,c,t,lambd
 %       t_new = learned centers (D x K)
 errors = zeros(iterations,1);
 for i=1:iterations
+    disp('++==>> current iteration');
+    i
     % Update parameters
     c_new = update_c_batch(X, y, c, t, mu_c, lambda);
     t_new = update_t_batch(X, y, c, t, mu_t, lambda);

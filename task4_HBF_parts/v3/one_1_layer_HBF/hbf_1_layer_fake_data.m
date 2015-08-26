@@ -12,20 +12,13 @@ addpath('../common')
 % disp('---> Size(y) = (N, 1)')
 % disp(size(y));
 %% Create vectors to learn from
-load('../common/data_3parts_3slots_divided_by_9.mat');
+%load('../common/data_3parts_3slots_divided_by_9.mat');
+load('data_3parts_3slots_divided_by_9_noise');
 %% Parameters 
 % repetitions = 2;
 [Dp, Dd, Np] = size(list_dict)
 D = Dp*Np
 K = Dd^Np
-y
-X
-size(X)
-size(y)
-X = repmat(X,1,10);
-y = repmat(y,10,1);
-size(X)
-size(y)
 %% Parameters
 lambda = 0; %reg param
 % c = rand(K,1)
@@ -38,16 +31,13 @@ mu_t = 0.9;
 visualize = 1;
 %% intitial training error
 initial_training_error = compute_Hf(X,y,c,t,lambda);
-f = f_star(X(:,3),c,t)
-y(3)
 %% Learn the parameters
 %prec = 0.01;
 %[c_new, t_new] = learn_HBF_parameters_1_hidden_layer(X, y, c, t, lambda, mu_c, mu_t, prec, visualize);
-
 iterations = 10;
 [c, t] = learn_HBF_parameters_1_hidden_layer_iterations(X,y,c,t,lambda,mu_c,mu_t,iterations,visualize);
 %% Print some results
-disp('Parameters:');
+disp('++++> Final Parameters:');
 disp('c');
 disp(c);
 disp('t');

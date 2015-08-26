@@ -14,6 +14,6 @@ for i=1:N
     dJ_dt = dJ_df*df_dt;
     dHf_dt = dHf_dt + dJ_dt;
 end
-%dHf_dt
+dHf_dt
 t_new = t - mu_t * dHf_dt;
 end

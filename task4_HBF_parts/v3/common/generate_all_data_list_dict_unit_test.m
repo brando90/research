@@ -21,11 +21,15 @@ list_dict = zeros(1, 3, 2);
 % list_dict(:,:,1) = [1, 2, 3]/9;
 % list_dict(:,:,2) = [4, 5, 6]/9;
 % list_dict(:,:,3) = [7, 8, 9]/9;
-list_dict(:,:,1) = [1, 2, 3];
-list_dict(:,:,2) = [4, 5, 6];
-list_dict(:,:,3) = [7, 8, 9];
+list_dict(:,:,1) = [1, 2, 3]/9;
+list_dict(:,:,2) = [4, 5, 6]/9;
+list_dict(:,:,3) = [7, 8, 9]/9;
+% list_dict(:,:,1) = [1, 2, 3];
+% list_dict(:,:,2) = [4, 5, 6];
+% list_dict(:,:,3) = [7, 8, 9];
 [X, y] = generate_all_data_list_dict(list_dict);
 %X = normc(X);
 y = normc(y);
-save('data_3parts_3slots_divided_by_9');
-replicate_data_with_noise(list_dict, 3)
+[X y] = replicate_data_with_noise(X, y, 5)
+save('data_3parts_3slots_divided_by_9_noise');
+%replicate_data_with_noise(list_dict, 5)
