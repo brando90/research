@@ -26,15 +26,15 @@ lambda = 0; %reg param
 c = y(1:K)
 t = X(:,1:K)
 %t = X(:,1:K);
-mu_c = 0.9;
-mu_t = 0.9;
+mu_c = 0.001;
+mu_t = 0.001;
 visualize = 1;
 %% intitial training error
 initial_training_error = compute_Hf(X,y,c,t,lambda);
 %% Learn the parameters
 %prec = 0.01;
 %[c_new, t_new] = learn_HBF_parameters_1_hidden_layer(X, y, c, t, lambda, mu_c, mu_t, prec, visualize);
-iterations = 10;
+iterations = 100;
 [c, t] = learn_HBF_parameters_1_hidden_layer_iterations(X,y,c,t,lambda,mu_c,mu_t,iterations,visualize);
 %% Print some results
 disp('++++> Final Parameters:');

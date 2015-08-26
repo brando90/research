@@ -14,6 +14,6 @@ for i=1:N
     dJ_dc = dJ_df * df_dc;
     dHf_dc = dHf_dc + dJ_dc;
 end
-dHf_dc
+%dHf_dc
 c_new = c - mu_c * dHf_dc;
 end
