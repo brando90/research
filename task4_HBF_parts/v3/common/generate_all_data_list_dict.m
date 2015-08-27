@@ -17,7 +17,7 @@ for n=2:Np
     current_dict = list_dict(:,:,n);
     [D_n, N_n] = size(prev_combinations);
     current_combinations = zeros(D_n+Dp, N_n*Dd);
-    for comb_index=1:length(prev_combinations);
+    for comb_index=1:N_n;
         combination = prev_combinations(:,comb_index);
         for dd=1:Dd
             word = current_dict(:,dd);
@@ -28,5 +28,5 @@ for n=2:Np
     prev_combinations = current_combinations;
 end
 all_combinations = current_combinations;
-y_labels = (1:Dd^Np)';
+y_labels = (1:Dd^Np)' - Dd^Np/2;
 end
