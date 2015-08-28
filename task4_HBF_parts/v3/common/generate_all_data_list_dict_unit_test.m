@@ -53,14 +53,14 @@ list_dict(:,:,3) = [t3_1, t3_2, t3_3];
 % list_dict(:,:,1) = [1, 2, 3];
 % list_dict(:,:,2) = [4, 5, 6];
 % list_dict(:,:,3) = [7, 8, 9];
-[X, y] = generate_all_data_list_dict(list_dict);
+[X_perfect_data, y] = generate_all_data_list_dict(list_dict);
 %X = normc(X);
-X
+X_perfect_data
 y = normc(y)
-size(X)
+size(X_perfect_data)
 size(y)
 m = 5;
-[X, y] = replicate_data_with_noise(X, y, m)
+[X, y] = replicate_data_with_noise(X_perfect_data, y, m)
 save('data_3parts_Dp10_3slots_divided_by_9_noise');
 size(X)
 size(y)

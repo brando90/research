@@ -24,6 +24,8 @@ current_error = compute_Hf(X,y,c,t1,t2,lambda);
 errors = cell(1,1);
 errors{1,1} = current_error;
 %while the current error is too large
+[~, Dd, Np] = size(t1);
+changes_t1 = zeros(Dd*Np, iterations);
 for i=1:iterations
     %% choose random data point x,y
     i_rand = randi(N);
@@ -34,7 +36,12 @@ for i=1:iterations
     c_new = update_c_gradient(c,i,f,a_l3,lambda,mu_c);
     t1_new = update_t1_gradient(t1,x_i,y_i,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1);
     t2_new = update_t2_gradient(t2,c,y_i,f,z_l2,a_l2,lambda,mu_t2);
-    c =c_new;
+    %% get changes for c/iter.
+    c = c_new;
+    %% get changes for t1s/iter.
+    distances = reshape(get_dt1_dt(t1, t1_new), Dd*Np, 1);
+    changes_t1(:, i) = distances;
+    %% Update t1's
     t1 = t1_new;
     t2 = t2_new;
     %% update errors
@@ -44,8 +51,19 @@ for i=1:iterations
     %i = i + 1;
 end
 if visualize
+    %
+    figure
     errors = cell2mat(errors);
     iteration_axis = 1:iterations;
     plot(iteration_axis, errors );
+    %
+    %changes_t1 = zeros(Dd*Np, iterations);
+    figure
+    for i=1:(Dd*Np)
+        changes_i = changes_t1(i,:); % (1 x iterations)
+        subplot(Dd,Np,i)
+        plot(iteration_axis,changes_i)
+        title(i) 
+    end
 end
 end

@@ -1,9 +1,12 @@
-%% File that does comparisons
+%% File that does comparisons HBF 1
 %% Prepare
 addpath('../common')
 load('most_recent_state_of_HBF1_run')
 %% Comparisons
+% compare learned c's with initialized c's (expect best?)
 weights_cosine_similarity = matrix_inner_products_btw_vectors(normr(c') , normr(y(1:m:m*K)') )
+% compare learned centers with initialized centers
+%center_cosine_similarity = matrix_inner_products_btw_vectors(normr(t'), normr(X(:,1:m:m*K)') )
 center_cosine_similarity = matrix_inner_products_btw_vectors(normr(t'), normr(X(:,1:m:m*K)') )
 
 dimension_of_weights_cosine_similarity = size(weights_cosine_similarity)
