@@ -34,7 +34,7 @@ for i=1:iterations
     i_rand = randi(N);
     x_i = X(:,i_rand);
     y_i = y(i_rand);
-    %% Update parameters
+    %% get new parameters
     [f, z_l1, z_l2, a_l2, a_l3] = f_star(x_i,c,t1,t2);
     c_new = update_c_gradient(c,i,f,a_l3,lambda,mu_c);
     t1_new = update_t1_gradient(t1,x_i,y_i,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1);
@@ -67,28 +67,27 @@ if visualize
     plot(iteration_axis, errors );
     % plot change in param c
     %% plot changes in param c
-%     for k2=1:K2
-%         c_changes_i = changes_c(k2,:); % (1 x iterations)
-%         %subplot(K2,1,k2)
-%         figure
-%         plot(iteration_axis,c_changes_i)
-%         title(k2) 
-%     end
+    for k2=1:K2
+        c_changes_i = changes_c(k2,:); % (1 x iterations)
+        %subplot(K2,1,k2)
+        figure
+        plot(iteration_axis,c_changes_i)
+        title(strcat('c-- ', num2str(k2) ) )
+    end
     %% plot change in param t1
-%     figure
-%     for i=1:(Dd*Np)
-%         t1_changes_i = changes_t1(i,:); % (1 x iterations)
-%         subplot(Dd,Np,i)
-%         plot(iteration_axis,t1_changes_i)
-%         title(i) 
-%     end
-    %% plot changes in param t2
     figure
+    for ddnp=1:(Dd*Np)
+        t1_changes_ddnp = changes_t1(ddnp,:); % (1 x iterations)
+        subplot(Dd,Np,ddnp)
+        plot(iteration_axis,t1_changes_ddnp)
+        title(strcat('t1-- ', num2str(ddnp) ) )
+    end
+    %% plot changes in param t2
     for k2=1:K2
         t2_changes_k2 = changes_t2(k2,:); % (1 x iterations)
         figure
         plot(iteration_axis,t2_changes_k2)
-        title(strcat('t2 ', num2str(k2))) 
+        title(strcat('t2-- ', num2str(k2))) 
     end
 end
 end

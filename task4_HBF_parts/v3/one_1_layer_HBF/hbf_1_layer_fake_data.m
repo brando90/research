@@ -23,8 +23,8 @@ K = Dd^Np
 %% Parameters
 disp('Initial parameters')
 lambda = 0; %reg param
-% c = rand(K,1)
-% t = rand(D,K)
+c = rand(K,1)
+t = rand(D,K)
 % c = y(1:m:m*K)
 % t = X(:,1:m:m*K)
 size(c)
