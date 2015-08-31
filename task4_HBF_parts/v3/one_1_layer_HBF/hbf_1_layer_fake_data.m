@@ -14,7 +14,8 @@ addpath('../common')
 %% Create vectors to learn from
 %load('../common/data_3parts_3slots_divided_by_9.mat');
 %load('data_3parts_3slots_divided_by_9_noise');
-load('data_3parts_Dp10_3slots_divided_by_9_noise');
+%load('data_3parts_Dp10_3slots_divided_by_9_noise');
+load('data_3parts_Dp10_3slots_divided_by_9_noise_snr_1');
 %% Parameters 
 % repetitions = 2;
 [Dp, Dd, Np] = size(list_dict)
@@ -38,7 +39,7 @@ initial_training_error = compute_Hf(X,y,c,t,lambda);
 %% Learn the parameters
 %prec = 0.01;
 %[c_new, t_new] = learn_HBF_parameters_1_hidden_layer(X, y, c, t, lambda, mu_c, mu_t, prec, visualize);
-iterations = 1000;
+iterations = 1500;
 [c, t] = learn_HBF_parameters_1_hidden_layer_iterations(X,y,c,t,lambda,mu_c,mu_t,iterations,visualize);
 %% Print some results
 disp('++++> Final Parameters:');

@@ -13,9 +13,10 @@ function [ c, t ] = learn_HBF_parameters_1_hidden_layer_iterations(X,y,c,t,lambd
 %   Outputs:
 %       c_new = learned weights (K x 1)
 %       t_new = learned centers (D x K)
-K = length(c);
+[~, K] = size(t);
 errors = zeros(iterations,1);
 changes_c = zeros(K, iterations);
+changes_t = zeros(K, iterations);
 for i=1:iterations
     %% get new parameters
     c_new = update_c_batch(X, y, c, t, mu_c, lambda);
@@ -23,6 +24,9 @@ for i=1:iterations
     %% get changes for c/iteration
     c = c_new;
     changes_c(:, i) = c_new - c;
+    %% get changes for t/iteration
+    change_t_wrt_iteration = get_dt_dt(t, t_new );
+    changes_t(:, i) = change_t_wrt_iteration; 
     %% update params
     c = c_new;
     t = t_new;
@@ -42,6 +46,13 @@ if visualize
         figure
         plot(iteration_axis,c_changes_i)
         title(strcat('c-- ', num2str(k) ) )
+    end
+    %% plot changes in param t2
+    for k=1:K
+        t_changes_k = changes_t(k,:); % (1 x iterations)
+        figure
+        plot(iteration_axis,t_changes_k)
+        title(strcat('t-- ', num2str(k))) 
     end
 end
 end
