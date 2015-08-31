@@ -1,4 +1,4 @@
-function [c] = update_c_gradient(c,y,f,a_l3,lambda,mu_c)
+function [ c_new ] = update_c_gradient(c,mu_c,y,f,a_l3,lambda)
 %update_c_gradient - updates the c parameter of a 2 layer HBF
 %   Updates c according to:
 %       c := c - mu_c * dJ/dc
@@ -15,5 +15,5 @@ df_dc = compute_df_dc(a_l3);
 dJ_df = -2*(y - f);
 dJ_dc = dJ_df*df_dc;
 dJ_dc = dJ_dc + lambda * 0; %TODO
-c = c - mu_c * dJ_dc;
+c_new = c - mu_c * dJ_dc;
 end

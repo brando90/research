@@ -28,18 +28,18 @@ c = rand(K,1)
 t = rand(D,K)
 % c = y(1:m:m*K)
 % t = X(:,1:m:m*K)
-size(c)
-size(t)
+K = length(c);
+[D, K] = size(t);
 %t = X(:,1:K);
-mu_c = 0.08;
-mu_t = 0.08;
+mu_c = 300
+mu_t = 300
 visualize = 1;
 %% intitial training error
 initial_training_error = compute_Hf(X,y,c,t,lambda);
 %% Learn the parameters
 %prec = 0.01;
 %[c_new, t_new] = learn_HBF_parameters_1_hidden_layer(X, y, c, t, lambda, mu_c, mu_t, prec, visualize);
-iterations = 1500;
+iterations = 2000
 [c, t] = learn_HBF_parameters_1_hidden_layer_iterations(X,y,c,t,lambda,mu_c,mu_t,iterations,visualize);
 %% Print some results
 disp('++++> Final Parameters:');

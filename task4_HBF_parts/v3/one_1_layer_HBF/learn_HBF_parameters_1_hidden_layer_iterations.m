@@ -22,8 +22,8 @@ for i=1:iterations
     c_new = update_c_batch(X, y, c, t, mu_c, lambda);
     t_new = update_t_batch(X, y, c, t, mu_t, lambda);
     %% get changes for c/iteration
-    c = c_new;
-    changes_c(:, i) = c_new - c;
+    change_c_wrt_iteration = c_new - c;
+    changes_c(:, i) = change_c_wrt_iteration;
     %% get changes for t/iteration
     change_t_wrt_iteration = get_dt_dt(t, t_new );
     changes_t(:, i) = change_t_wrt_iteration; 

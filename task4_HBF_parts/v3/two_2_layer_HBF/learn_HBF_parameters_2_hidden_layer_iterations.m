@@ -36,12 +36,12 @@ for i=1:iterations
     y_i = y(i_rand);
     %% get new parameters
     [f, z_l1, z_l2, a_l2, a_l3] = f_star(x_i,c,t1,t2);
-    c_new = update_c_gradient(c,i,f,a_l3,lambda,mu_c);
-    t1_new = update_t1_gradient(t1,x_i,y_i,f,z_l1,z_l2,a_l2,c,t2,lambda,mu_t1);
-    t2_new = update_t2_gradient(t2,c,y_i,f,z_l2,a_l2,lambda,mu_t2);
+    c_new = update_c_gradient(c,mu_c,y_i,f,a_l3,lambda);
+    t1_new = update_t1_gradient(t1,mu_t1,x_i,y_i,f,z_l1,z_l2,a_l2,c,t2,lambda);
+    t2_new = update_t2_gradient(t2,mu_t2,y_i,f,z_l2,a_l2,c,lambda);
     %% get changes for c/iter.
-    c = c_new;
-    changes_c(:, i) = c_new - c;
+    change_c_wrt_iteration = c_new - c;
+    changes_c(:, i) = change_c_wrt_iteration;
     %% get changes for t1s/iter.
     change_t1_wrt_iteration = get_dt1_dt(t1, t1_new);
     distances = reshape(change_t1_wrt_iteration, Dd*Np, 1);
@@ -49,13 +49,15 @@ for i=1:iterations
     %% get changes for t2s/iter.
     change_t2_wrt_iteration = get_dt2_dt(t2, t2_new );
     changes_t2(:, i) = change_t2_wrt_iteration;
+    %% update c's
+    c = c_new;
     %% Update t1's
     t1 = t1_new;
     %% Update t2's
     t2 = t2_new;
     %% update errors
     %prev_error = current_error;
-    current_error = compute_Hf(X,y,c,t1_new,t2_new,lambda);
+    current_error = compute_Hf(X,y,c,t1,t2,lambda);
     errors{i} = current_error;
     %i = i + 1;
 end
@@ -75,10 +77,11 @@ if visualize
         title(strcat('c-- ', num2str(k2) ) )
     end
     %% plot change in param t1
-    figure
+    %figure
     for ddnp=1:(Dd*Np)
         t1_changes_ddnp = changes_t1(ddnp,:); % (1 x iterations)
-        subplot(Dd,Np,ddnp)
+        %subplot(Dd,Np,ddnp)
+        figure
         plot(iteration_axis,t1_changes_ddnp)
         title(strcat('t1-- ', num2str(ddnp) ) )
     end

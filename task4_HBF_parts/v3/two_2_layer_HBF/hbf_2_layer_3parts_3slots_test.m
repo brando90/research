@@ -10,10 +10,10 @@ K1 = Dd * Np
 K2 = Dd^Np
 %% parameter initilization
 %% parameters to be learned
-c_2hbf = rand(K2,1);
-t1 = rand(Dp, Dd, Np);
-t2 = rand(K1, K2);
-%[ c, t1, t2 ] = expected_good_initialization(list_dict, y, m)
+%c_2hbf = rand(K2,1);
+%t1 = rand(Dp, Dd, Np);
+%t2 = rand(K1, K2);
+[ c, t1, t2 ] = expected_good_initialization(list_dict, y, m)
 t2_expected = t2;
 %% SGD parameters
 % mu_c = 0.001;
