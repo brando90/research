@@ -12,7 +12,7 @@ for t=1:N
     % add noise to x
     Xt = X(:,t);
     Xt = repmat(Xt, 1, m);
-    Xt_noise = awgn(Xt, 25);
+    Xt_noise = awgn(Xt, 1);
     X_noise(:,(t-1)*m+1:t*m) = Xt_noise;
     % replicate y
     yt = y(t);

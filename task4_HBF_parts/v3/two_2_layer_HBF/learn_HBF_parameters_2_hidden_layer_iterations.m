@@ -25,7 +25,10 @@ errors = cell(1,1);
 errors{1,1} = current_error;
 %while the current error is too large
 [~, Dd, Np] = size(t1);
+K2 = length(c);
+changes_c = zeros(K2, iterations);
 changes_t1 = zeros(Dd*Np, iterations);
+changes_t2 = zeros(K2, iterations);
 for i=1:iterations
     %% choose random data point x,y
     i_rand = randi(N);
@@ -38,11 +41,17 @@ for i=1:iterations
     t2_new = update_t2_gradient(t2,c,y_i,f,z_l2,a_l2,lambda,mu_t2);
     %% get changes for c/iter.
     c = c_new;
+    changes_c(:, i) = c_new - c;
     %% get changes for t1s/iter.
-    distances = reshape(get_dt1_dt(t1, t1_new), Dd*Np, 1);
+    change_t1_wrt_iteration = get_dt1_dt(t1, t1_new);
+    distances = reshape(change_t1_wrt_iteration, Dd*Np, 1);
     changes_t1(:, i) = distances;
+    %% get changes for t2s/iter.
+    change_t2_wrt_iteration = get_dt2_dt(t2, t2_new );
+    changes_t2(:, i) = change_t2_wrt_iteration;
     %% Update t1's
     t1 = t1_new;
+    %% Update t2's
     t2 = t2_new;
     %% update errors
     %prev_error = current_error;
@@ -51,19 +60,35 @@ for i=1:iterations
     %i = i + 1;
 end
 if visualize
-    %
+    %% plot change in training error
     figure
     errors = cell2mat(errors);
     iteration_axis = 1:iterations;
     plot(iteration_axis, errors );
-    %
-    %changes_t1 = zeros(Dd*Np, iterations);
+    % plot change in param c
+    %% plot changes in param c
+%     for k2=1:K2
+%         c_changes_i = changes_c(k2,:); % (1 x iterations)
+%         %subplot(K2,1,k2)
+%         figure
+%         plot(iteration_axis,c_changes_i)
+%         title(k2) 
+%     end
+    %% plot change in param t1
+%     figure
+%     for i=1:(Dd*Np)
+%         t1_changes_i = changes_t1(i,:); % (1 x iterations)
+%         subplot(Dd,Np,i)
+%         plot(iteration_axis,t1_changes_i)
+%         title(i) 
+%     end
+    %% plot changes in param t2
     figure
-    for i=1:(Dd*Np)
-        changes_i = changes_t1(i,:); % (1 x iterations)
-        subplot(Dd,Np,i)
-        plot(iteration_axis,changes_i)
-        title(i) 
+    for k2=1:K2
+        t2_changes_k2 = changes_t2(k2,:); % (1 x iterations)
+        figure
+        plot(iteration_axis,t2_changes_k2)
+        title(strcat('t2 ', num2str(k2))) 
     end
 end
 end

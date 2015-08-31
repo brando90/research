@@ -2,7 +2,7 @@ function [ W ] = matrix_inner_products_btw_vectors( M1, M2 )
 %computes matrix of innter products
 %   Inputs:
 %       M1 = first set of vectors (m1 x N)
-%       M2 = second set of vectors (m2 N)
+%       M2 = second set of vectors (m2 x N)
 %   Outputs:
 %       W = matrix of innter products (m1 x m2)
 [m1, ~] = size(M1);

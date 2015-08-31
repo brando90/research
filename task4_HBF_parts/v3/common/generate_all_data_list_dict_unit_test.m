@@ -61,7 +61,7 @@ size(X_perfect_data)
 size(y)
 m = 5;
 [X, y] = replicate_data_with_noise(X_perfect_data, y, m)
-save('data_3parts_Dp10_3slots_divided_by_9_noise');
+save('data_3parts_Dp10_3slots_divided_by_9_noise_snr_1');
 size(X)
 size(y)
 %replicate_data_with_noise(list_dict, 5)

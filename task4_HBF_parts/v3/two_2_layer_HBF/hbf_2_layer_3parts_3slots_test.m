@@ -1,7 +1,8 @@
 disp('-------------------------->>> 2HBF generate_all_data_list_dict ...');
 %% Create vectors to learn from
 %load('../common/data_3parts_3slots_divided_by_9_noise.mat');
-load('data_3parts_Dp10_3slots_divided_by_9_noise');
+%load('data_3parts_Dp10_3slots_divided_by_9_noise');
+load('data_3parts_Dp10_3slots_divided_by_9_noise_snr_1')
 %% Parameters 
 % repetitions = 2;
 [Dp, Dd, Np] = size(list_dict)
@@ -12,7 +13,7 @@ K2 = Dd^Np
 c_2hbf = rand(K2,1);
 t1 = rand(Dp, Dd, Np);
 t2 = rand(K1, K2);
-[ c, t1, t2 ] = expected_good_initialization(list_dict, y, m)
+%[ c, t1, t2 ] = expected_good_initialization(list_dict, y, m)
 t2_expected = t2;
 %% SGD parameters
 % mu_c = 0.001;
