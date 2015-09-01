@@ -59,9 +59,10 @@ X_perfect_data
 y = normc(y)
 size(X_perfect_data)
 size(y)
-m = 5;
+m = 20;
 [X, y] = replicate_data_with_noise(X_perfect_data, y, m)
-save('data_3parts_Dp10_3slots_divided_by_9_noise_snr_1');
+%save('data_3parts_Dp10_3slots_divided_by_9_noise_snr_1');
+save('data_3parts_Dp10_3slots_divided_by_9_noise_snr_1_TEST_DATA');
 size(X)
 size(y)
 %replicate_data_with_noise(list_dict, 5)
