@@ -29,6 +29,9 @@ K2 = length(c);
 changes_c = zeros(K2, iterations);
 changes_t1 = zeros(Dd*Np, iterations);
 changes_t2 = zeros(K2, iterations);
+dJ_dc_mu_c_iter = zeros(K2, iterations);
+dJ_dt1_mu_t1_iter = zeros(Dd*Np, iterations);
+dJ_dt2_mu_t2_iter = zeros(K2, iterations);
 for i=1:iterations
     %% choose random data point x,y
     i_rand = randi(N);
@@ -36,19 +39,25 @@ for i=1:iterations
     y_i = y(i_rand);
     %% get new parameters
     [f, z_l1, z_l2, a_l2, a_l3] = f_star(x_i,c,t1,t2);
-    c_new = update_c_gradient(c,mu_c,y_i,f,a_l3,lambda);
-    t1_new = update_t1_gradient(t1,mu_t1,x_i,y_i,f,z_l1,z_l2,a_l2,c,t2,lambda);
-    t2_new = update_t2_gradient(t2,mu_t2,y_i,f,z_l2,a_l2,c,lambda);
+    [c_new, dJ_dc] = update_c_gradient(c,mu_c,y_i,f,a_l3,lambda);
+    [t1_new, dJ_dt1] = update_t1_gradient(t1,mu_t1,x_i,y_i,f,z_l1,z_l2,a_l2,c,t2,lambda);
+    [t2_new, dJ_dt2] = update_t2_gradient(t2,mu_t2,y_i,f,z_l2,a_l2,c,lambda);
     %% get changes for c/iter.
     change_c_wrt_iteration = c_new - c;
     changes_c(:, i) = change_c_wrt_iteration;
+    dJ_dc_mu_c_iter(:, i) = -mu_c * dJ_dc;
     %% get changes for t1s/iter.
     change_t1_wrt_iteration = get_dt1_dt(t1, t1_new);
     distances = reshape(change_t1_wrt_iteration, Dd*Np, 1);
     changes_t1(:, i) = distances;
+    dJ_dt1_col_norms = get_norms_col_dJ_dt1(dJ_dt1);
+    dJ_dt1_col_norms = reshape(dJ_dt1_col_norms, Dd*Np, 1);
+    dJ_dt1_mu_t1_iter(:,i) = mu_t1 * dJ_dt1_col_norms;
     %% get changes for t2s/iter.
     change_t2_wrt_iteration = get_dt2_dt(t2, t2_new );
     changes_t2(:, i) = change_t2_wrt_iteration;
+    dJ_dt2_col_norms = get_norms_col_dJ_dt2(dJ_dt2);
+    dJ_dt2_mu_t2_iter(:, i) = mu_t2 * dJ_dt2_col_norms;
     %% update c's
     c = c_new;
     %% Update t1's
@@ -70,27 +79,50 @@ if visualize
     % plot change in param c
     %% plot changes in param c
     for k2=1:K2
+        figure        
         c_changes_i = changes_c(k2,:); % (1 x iterations)
-        %subplot(K2,1,k2)
-        figure
-        plot(iteration_axis,c_changes_i)
-        title(strcat('c-- ', num2str(k2) ) )
+        subplot(2,1,1)
+        plot(iteration_axis, c_changes_i)
+        title(strcat('dJ_dc-- ', num2str(k2) ) )
+        
+        dJ_dc_mu_c = dJ_dc_mu_c_iter(k2,:); % (1 x iterations)
+        subplot(2,1,2)
+        plot(iteration_axis,dJ_dc_mu_c)
+        title(strcat('dJ_dc-- ', num2str(k2) ) )
     end
     %% plot change in param t1
     %figure
     for ddnp=1:(Dd*Np)
-        t1_changes_ddnp = changes_t1(ddnp,:); % (1 x iterations)
-        %subplot(Dd,Np,ddnp)
         figure
+        t1_changes_ddnp = changes_t1(ddnp,:); % (1 x iterations)
+        subplot(2,1,1)
         plot(iteration_axis,t1_changes_ddnp)
         title(strcat('t1-- ', num2str(ddnp) ) )
+        
+        dJ_dt1_mu_t1 = dJ_dt1_mu_t1_iter(ddnp);
+        subplot(2,1,2)
+        plot(iteration_axis,dJ_dt1_mu_t1)
+        title(strcat('dJ_t1-- ', num2str(ddnp) ) )
     end
     %% plot changes in param t2
     for k2=1:K2
-        t2_changes_k2 = changes_t2(k2,:); % (1 x iterations)
         figure
-        plot(iteration_axis,t2_changes_k2)
-        title(strcat('t2-- ', num2str(k2))) 
+        t2_changes_k2 = changes_t2(k2,:); % (1 x iterations)
+        subplot(2,1,1)
+        plot(iteration_axis, t2_changes_k2)
+        title(strcat('t2-- ', num2str(k2)))
+        
+        dJ_dt2_mu_t2 = dJ_dt2_mu_t2_iter(k2,:); % (1 x iterations)
+        subplot(2,1,2)
+        plot(iteration_axis, dJ_dt2_mu_t2)
+        title(strcat('dJ_dt2-- ', num2str(k2))) 
     end
+%     %% plot changes in param t2
+%     for k2=1:K2
+%         dJ_dt2_mu_t2 = dJ_dt2_mu_t2_iter(k2,:); % (1 x iterations)
+%         figure
+%         plot(iteration_axis,dJ_dt2_mu_t2)
+%         title(strcat('dJ_dt2-- ', num2str(k2))) 
+%     end
 end
 end
