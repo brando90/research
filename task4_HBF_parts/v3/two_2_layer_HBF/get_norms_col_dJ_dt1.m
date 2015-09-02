@@ -8,7 +8,7 @@ function [ dJ_dt1_col_norms ] = get_norms_col_dJ_dt1( dJ_dt1 )
 dJ_dt1_col_norms = zeros([Dd,Np]);
 for np=1:Np
     for dd=1:Dd
-        dJ_dt1_dd_np = dJ_dt1(dd,np);
+        dJ_dt1_dd_np = dJ_dt1(:,dd,np);
         dJ_dt1_col_norms(dd,np) = norm(dJ_dt1_dd_np ,2)^2;
     end
 end

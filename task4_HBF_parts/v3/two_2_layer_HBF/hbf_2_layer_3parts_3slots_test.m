@@ -24,14 +24,14 @@ t2 = rand(K1, K2);
 % mu_t2 = 0.001;
 mu_c = 0.001;
 mu_t1 = 1;
-mu_t2 = 1;
+mu_t2 = 0.1;
 lambda = 0;
 %% intitial training error
 initial_training_error = compute_Hf(X,y,c_2hbf,t1,t2,lambda);
 %% Learn the parameters
 %prec = 0.5;
 %[c, t1, t2] = learn_HBF_parameters_2_hidden_layer(X,y,c,t1,t2,lambda,mu_c,mu_t1,mu_t2, prec, visualize);
-iterations = 2000;
+iterations = 300;
 visualize = 1;
 tic
 [c_2hbf, t1, t2] = learn_HBF_parameters_2_hidden_layer_iterations(X,y,c_2hbf,t1,t2,lambda,mu_c,mu_t1,mu_t2, visualize,iterations);
