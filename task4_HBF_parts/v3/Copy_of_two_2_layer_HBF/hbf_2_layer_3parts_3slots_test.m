@@ -13,6 +13,7 @@ K2 = Dd^Np
 c_2hbf = rand(K2,1);
 t1 = rand(Dp, Dd, Np);
 t2 = rand(K1, K2);
+sig = 1;
 %% C has true labels, t2 random, t1 parts
 %t2 = rand(K1, K2);
 %[ c_2hbf, t1, ~ ] = expected_good_initialization(list_dict, y, m)
@@ -27,14 +28,14 @@ mu_t1 = 1;
 mu_t2 = 0.1;
 lambda = 0;
 %% intitial training error
-initial_training_error = compute_Hf(X,y,c_2hbf,t1,t2,lambda);
+initial_training_error = compute_Hf(X,y, c_2hbf,t1,t2,sig, lambda);
 %% Learn the parameters
 %prec = 0.5;
 %[c, t1, t2] = learn_HBF_parameters_2_hidden_layer(X,y,c,t1,t2,lambda,mu_c,mu_t1,mu_t2, prec, visualize);
 iterations = 300;
 visualize = 1;
 tic
-[c_2hbf, t1, t2] = learn_HBF_parameters_2_hidden_layer_iterations(X,y,c_2hbf,t1,t2,lambda,mu_c,mu_t1,mu_t2, visualize,iterations);
+[c_2hbf, t1, t2] = learn_HBF_parameters_2_hidden_layer_iterations(X,y, c_2hbf,t1,t2,sig, mu_c,mu_t1,mu_t2, lambda, visualize, iterations);
 elapsed_time = toc;
 %% Print some results
 disp('Final Parameters:');
@@ -49,17 +50,18 @@ disp('Initial Training error');
 disp(initial_training_error);
 
 disp('Final Training error');
-final_training_error = compute_Hf(X,y,c_2hbf,t1,t2,lambda);
+final_training_error = compute_Hf(X,y, c_2hbf,t1,t2,sig, lambda);
 disp(final_training_error);
 save('most_recent_state_of_HBF2_run')
 
 disp('Final Test Error')
 load('../common/data_3parts_Dp10_3slots_divided_by_9_noise_snr_1_TEST_DATA')
-disp(compute_Hf(X,y,c_2hbf,t1,t2,lambda));
+final_test_error = compute_Hf(X,y, c_2hbf,t1,t2,sig, lambda);
+disp(final_test_error);
 
 disp('Initial Test error');
 [ c_2hbf, t1, t2 ] = expected_good_initialization(list_dict, y, m);
-initial_test_error = compute_Hf(X,y,c_2hbf,t1,t2,lambda);
+initial_test_error = compute_Hf(X,y, c_2hbf,t1,t2,sig, lambda);
 disp(initial_test_error);
 
 disp('elapsed_time')
