@@ -90,18 +90,18 @@ if visualize
 %         title(strcat('dJ dc -- ', num2str(k2) ) )
 %     end
     %% plot change in param t1
-    for ddnp=1:(Dd*Np)
-        figure
-        t1_changes_ddnp = changes_t1(ddnp,:); % (1 x iterations)
-        subplot(2,1,1)
-        plot(iteration_axis,t1_changes_ddnp)
-        title(strcat('t1/iter -- ', num2str(ddnp) ) )
-        
-        dJ_dt1_mu_t1 = dJ_dt1_mu_t1_iter(ddnp,:);
-        subplot(2,1,2)
-        plot(iteration_axis,dJ_dt1_mu_t1)
-        title(strcat('dJ t1 -- ', num2str(ddnp) ) )
-    end
+%     for ddnp=1:(Dd*Np)
+%         figure
+%         t1_changes_ddnp = changes_t1(ddnp,:); % (1 x iterations)
+%         subplot(2,1,1)
+%         plot(iteration_axis,t1_changes_ddnp)
+%         title(strcat('t1/iter -- ', num2str(ddnp) ) )
+%         
+%         dJ_dt1_mu_t1 = dJ_dt1_mu_t1_iter(ddnp,:);
+%         subplot(2,1,2)
+%         plot(iteration_axis,dJ_dt1_mu_t1)
+%         title(strcat('dJ t1 -- ', num2str(ddnp) ) )
+%     end
     %% plot changes in param t2
 %     for k2=1:K2
 %         figure

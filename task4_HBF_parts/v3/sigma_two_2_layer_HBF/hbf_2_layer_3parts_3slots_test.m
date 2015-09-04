@@ -8,18 +8,21 @@ load('../common/data_3parts_Dp10_3slots_divided_by_9_noise_snr_1')
 [Dp, Dd, Np] = size(list_dict)
 K1 = Dd * Np
 K2 = Dd^Np
-%% parameter initilization
+%% parameter initilization ------------------------------------------------
 %% Random initilization
-% c_2hbf = rand(K2,1);
-% t1 = rand(Dp, Dd, Np);
-% t2 = rand(K1, K2);
-%% Precision = 1/standard dev.
-precision_gaussian = 0.001;
+init_name = 'c_rand_t2_rand_t1_rand';
+c_2hbf = rand(K2,1);
+t1 = rand(Dp, Dd, Np);
+t2 = rand(K1, K2);
 %% C has true labels, t2 random, t1 parts
-%t2 = rand(K1, K2);
-%[ c_2hbf, t1, ~ ] = expected_good_initialization(list_dict, y, m)
+% init_name = 'c_labels_t2_rand_t1_parts';
+% t2 = rand(K1, K2);
+% [ c_2hbf, t1, ~ ] = expected_good_initialization(list_dict, y, m)
 %% C has true labels, t2 expected output, t1 parts
-[ c_2hbf, t1, t2 ] = expected_good_initialization(list_dict, y, m)
+% init_name = 'c_labels_t2_expected_t1_parts';
+% [ c_2hbf, t1, t2 ] = expected_good_initialization(list_dict, y, m)
+%% Precision = 1/standard dev. --------------------------------------------
+precision_gaussian = 0.001;
 %% SGD parameters
 % mu_c = 0.001;
 % mu_t1 = 0.001;
@@ -60,10 +63,10 @@ load('../common/data_3parts_Dp10_3slots_divided_by_9_noise_snr_1_TEST_DATA')
 final_test_error = compute_Hf(X,y, c_2hbf,t1,t2,precision_gaussian, lambda);
 disp(final_test_error);
 
-addpath('../common');
-for np=1:Np
-    visualize_center_parts(t1(:,:,np));
-end
+% addpath('../common');
+% for np=1:Np
+%     visualize_center_parts(t1(:,:,np));
+% end
 
 disp('Initial Test error');
 [ c_2hbf, t1, t2 ] = expected_good_initialization(list_dict, y, m);
@@ -72,3 +75,15 @@ disp(initial_test_error);
 
 disp('elapsed_time')
 disp(elapsed_time)
+
+fileID = fopen(strcat(strcat('statistical_performance_', init_name) ,'.txt'), 'w');
+fprintf(fileID, 'Simulation: %12s \n', init_name);
+fprintf(fileID, 'Ocurred: %12s \n', datestr(clock, 0));
+fprintf(fileID, 'initial_training_error: %6.2f \n', initial_training_error);
+fprintf(fileID, 'final_training_error: %6.2f \n', final_training_error);
+fprintf(fileID, 'initial_test_error: %6.2f \n', initial_test_error);
+fprintf(fileID, 'final_test_error: %6.2f \n', final_test_error);
+fprintf(fileID, '----- \n');
+fprintf(fileID, 'iterations %6.2f \n', iterations );
+fprintf(fileID, 'elapsed_time %6.2f \n', elapsed_time );
+fclose(fileID);
