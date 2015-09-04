@@ -1,62 +1,78 @@
 disp('-------------------------->>> 1HBF...');
 %% Create vectors to learn from
-addpath('../common')
-% N = 10
-% D = 6
-% Dp = D/2
-% Dd = 4
-% Np = 2
-% [X, y] = generate_supervised_classification_hbf2_2_labels(N, Dp);
-% disp('---> Size(X) = (D, N)');
-% disp(size(X));
-% disp('---> Size(y) = (N, 1)')
-% disp(size(y));
 %% Create vectors to learn from
 %load('../common/data_3parts_3slots_divided_by_9.mat');
 %load('data_3parts_3slots_divided_by_9_noise');
 %load('data_3parts_Dp10_3slots_divided_by_9_noise');
 load('data_3parts_Dp10_3slots_divided_by_9_noise_snr_1');
 %% Parameters 
-% repetitions = 2;
 [Dp, Dd, Np] = size(list_dict)
 D = Dp*Np
 K = Dd^Np
-%% Parameters
-disp('Initial parameters')
+%% parameter initilization ------------------------------------------------
+%% Random initilization
+init_name = 'c_rand_t_rand';
+c_initial = rand(K,1)
+t_initial = rand(D,K)
+%% C has data labels, t has x points
+% init_name = 'c_data_t_data';
+% c_initial = y_training_data(1:m_train:m_train*K)
+% t_initial = X_training_data(:,1:m_train:m_train*K)
+%% GD parameters
+mu_c = 300;
+mu_t = 300;
 lambda = 0; %reg param
-c = rand(K,1)
-t = rand(D,K)
-% c = y(1:m:m*K)
-% t = X(:,1:m:m*K)
-K = length(c);
-[D, K] = size(t);
-%t = X(:,1:K);
-mu_c = 300
-mu_t = 300
-visualize = 1;
-%% intitial training error
-initial_training_error = compute_Hf(X,y,c,t,lambda);
+
+%% intitial risk/errors
+initial_training_error = compute_Hf(X_training_data,y_training_data, c_initial,t_initial, lambda);
+initial_test_error = compute_Hf(X_test_data,y_test_data, c_initial,t_initial, lambda)
 %% Learn the parameters
-%prec = 0.01;
-%[c_new, t_new] = learn_HBF_parameters_1_hidden_layer(X, y, c, t, lambda, mu_c, mu_t, prec, visualize);
-iterations = 2000
-[c, t] = learn_HBF_parameters_1_hidden_layer_iterations(X,y,c,t,lambda,mu_c,mu_t,iterations,visualize);
+iterations = 100
+visualize = 1;
+tic
+[c_learned,t_learned] = learn_HBF_parameters_1_hidden_layer_iterations(X_training_data,y_training_data, c_initial,t_initial, mu_c,mu_t, lambda, iterations,visualize);
+elapsed_time = toc;
 %% Print some results
-disp('++++> Final Parameters:');
-disp('c');
-disp(c);
-disp('t');
-disp(t);
-disp('Initial Training error');
+disp('Final Parameters:');
+disp('c_learned');
+disp(c_learned);
+disp('t_learned');
+disp(t_learned);
+%% final risk/errors
+final_training_error = compute_Hf(X_training_data,y_training_data, c_learned,t_learned, lambda);
+final_test_error = compute_Hf(X_test_data,y_test_data, c_learned,t_learned, lambda);
+%% Print Errors
+disp('initial_training_error');
 disp(initial_training_error);
-disp('Final Training error');
-disp(compute_Hf(X,y,c,t,lambda));
-[~, N] = size(X);
+disp('final_training_error');
+disp(final_training_error);
+disp('initial_test_error');
+disp(initial_test_error);
+disp('final_test_error');
+disp(final_test_error);
+
 save('most_recent_state_of_HBF1_run')
-% c
-% t
-% for i=1:N
-%     yi = y(i)
-%     xi = X(:,i)
-%     fi = f_star(X(:,i),c,t)
-% end
+
+disp('elapsed_time')
+disp(elapsed_time)
+
+addpath('../common');
+num = 3;
+for np=1:Np
+    i_start = (np-1)*num+1;
+    i_end = np*num-1;
+    t_set = t_learned(:, i_start : i_end);
+    visualize_center_parts( t_set );
+end
+
+fileID = fopen(strcat(strcat('statistical_performance_', init_name) ,'.txt'), 'w');
+fprintf(fileID, 'Simulation: %12s \n', init_name);
+fprintf(fileID, 'Ocurred: %12s \n', datestr(clock, 0));
+fprintf(fileID, 'initial_training_error: %6.2f \n', initial_training_error);
+fprintf(fileID, 'final_training_error: %6.2f \n', final_training_error);
+fprintf(fileID, 'initial_test_error: %6.2f \n', initial_test_error);
+fprintf(fileID, 'final_test_error: %6.2f \n', final_test_error);
+fprintf(fileID, '----- \n');
+fprintf(fileID, 'iterations %6.2f \n', iterations );
+fprintf(fileID, 'elapsed_time %6.2f \n', elapsed_time );
+fclose(fileID);

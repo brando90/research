@@ -1,4 +1,4 @@
-function [ c, t ] = learn_HBF_parameters_1_hidden_layer_iterations(X,y,c,t,lambda,mu_c,mu_t,iterations,visualize)
+function [ c, t ] = learn_HBF_parameters_1_hidden_layer_iterations(X,y, c,t, mu_c,mu_t, lambda, iterations,visualize)
 %learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
 %   Inputs:
 %       X = data matrix (D x N)
@@ -19,8 +19,8 @@ changes_c = zeros(K, iterations);
 changes_t = zeros(K, iterations);
 for i=1:iterations
     %% get new parameters
-    c_new = update_c_batch(X, y, c, t, mu_c, lambda);
-    t_new = update_t_batch(X, y, c, t, mu_t, lambda);
+    c_new = update_c_batch(X,y, c,t, mu_c, lambda);
+    t_new = update_t_batch(X,y, c,t, mu_t, lambda);
     %% get changes for c/iteration
     change_c_wrt_iteration = c_new - c;
     changes_c(:, i) = change_c_wrt_iteration;
@@ -31,7 +31,7 @@ for i=1:iterations
     c = c_new;
     t = t_new;
     %% Calculate current errors
-    current_error = compute_Hf(X, y, c, t, lambda);
+    current_error = compute_Hf(X,y, c,t, lambda);
     errors(i) = current_error;
 end
 if visualize

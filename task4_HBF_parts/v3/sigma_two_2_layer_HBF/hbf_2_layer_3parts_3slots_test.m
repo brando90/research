@@ -32,14 +32,14 @@ mu_t1 = 1;
 mu_t2 = 0.1;
 lambda = 0;
 %% intitial training error
-initial_training_error = compute_Hf(X,y, c_2hbf,t1,t2,precision_gaussian, lambda);
+initial_training_error = compute_Hf(X_training_data,y_training_data, c_2hbf,t1,t2,precision_gaussian, lambda);
 %% Learn the parameters
 %prec = 0.5;
 %[c, t1, t2] = learn_HBF_parameters_2_hidden_layer(X,y,c,t1,t2,lambda,mu_c,mu_t1,mu_t2, prec, visualize);
 iterations = 250;
 visualize = 1;
 tic
-[c_2hbf, t1, t2] = learn_HBF_parameters_2_hidden_layer_iterations(X,y, c_2hbf,t1,t2,precision_gaussian, mu_c,mu_t1,mu_t2, lambda, visualize, iterations);
+[c_2hbf, t1, t2] = learn_HBF_parameters_2_hidden_layer_iterations(X_training_data,y_training_data, c_2hbf,t1,t2,precision_gaussian, mu_c,mu_t1,mu_t2, lambda, visualize, iterations);
 elapsed_time = toc;
 %% Print some results
 disp('Final Parameters:');
@@ -68,6 +68,7 @@ disp(final_test_error);
 %     visualize_center_parts(t1(:,:,np));
 % end
 
+% TODO DEBUG
 disp('Initial Test error');
 [ c_2hbf, t1, t2 ] = expected_good_initialization(list_dict, y, m);
 initial_test_error = compute_Hf(X,y, c_2hbf,t1,t2,precision_gaussian, lambda);
