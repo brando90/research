@@ -77,43 +77,43 @@ if visualize
     iteration_axis = 1:iterations;
     plot(iteration_axis, errors );
     %% plot changes in param c
-%     for k2=1:K2
-%         figure        
-%         c_changes_i = changes_c(k2,:); % (1 x iterations)
-%         subplot(2,1,1)
-%         plot(iteration_axis, c_changes_i)
-%         title(strcat('c/iter -- ', num2str(k2) ) )
-%         
-%         dJ_dc_mu_c = dJ_dc_mu_c_iter(k2,:); % (1 x iterations)
-%         subplot(2,1,2)
-%         plot(iteration_axis,dJ_dc_mu_c)
-%         title(strcat('dJ dc -- ', num2str(k2) ) )
-%     end
+    for k2=1:K2
+        figure        
+        c_changes_i = changes_c(k2,:); % (1 x iterations)
+        subplot(2,1,1)
+        plot(iteration_axis, c_changes_i)
+        title(strcat('c/iter -- ', num2str(k2) ) )
+        
+        dJ_dc_mu_c = dJ_dc_mu_c_iter(k2,:); % (1 x iterations)
+        subplot(2,1,2)
+        plot(iteration_axis,dJ_dc_mu_c)
+        title(strcat('dJ dc -- ', num2str(k2) ) )
+    end
     %% plot change in param t1
-%     for ddnp=1:(Dd*Np)
-%         figure
-%         t1_changes_ddnp = changes_t1(ddnp,:); % (1 x iterations)
-%         subplot(2,1,1)
-%         plot(iteration_axis,t1_changes_ddnp)
-%         title(strcat('t1/iter -- ', num2str(ddnp) ) )
-%         
-%         dJ_dt1_mu_t1 = dJ_dt1_mu_t1_iter(ddnp,:);
-%         subplot(2,1,2)
-%         plot(iteration_axis,dJ_dt1_mu_t1)
-%         title(strcat('dJ t1 -- ', num2str(ddnp) ) )
-%     end
+    for ddnp=1:(Dd*Np)
+        figure
+        t1_changes_ddnp = changes_t1(ddnp,:); % (1 x iterations)
+        subplot(2,1,1)
+        plot(iteration_axis,t1_changes_ddnp)
+        title(strcat('t1/iter -- ', num2str(ddnp) ) )
+        
+        dJ_dt1_mu_t1 = dJ_dt1_mu_t1_iter(ddnp,:);
+        subplot(2,1,2)
+        plot(iteration_axis,dJ_dt1_mu_t1)
+        title(strcat('dJ t1 -- ', num2str(ddnp) ) )
+    end
     %% plot changes in param t2
-%     for k2=1:K2
-%         figure
-%         t2_changes_k2 = changes_t2(k2,:); % (1 x iterations)
-%         subplot(2,1,1)
-%         plot(iteration_axis, t2_changes_k2)
-%         title(strcat('t2/iter -- ', num2str(k2)))
-%         
-%         dJ_dt2_mu_t2 = dJ_dt2_mu_t2_iter(k2,:); % (1 x iterations)
-%         subplot(2,1,2)
-%         plot(iteration_axis, dJ_dt2_mu_t2)
-%         title(strcat('dJ dt2 -- ', num2str(k2))) 
-%     end
+    for k2=1:K2
+        figure
+        t2_changes_k2 = changes_t2(k2,:); % (1 x iterations)
+        subplot(2,1,1)
+        plot(iteration_axis, t2_changes_k2)
+        title(strcat('t2/iter -- ', num2str(k2)))
+        
+        dJ_dt2_mu_t2 = dJ_dt2_mu_t2_iter(k2,:); % (1 x iterations)
+        subplot(2,1,2)
+        plot(iteration_axis, dJ_dt2_mu_t2)
+        title(strcat('dJ dt2 -- ', num2str(k2))) 
+    end
 end
 end

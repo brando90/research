@@ -1,0 +1,8 @@
+Simulation: c_labels_t2_expected_t1_parts 
+initial_training_error:  18.65 
+final_training_error:   5.05 
+initial_test_error:  74.58 
+final_test_error:  20.18 
+----- 
+iterations 250.00 
+elapsed_time   5.91 

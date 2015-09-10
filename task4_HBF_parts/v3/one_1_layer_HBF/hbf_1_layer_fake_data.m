@@ -22,10 +22,6 @@ t_initial = rand(D,K)
 mu_c = 300;
 mu_t = 300;
 lambda = 0; %reg param
-
-%% intitial risk/errors
-initial_training_error = compute_Hf(X_training_data,y_training_data, c_initial,t_initial, lambda);
-initial_test_error = compute_Hf(X_test_data,y_test_data, c_initial,t_initial, lambda)
 %% Learn the parameters
 iterations = 100
 visualize = 1;
@@ -38,6 +34,9 @@ disp('c_learned');
 disp(c_learned);
 disp('t_learned');
 disp(t_learned);
+%% intitial risk/errors
+initial_training_error = compute_Hf(X_training_data,y_training_data, c_initial,t_initial, lambda);
+initial_test_error = compute_Hf(X_test_data,y_test_data, c_initial,t_initial, lambda);
 %% final risk/errors
 final_training_error = compute_Hf(X_training_data,y_training_data, c_learned,t_learned, lambda);
 final_test_error = compute_Hf(X_test_data,y_test_data, c_learned,t_learned, lambda);

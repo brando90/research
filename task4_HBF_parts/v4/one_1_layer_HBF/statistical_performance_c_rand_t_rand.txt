@@ -1,0 +1,9 @@
+Simulation: c_rand_t_rand 
+Ocurred: 04-Sep-2015 13:34:11 
+initial_training_error:  50.00 
+final_training_error:  50.00 
+initial_test_error:  50.00 
+final_test_error:  50.00 
+----- 
+iterations 100.00 
+elapsed_time 110.30 

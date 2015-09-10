@@ -21,10 +21,10 @@ list_dict(:,:,3) = [t3_1, t3_2, t3_3];
 y = normc(y)
 size(X_perfect_data)
 size(y)
-m_train = 50;
+m_train = 10;
 [X_training_data,y_training_data] = replicate_data_with_noise(X_perfect_data, y, m_train);
 [~, N_size_training_data] = size(X_training_data)
-m_test = 10;
+m_test = 500;
 [X_test_data,y_test_data] = replicate_data_with_noise(X_perfect_data, y, m_train);
 [~, N_size_test_data] = size(X_test_data)
 save('data_3parts_Dp10_3slots_divided_by_9_noise_snr_1');
