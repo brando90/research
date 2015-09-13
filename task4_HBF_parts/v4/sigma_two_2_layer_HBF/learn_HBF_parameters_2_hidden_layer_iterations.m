@@ -2,18 +2,21 @@ function [ C, t1, t2 ] = learn_HBF_parameters_2_hidden_layer_iterations(X,y, C,t
 %learn_HBF_parameters_1_hidden_later - learns HBF params for 2 layers
 %   Inputs:
 %       X = data matrix (D x N)
-%       Y = labels (N x 1)
-%       c = weights (K2 x L)
+%       y = labels (N x 1)
+
+%       C = weights (K2 x L)
 %       t2 = centers (K1 x K2)
 %       t1 = centers (Dp x Dd x Np)
-%       lambda = regularization param (1 x 1)
+%       sig = sigma (1 x 1)
+
 %       mu_c = (1 x 1)
 %       mu_t1 = (1 x 1)
 %       mu_t2 = (1 x 1)
-%       prec = precision of Hf vs Hf* (1 x 1)
+
+%       lambda = regularization param (1 x 1)
 %       visualize = whether to plot the error or not.
 %   Outputs:
-%       c = weights (K_2 x 1)
+%       C = weights (K_2 x L)
 %       t1 = centers (K_1 x K_2)
 %       t2 = centers (D_p x D_d x N_p)
 [~, N] = size(X);
