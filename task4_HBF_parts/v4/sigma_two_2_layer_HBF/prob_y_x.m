@@ -7,4 +7,3 @@ function [ prob ] = prob_y_x( f )
 Z = sum(f);
 prob = f/Z;
 end
-

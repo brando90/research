@@ -12,11 +12,11 @@ function [ c_new, dJ_dc] = update_c_gradient(c, f,y, a_l3,mu_c, lambda)
 %   Output:
 %       c = updated weights (K2 x 1)
 %       dJ_dc = derivative (K2 x 1)
-df_dc = compute_df_dc(a_l3,L);
-dJ_df = compute_dJ_df(f,y);
-dJ_dc = dJ_df*df_dc;
+df_dc = compute_df_dc(a_l3,L); %(K2 x L)
+dJ_df = compute_dJ_df(f,y); %(K2 x L)
+dJ_dc = dJ_df.*df_dc; %(K2 x L)
 dJ_dc = dJ_dc + lambda * 0; %TODO
 %dJ_dc
 %% update
-c_new = c - mu_c * dJ_dc;
+c_new = c - mu_c * dJ_dc; %(K2 x L)
 end
