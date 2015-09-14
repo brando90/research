@@ -18,11 +18,17 @@ function [ t1_new, dJ_dt1 ] = update_t1_gradient(t1, f,x,y, z_l1_p,z_l2_p,a_l2, 
 %   Output:
 %       t1 = updated weights (Dp x Dd x Np)
 %       dJ_dt1 = derivative (Dp x Dd x Np)
-df_dt1 = compute_df_dt1_loops(t1, x, z_l1_p,z_l2_p,a_l2, c,t2,sig );
-dJ_f = -2*(y-f);
-dJ_dt1 = dJ_f * df_dt1;
+[Dp, Dd, Np] = size(t1);
+dJ_df_l = ((1:L) == y)' -  prob_y_x(f); %(L x 1)
+dJ_dt1 = zeros(Dp, Dd, Np);
+for l=1:L
+    c_l = c(:, l);
+    df_dt1_l = compute_df_dt1_loops(t1, x, z_l1_p,z_l2_p,a_l2, c_l,t2,sig); %(Dp x Dd x Np)
+    delta_l = repmat(dJ_df_l(l), [Dp, Dd, Np]);
+    dJ_dt1_l = df_dt1_l .* delta_l;
+    dJ_dt1 = dJ_dt1 + dJ_dt1_l;
+end
 dJ_dt1 = dJ_dt1 + lambda * 0; % TODO
-%dJ_dt1
 %% update
 t1_new = t1 - mu_t1 * dJ_dt1;
 end

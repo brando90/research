@@ -14,12 +14,13 @@ function [ t2_new, dJ_dt2 ] = update_t2_gradient(t2, y,f, z_l2_p,a_l2,c,sig, mu_
 %   Output:
 %       t2 = updated weights (K2 x 1)
 %       dJ_dt2 = derivative (K2 x 1)
-
+[K1, K2] = size(t2);
+[~, L] = size(c);
 df_dt2_M = zeros(K1, K2, L);
 for l=1:L
     c_l = c(:, l);
-    dfl_dt2 = compute_df_dt2_loops(t2, z_l2_p,a_l2, c_l, sig); % (K1 x K2)
-    df_dt2_M(:,:, l) = dfl_dt2;
+    df_dt2_l = compute_df_dt2_loops(t2, z_l2_p,a_l2, c_l, sig); % (K1 x K2)
+    df_dt2_M(:,:, l) = df_dt2_l;
 end
 dJ_df_l = ((1:L) == y)' -  prob_y_x(f); %(L x 1)
 dJ_df_M = repmat(dJ_df_l, K1, 1, K2); % (K1 x L x K2)
