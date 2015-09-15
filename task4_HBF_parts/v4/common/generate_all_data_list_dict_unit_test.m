@@ -18,7 +18,6 @@ list_dict(:,:,2) = [t2_1, t2_2, t2_3];
 list_dict(:,:,3) = [t3_1, t3_2, t3_3];
 [X_perfect_data, y] = generate_all_data_list_dict(list_dict);
 %X = normc(X);
-y = normc(y)
 size(X_perfect_data)
 size(y)
 m_train = 10;

@@ -34,7 +34,7 @@ for i=1:iterations
     y_i = y(i_rand);
     %% get new parameters
     [f_i, z_l1_p, z_l2_p, a_l2, a_l3] = f(x_i, c,t1,t2,sig);
-    [c_new, ~] = update_c_gradigraent(c, f_i,y_i, a_l3, mu_c, lambda);
+    [c_new, ~] = update_c_gradient(c, f_i,y_i, a_l3, mu_c, lambda);
     [t1_new, ~] = update_t1_gradient(t1, f_i,x_i,y_i, z_l1_p,z_l2_p,a_l2, c,t2,sig, mu_t1, lambda);
     [t2_new, ~] = update_t2_gradient(t2, f_i,y_i, z_l2_p,a_l2, c,sig, mu_t2,lambda);
     %% update c's
