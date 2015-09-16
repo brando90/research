@@ -24,6 +24,7 @@ t2_4 = (25:28)/norm(25:28, 2);
 t2 = [t2_1; t2_2; t2_3; t2_4]'
 %% do f(x)
 [ f_vec, ~, ~, ~, ~ ] = f(x, c,t1,t2,sig);
+%% 5.49603*10^-9, 0.0000741325, 0.999926
 f_vec
 %disp(['f_loops = ', num2str(f_vec)]);
 %disp(['f_vectorized = ', num2str(f_vectorized)]);
