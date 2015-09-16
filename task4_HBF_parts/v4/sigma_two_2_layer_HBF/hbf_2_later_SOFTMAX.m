@@ -1,4 +1,4 @@
-disp('-------------------------->>> 2HBF generate_all_data_list_dict ...');
+disp('-------------------------->>> SCRIPT: 2HBF generate_all_data_list_dict ...');
 %% Create vectors to learn from
 %load('../common/data_3parts_3slots_divided_by_9_noise.mat');
 %load('data_3parts_Dp10_3slots_divided_by_9_noise');
@@ -8,10 +8,11 @@ load('../common/data_3parts_Dp10_3slots_divided_by_9_noise_snr_1')
 [Dp, Dd, Np] = size(list_dict)
 K1 = Dd * Np
 K2 = Dd^Np
+L = K2
 %% parameter initilization ------------------------------------------------
 %% Random initilization
 init_name = 'c_rand_t2_rand_t1_rand';
-c_2hbf_initial = rand(K2,1);
+c_2hbf_initial = rand(K2,L);
 t1_initial = rand(Dp, Dd, Np);
 t2_initial = rand(K1, K2);
 %% C has true labels, t2 random, t1 parts
@@ -24,13 +25,14 @@ t2_initial = rand(K1, K2);
 %% Precision = 1/standard dev. --------------------------------------------
 precision_gaussian = 0.001;
 %% SGD parameters
-mu_c = 0.001;
-mu_t1 = 1;
-mu_t2 = 0.1;
+mu_c = 0.9;
+mu_t1 = 0.9;
+mu_t2 = 0.9;
 lambda = 0;
 %% Learn the parameters
-iterations = 5;
+iterations = 100;
 visualize = 1;
+disp('============++++++++++++++>>>> TRAINIGN STARTING');
 tic
 [c_2hbf_learned,t1_learned,t2_learned] = learn_HBF_parameters_2_hidden_layer_iterations(X_training_data,y_training_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian, mu_c,mu_t1,mu_t2, lambda, visualize, iterations);
 elapsed_time = toc;

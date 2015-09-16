@@ -1,10 +1,9 @@
-function [ f, z_l1_p, z_l2_p, a_l2, a_l3 ] = f_loops( x, c, t1, t2, sig )
-%f_star_loops - computes 2 layer HBF predictor
-%   Computes f^*(x) = sum_i c_i a^(3)_i
+function [ z_l1_p, z_l2_p, a_l2, a_l3 ] = forward_pass( x, c, t1, t2, sig )
+% computes z1 to al3 of the lower layers of the foward pass
 %   Inputs:
 %       x = data point (D x 1)
 %           x = [x1, ..., x_np, ..., x_Np]
-%       c = weights (K2 x 1)
+%       c = weights (K2 x L)
 %       t2 = centers (K1 x K2)
 %       t1 = centers (Dp x Dd x Np)
 %   Outputs:
@@ -47,7 +46,6 @@ for k2=1:K2
 end
 %% Output layer 3rd layer
 a_l3 = exp(-z_l2_p);
-% a_l3 = -z_l2;
-% a_l3 = sin(-z_l2);
-f = c' * a_l3;
+%f = c' * a_l3; if it were to output f
 end
+

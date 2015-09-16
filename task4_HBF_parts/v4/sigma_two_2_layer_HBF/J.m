@@ -14,5 +14,7 @@ function [ j ] = J(x,y, c,t1,t2,sig)
 [ f_x, ~, ~, ~, ~ ] = f(x,c,t1,t2,sig);
 prob = prob_y_x(f_x); %(L x 1)
 ind = ((1:L) == y)'; %(L x 1) 
-j = ind' * log(prob)';
+size(ind);
+size(prob);
+j = ind' * log(prob);
 end
