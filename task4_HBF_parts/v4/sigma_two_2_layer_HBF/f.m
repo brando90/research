@@ -13,12 +13,16 @@ function [ f_x, z_l1, z_l2, a_l2, a_l3 ] = f( x, c, t1, t2, sig )
 %       z_l2 = inputs l2 (K2 x L)
 %       a_l2 = activations l2 (Np x Dd x L)
 %       a_l3 = activations l3 (K2 x L)
-[~, L] = size(c);
-f_x = zeros(L,1);
 [z_l1, z_l2,a_l2,a_l3] = forward_pass(x, c, t1, t2, sig);
-for l=1:L
-    c_l = c(:,l);
-    f_x_l = c_l' * a_l3;
-    f_x(l) = f_x_l;
-end
+f_x = c' * a_l3;
+exp_f_x = exp(f_x);
+z = sum(f_x);
+f_x = exp_f_x / z;
+% [~, L] = size(c);
+% f_x = zeros(L,1);
+% for l=1:L
+%     c_l = c(:,l);
+%     f_x_l = c_l' * a_l3;
+%     f_x(l) = f_x_l;
+% end
 end
