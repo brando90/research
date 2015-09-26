@@ -30,7 +30,7 @@ mu_t1 = 0.9;
 mu_t2 = 0.9;
 lambda = 0;
 %% Learn the parameters
-iterations = 100;
+iterations = 50;
 visualize = 1;
 disp('============++++++++++++++>>>> TRAINING STARTING');
 tic

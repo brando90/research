@@ -11,10 +11,11 @@ function [ j ] = J(x,y, c,t1,t2,sig)
 %   Outputs:
 %       J(y, f(x)) = (y - f(x))^2
 [~, L] = size(c);
-[ f_x, ~, ~, ~, ~ ] = f(x,c,t1,t2,sig);
-prob = prob_y_x(f_x); %(L x 1)
 ind = ((1:L) == y)'; %(L x 1) 
-size(ind);
-size(prob);
-j = ind' * log(prob);
+
+[ h_x, ~, ~, ~, ~ ] = h( x, c, t1, t2, sig );
+[~, ~, f_x_dem] = softmax_layer(h_x);
+log_prob = h_x - log(f_x_dem); %log(Prob) = log(exp(hx)) - log(z)
+
+j = ind' * log_prob;
 end

@@ -8,21 +8,13 @@ function [ f_x, z_l1, z_l2, a_l2, a_l3 ] = f( x, c, t1, t2, sig )
 %       t2 = centers (K1 x K2)
 %       t1 = centers (Dp x Dd x Np)
 %   Outputs:
-%       f = f^*(x) = sum_i c_i a^(3)_i (L x 1)
+%       f_x = f^*(x) = sum_i c_i a^(3)_i (L x 1)
+%       f_x_num = f_x numerator (L x 1)
+%       f_x_den = f_x denominator (1 x 1)
 %       z_l1 = inputs l1 (Np x Dd x L)
 %       z_l2 = inputs l2 (K2 x L)
 %       a_l2 = activations l2 (Np x Dd x L)
 %       a_l3 = activations l3 (K2 x L)
-[z_l1, z_l2,a_l2,a_l3] = forward_pass(x, c, t1, t2, sig);
-h_x = c' * a_l3;
-exp_h_x = exp(h_x);
-z = sum(exp_h_x);
-f_x = exp_h_x / z;
-% [~, L] = size(c);
-% f_x = zeros(L,1);
-% for l=1:L
-%     c_l = c(:,l);
-%     f_x_l = c_l' * a_l3;
-%     f_x(l) = f_x_l;
-% end
+[ h_x, z_l1, z_l2,a_l2,a_l3 ] = h( x, c, t1, t2, sig );
+[f_x, ~, ~] = softmax_layer(h_x);
 end
