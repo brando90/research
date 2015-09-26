@@ -32,7 +32,7 @@ lambda = 0;
 %% Learn the parameters
 iterations = 100;
 visualize = 1;
-disp('============++++++++++++++>>>> TRAINIGN STARTING');
+disp('============++++++++++++++>>>> TRAINING STARTING');
 tic
 [c_2hbf_learned,t1_learned,t2_learned] = learn_HBF_parameters_2_hidden_layer_iterations(X_training_data,y_training_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian, mu_c,mu_t1,mu_t2, lambda, visualize, iterations);
 elapsed_time = toc;
