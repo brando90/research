@@ -49,10 +49,10 @@ for i=1:iterations
     errors{i} = current_error;
     %i = i + 1;
 end
-if visualize
-    %% plot change in training error
-    figure
-    errors = cell2mat(errors);
-    iteration_axis = 1:iterations;
-    plot(iteration_axis, errors );
-end
+% if visualize
+%     %% plot change in training error
+%     figure
+%     errors = cell2mat(errors);
+%     iteration_axis = 1:iterations;
+%     plot(iteration_axis, errors );
+% end

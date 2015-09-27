@@ -12,9 +12,9 @@ L = K2
 %% parameter initilization ------------------------------------------------
 %% Random initilization
 init_name = 'c_rand_t2_rand_t1_rand';
-c_2hbf_initial = rand(K2,L);
-t1_initial = rand(Dp, Dd, Np);
-t2_initial = rand(K1, K2);
+c_2hbf_initial = rand(K2,L)
+t1_initial = rand(Dp, Dd, Np)
+t2_initial = rand(K1, K2)
 %% C has true labels, t2 random, t1 parts
 % init_name = 'c_labels_t2_rand_t1_parts';
 % t2_initial = rand(K1, K2);
