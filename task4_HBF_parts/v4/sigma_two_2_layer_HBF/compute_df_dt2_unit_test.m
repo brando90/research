@@ -1,38 +1,34 @@
 %% update t2 unit test
 %% dimensions
-disp('-------------------------------------------------------------------------------');
+Dp = 3;
+Np = 4;
+Dd = 2;
+K2 = 5;
+K1 = Dd * Np;
+L=3;
 %% fake data & params
-% x = (1:Dp*Np)'
-% y = 3
-% c = (1:K2)'
-% t2 = rand(K1, K2)
-% t1 = rand(Dp, Dd, Np)
-x = 1
-c = [10 11 12]'
-t1 = 1
-t2 = [1 2 3] % (K1 x K2) = (1 x 3)
-K1 = 1;
-K2 = 3;
+x = (1:Dp*Np)';
+y = 1;
+c = rand(K2,L);
+t1 = rand(Dp, Dd, Np);
+t2 = rand(K1, K2);
+sig = 1;
 %% call f(x)
 [ f_x, z_l1, z_l2, a_l2, ~ ] = f(x, c,t1,t2,sig);
 %% gradient
-%dJ_dt2_vectorized = compute_df_dt2_vectorized(t2,c,z_l2,a_l2);
-dJ_dt2_loops = compute_df_dt2_loops(t2, z_l2,a_l2, c,sig);
+[~, dJ_dt2] = update_t2_gradient(t2, f_x,y, z_l2,a_l2,c,sig, 0, 0);
 eps = 1e-10;
 for k1=1:K1;
     for k2=1:K2
         disp('===');
         e_k1k2 = zeros(K1, K2);
         e_k1k2(k1,k2) = eps;
-        %derivative = (J(y, x, c, t2 + e_k1k2, t1, Np, Dp) - J(y, x, c , t2 - e_k1k2, t1, Np, Dp) ) / (2*eps);
-        derivative = (f(x, c,t1,t2+e_k1k2,sig) - f(x, c,t1,t2-e_k1k2,sig) ) / (2*eps);
+        numerical_derivative = (J(x,y, c,t1,t2+e_k1k2,sig) - J(x,y, c,t1,t2-e_k1k2,sig) ) / (2*eps);
         disp('k1, k2')
         disp([k1,k2]);
         disp('Numerical Derivative');
-        disp(derivative);
-%         disp('dJ_dt2_vectorized');
-%         disp(dJ_dt2_vectorized(k1,k2));
-        disp('dJ_dt2_loops');
-        disp(dJ_dt2_loops(k1,k2));
+        disp(numerical_derivative);
+        disp('dJ_dt2');
+        disp(dJ_dt2(k1,k2));
     end
 end

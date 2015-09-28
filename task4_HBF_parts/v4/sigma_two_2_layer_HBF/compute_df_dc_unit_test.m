@@ -9,7 +9,6 @@ L=3;
 %% fake data & params
 x = (1:Dp*Np)';
 y = 1;
-%c = (1:K2)';
 c = rand(K2,L);
 t1 = rand(Dp, Dd, Np);
 t2 = rand(K1, K2);
@@ -20,7 +19,7 @@ sig = 1;
 df_dc = compute_df_dc(a_l3,L); %(K2 x L)
 dJ_df = compute_dJ_df(f_x,y,K2); %(K2 x L)
 dJ_dc = dJ_df.*df_dc; %(K2 x L)
-eps = 1e-5;
+eps = 1e-10;
 for k2=1:K2
     for l=1:L
         disp('-----index k2,l:');

@@ -1,4 +1,4 @@
-function [ t2_new, dJ_dt2 ] = update_t2_gradient(t2, f,y, z_l2_p,a_l2,c,sig, mu_t2, lambda)
+function [ t2_new, dJ_dt2 ] = update_t2_gradient(t2, f,y, z_l2,a_l2,c,sig, mu_t2, lambda)
 %update_t2_gradient - updates the t1 parameter of a 2 layer HBF
 %   Updates t2 according to:
 %       t2 := t2 - mu_c * dJ/dt2
@@ -19,7 +19,7 @@ function [ t2_new, dJ_dt2 ] = update_t2_gradient(t2, f,y, z_l2_p,a_l2,c,sig, mu_
 df_dt2_M = zeros(K1, K2, L);
 for l=1:L
     c_l = c(:, l);
-    df_dt2_l = compute_df_dt2_loops(t2, z_l2_p,a_l2, c_l, sig); % (K1 x K2)
+    df_dt2_l = compute_df_dt2_loops(t2, z_l2,a_l2, c_l, sig); % (K1 x K2)
     df_dt2_M(:,:, l) = df_dt2_l;
 end
 dJ_df_l = ((1:L) == y) -  prob_y_x(f)'; % (1 x L)
