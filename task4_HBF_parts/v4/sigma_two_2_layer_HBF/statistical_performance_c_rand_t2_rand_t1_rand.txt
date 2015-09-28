@@ -1,10 +1,10 @@
 Simulation: c_rand_t2_rand_t1_rand 
-Ocurred: 26-Sep-2015 23:15:53 
-initial_training_error: -1051.62 
+Ocurred: 27-Sep-2015 20:39:57 
+initial_training_error: -1042.94 
 final_training_error:    NaN 
-initial_test_error: -1051.62 
+initial_test_error: -1042.94 
 final_test_error:    NaN 
 ----- 
 iterations  50.00 
-elapsed_time  10.44 
+elapsed_time   3.30 
 N_size_training_data:            N_size_test_data            

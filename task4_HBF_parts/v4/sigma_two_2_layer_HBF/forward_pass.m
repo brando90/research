@@ -34,7 +34,7 @@ for np=1:Np
 end
 %% Compute components of 2nd layer z'_l2 and a_l2
 K1 = Dd*Np;
-K2 = length(c);
+[K2, ~] = size(c);
 a_l2_vec = reshape(a_l2', [K1,1]);
 z_l2_p = zeros(K2, 1);
 for k2=1:K2
