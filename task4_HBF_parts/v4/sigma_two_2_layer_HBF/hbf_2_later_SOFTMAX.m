@@ -25,12 +25,12 @@ t2_initial = rand(K1, K2)
 %% Precision = 1/standard dev. --------------------------------------------
 precision_gaussian = 0.001;
 %% SGD parameters
-mu_c = 0.01;
-mu_t1 = 0.01;
-mu_t2 = 0.01;
+mu_c = 1000;
+mu_t1 = 1000;
+mu_t2 = 1000;
 lambda = 0;
 %% Learn the parameters
-iterations = 50;
+iterations = 100;
 visualize = 1;
 disp('============++++++++++++++>>>> TRAINING STARTING');
 tic

@@ -1,10 +1,10 @@
 Simulation: c_rand_t2_rand_t1_rand 
-Ocurred: 30-Sep-2015 11:49:31 
-initial_training_error: -1180.85 
-final_training_error: -3810.79 
-initial_test_error: -1180.85 
-final_test_error: -3810.78 
+Ocurred: 30-Sep-2015 19:13:49 
+initial_training_error: -1104.81 
+final_training_error: -889.90 
+initial_test_error: -1104.81 
+final_test_error: -889.90 
 ----- 
-iterations  50.00 
-elapsed_time   3.72 
+iterations 100.00 
+elapsed_time   6.89 
 N_size_training_data:            N_size_test_data            
