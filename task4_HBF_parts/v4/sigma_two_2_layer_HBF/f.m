@@ -16,5 +16,5 @@ function [ f_x, z_l1, z_l2, a_l2, a_l3 ] = f( x, c, t1, t2, sig )
 %       a_l2 = activations l2 (Np x Dd x L)
 %       a_l3 = activations l3 (K2 x L)
 [ h_x, z_l1, z_l2,a_l2,a_l3 ] = h( x, c, t1, t2, sig );
-[f_x, ~, ~] = softmax_layer(h_x);
+[f_x, ~, ~] = prob_y_x(h_x);
 end

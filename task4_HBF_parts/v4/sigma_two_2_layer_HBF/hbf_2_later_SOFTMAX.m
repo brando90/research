@@ -25,9 +25,9 @@ t2_initial = rand(K1, K2)
 %% Precision = 1/standard dev. --------------------------------------------
 precision_gaussian = 0.001;
 %% SGD parameters
-mu_c = 0.9;
-mu_t1 = 0.9;
-mu_t2 = 0.9;
+mu_c = 0.01;
+mu_t1 = 0.01;
+mu_t2 = 0.01;
 lambda = 0;
 %% Learn the parameters
 iterations = 50;
