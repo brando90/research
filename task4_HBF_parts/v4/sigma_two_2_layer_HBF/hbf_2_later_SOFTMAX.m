@@ -25,9 +25,9 @@ t2_initial = rand(K1, K2)
 %% Precision = 1/standard dev. --------------------------------------------
 precision_gaussian = 0.001;
 %% SGD parameters
-mu_c = 1000;
-mu_t1 = 1000;
-mu_t2 = 1000;
+mu_c = 0.9;
+mu_t1 = 0.9;
+mu_t2 = 0.9;
 lambda = 0;
 %% Learn the parameters
 iterations = 100;
@@ -47,21 +47,37 @@ disp(t2_initial);
 %% Data sizes:
 disp(N_size_training_data);
 disp(N_size_test_data);
+%% initial classification error
+initial_training_classification_error = classification_error( X_training_data,y_training_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian );
+initial_test_classification_error = classification_error(X_test_data,y_test_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian );
+%% final classification error
+final_training_classification_error = classification_error(X_training_data,y_training_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian );
+final_test_classification_error = classification_error(X_test_data,y_test_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian );
+%% Print classification errors
+disp('initial_training_classification_error');
+disp(initial_training_classification_error);
+disp('initial_test_classification_error');
+disp(initial_test_classification_error);
+disp('final_training_classification_error');
+disp(final_training_classification_error);
+disp('final_test_classification_error');
+disp(final_test_classification_error);
+
 %% intitial risk/errors
-initial_training_error = compute_Hf(X_training_data,y_training_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian, lambda);
-initial_test_error = compute_Hf(X_test_data,y_test_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian, lambda);
+initial_training_empirical_risk = compute_Hf(X_training_data,y_training_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian, lambda);
+initial_test_empirical_risk = compute_Hf(X_test_data,y_test_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian, lambda);
 %% final risk/errors
-final_training_error = compute_Hf(X_training_data,y_training_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian, lambda);
-final_test_error = compute_Hf(X_test_data,y_test_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian, lambda);
-%% Print Errors
-disp('initial_training_error');
-disp(initial_training_error);
-disp('final_training_error');
-disp(final_training_error);
-disp('initial_test_error');
-disp(initial_test_error);
-disp('final_test_error');
-disp(final_test_error);
+final_training_empirical_risk = compute_Hf(X_training_data,y_training_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian, lambda);
+final_test_empirical_risk = compute_Hf(X_test_data,y_test_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian, lambda);
+%% Print Empirical Risks
+disp('initial_training_empirical_risk');
+disp(initial_training_empirical_risk);
+disp('initial_test_empirical_risk');
+disp(initial_test_empirical_risk);
+disp('final_training_empirical_risk');
+disp(final_training_empirical_risk);
+disp('final_test_empirical_risk');
+disp(final_test_empirical_risk);
 
 % addpath('../common');
 % for np=1:Np
@@ -74,10 +90,10 @@ disp(elapsed_time)
 fileID = fopen(strcat(strcat('statistical_performance_', init_name) ,'.txt'), 'w');
 fprintf(fileID, 'Simulation: %12s \n', init_name);
 fprintf(fileID, 'Ocurred: %12s \n', datestr(clock, 0));
-fprintf(fileID, 'initial_training_error: %6.2f \n', initial_training_error);
-fprintf(fileID, 'final_training_error: %6.2f \n', final_training_error);
-fprintf(fileID, 'initial_test_error: %6.2f \n', initial_test_error);
-fprintf(fileID, 'final_test_error: %6.2f \n', final_test_error);
+fprintf(fileID, 'initial_training_empirical_risk: %6.2f \n', initial_training_empirical_risk);
+fprintf(fileID, 'final_training_empirical_risk: %6.2f \n', final_training_empirical_risk);
+fprintf(fileID, 'initial_test_empirical_risk: %6.2f \n', initial_test_empirical_risk);
+fprintf(fileID, 'final_test_empirical_risk: %6.2f \n', final_test_empirical_risk);
 fprintf(fileID, '----- \n');
 fprintf(fileID, 'iterations %6.2f \n', iterations );
 fprintf(fileID, 'elapsed_time %6.2f \n', elapsed_time );

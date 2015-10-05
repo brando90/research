@@ -21,25 +21,53 @@ end
 ind = ((1:L) == y)'; %(L x 1)
 
 [ h_x, ~, ~, ~, ~ ] = h( x, c, t1, t2, sig );
-z = sum( exp(h_x) );
-log_prob = h_x - log(z);
+exp_h_x = exp(h_x);
+z = sum( exp_h_x );
+log_z = sum(z);
+if log_z == inf
+    %h_x_p = h_x(exp_h_x > 1)
+    %log_z = sum(h_x_p);
+    %log_z = 710;
+    log_z = max(h_x);
+elseif log_z == -inf
+    %h_x_p = h_x(exp_h_x < 1);
+    %log_z = sum(h_x_p);
+    %log_z = -709;
+    log_z = max(h_x);
+end
+log_prob = h_x - log_z;
 j = ind' * log_prob;
 
 if isnan(j)
-    f_x = prob_y_x(h_x);
-    log_prob = log(f_x);
-    j = ind' * log_prob;
-    if isnan(j)
-        L = length(h_x);
-        [ h_x, ~, ~, ~, ~ ] = h( x, c, t1, t2, sig );
-        z = sum(h_x)/L + L;
-        log_prob = h_x - log(z);
-        j = ind' * log_prob;
-        if isnan(j)
-            keyboard
-        end
-    end
+    disp('h_x: ')
+    disp(h_x);
+    disp('log_z: ')
+    disp(log_z);
+    keyboard
 end
+
+% if isnan(j)
+%     f_x = prob_y_x(h_x);
+%     log_prob = log(f_x);
+%     j = ind' * log_prob;
+%     if isnan(j)
+%         L = length(h_x);
+%         [ h_x, ~, ~, ~, ~ ] = h( x, c, t1, t2, sig );
+%         isnan(j)
+%         j
+%         log_prob
+%         h_x
+%         z
+%         z_p = sum(h_x)/L + L
+%         disp(709)
+%         log_prob = h_x - z_p;
+%         j = ind' * log_prob;
+%         keyboard
+%         if isnan(j)
+%             keyboard
+%         end
+%     end
+% end
 
 %if any(exp_h_x ==  Inf) || z == Inf || largest == Inf || isnan(j) || any(exp_h_x == 0) || any(f_x == 0)
 % if isnan(j)
