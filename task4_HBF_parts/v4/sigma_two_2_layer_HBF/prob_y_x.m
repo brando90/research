@@ -1,11 +1,10 @@
 function [ prob ] = prob_y_x( h_x )
 % prob(y=l | x ; theta)
 %   Input:
-%       f = f's (L x 1)
+%       h = h's (L x 1)
 %   Output:
 %       prob = prob(y=l | x ; theta) (L x 1)
-% Z = sum(f);
-% prob = f/Z;
+% prob = h/Z;
 largest = max(h_x); 
 smallest = min(h_x);
 range = largest - smallest;
