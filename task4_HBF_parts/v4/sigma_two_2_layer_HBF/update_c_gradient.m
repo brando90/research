@@ -14,12 +14,9 @@ function [ c_new, dJ_dc] = update_c_gradient(c, h,y, a_l3, mu_c, lambda)
 %       dJ_dc = derivative (K2 x 1)
 %disp('------------');
 [K2, L] = size(c);
-df_dc = compute_df_dc(a_l3,L); %(K2 x L)
-dJ_df = compute_dJ_df(h,y,K2); %(K2 x L)
-% disp('sizes error print')
-% size(df_dc)
-% size(dJ_df)
-dJ_dc = dJ_df.*df_dc; %(K2 x L)
+dh_dc = compute_dh_dc(a_l3,L); %(K2 x L)
+dJ_dh = compute_dJ_dh(h,y,K2); %(K2 x L)
+dJ_dc = dJ_dh.*dh_dc; %(K2 x L)
 dJ_dc = dJ_dc + lambda * 0; %TODO
 %dJ_dc
 %% update

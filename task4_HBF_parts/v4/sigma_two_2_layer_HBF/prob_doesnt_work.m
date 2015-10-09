@@ -1,4 +1,4 @@
-function [ prob ] = prob_y_x( h_x )
+function [ output_args ] = prob_doesnt_work( input_args )
 % prob(y=l | x ; theta)
 %   Input:
 %       f = f's (L x 1)
@@ -11,7 +11,7 @@ smallest = min(h_x);
 range = largest - smallest;
 lower_limit = ceil( log(realmin('double')) ); %  about -708.3964
 upper_limit = floor( log( realmax('double')) ); % 709.7827
-limit = upper_limit - lower_limit;
+limit = upper_limit - lower_limit ;
 if abs(range) < limit
     disp('abs(range) < limit')
     translation = largest - upper_limit
@@ -28,3 +28,4 @@ exp_h_x = exp(h_x_p);
 z = sum( exp_h_x );
 prob = exp_h_x/z;
 end
+
