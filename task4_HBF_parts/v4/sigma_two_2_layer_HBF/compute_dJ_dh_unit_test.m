@@ -27,10 +27,10 @@ for k2=1:K2
         e_k2 = zeros(K2, L);
         e_k2(k2,l) = eps;
         numerical_derivative = (J(x,y, c+e_k2,t1,t2,sig) - J(x,y, c-e_k2,t1,t2,sig) ) / (2*eps);
-        numerical_dh_dc = numerical_derivative
-        disp('Numerical Derivative');
-        disp(derivative);
-        disp('dJ_dc');
+        numerical_dh_dc = numerical_derivative;
+        disp('numerical_derivative(k2,l)');
+        disp(numerical_dh_dc);
+        disp('dJ_dc(k2,l)');
         disp(dJ_dc(k2,l));
     end
 end

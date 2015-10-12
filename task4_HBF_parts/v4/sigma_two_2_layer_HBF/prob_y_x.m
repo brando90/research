@@ -4,14 +4,15 @@ function [ prob ] = prob_y_x( h_x )
 %       h = h's (L x 1)
 %   Output:
 %       prob = prob(y=l | x ; theta) (L x 1)
-% prob = h/Z;
+% prob = h/Z (L x 1)
 %% constants
 lower_limit = ceil( log(realmin('double')) ); %  about -708.3964
 upper_limit = floor( log( realmax('double')) ); % 709.7827
-L = Length(h_x);
+L = length(h_x);
 %% Algorithm
 largest = max(h_x);
 if largest > upper_limit - log(L)
+    disp('here')
     h_x = h_x - largest - log(L);
     indices_lower = h_x < lower_limit;
     h_x(indices_lower) = lower_limit;

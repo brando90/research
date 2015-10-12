@@ -23,20 +23,23 @@ ind = ((1:L) == y)'; %(L x 1)
 [ h_x, ~, ~, ~, ~ ] = h( x, c, t1, t2, sig );
 exp_h_x = exp(h_x);
 z = sum( exp_h_x );
-log_z = sum(z);
+log_z = log(z);
 if log_z == inf
+    disp('log_z == inf')
     %h_x_p = h_x(exp_h_x > 1)
     %log_z = sum(h_x_p);
     %log_z = 710;
     log_z = max(h_x);
 elseif log_z == -inf
+    disp('log_z == -inf')
     %h_x_p = h_x(exp_h_x < 1);
     %log_z = sum(h_x_p);
     %log_z = -709;
-    log_z = max(h_x);
+    %log_z = max(h_x);
+    log_z = -708;
 end
 log_prob = h_x - log_z;
-j = ind' * log_prob;
+j = -ind' * log_prob;
 
 if isnan(j)
     disp('h_x: ')

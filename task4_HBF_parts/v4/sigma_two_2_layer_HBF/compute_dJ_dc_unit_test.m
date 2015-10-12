@@ -17,6 +17,7 @@ sig = 1;
 [h_x, ~, ~, ~, a_l3 ] = h(x, c,t1,t2,sig);
 %% gradient
 [~, dJ_dc] = update_c_gradient(c, h_x,y, a_l3, mu_c, lambda); %(K2 x L)
+numerical_dJ_dc = zeros(K2, L);
 eps = 1e-5;
 for k2=1:K2
     for l=1:L
@@ -26,10 +27,14 @@ for k2=1:K2
         e_k2 = zeros(K2, L);
         e_k2(k2,l) = eps;
         numerical_derivative = (J(x,y, c+e_k2,t1,t2,sig) - J(x,y, c-e_k2,t1,t2,sig) ) / (2*eps);
+        numerical_dJ_dc(k2,l) = numerical_derivative;
         disp('Numerical Derivative');
-        disp(derivative);
+        disp(numerical_derivative);
         disp('dJ_dc');
         disp(dJ_dc(k2,l));
     end
 end
 disp('-------------------------------------------');
+num_mistkaes = sum(sum(numerical_dh_dc ~= dh_dc));
+dJ_dc
+numerical_dJ_dc
