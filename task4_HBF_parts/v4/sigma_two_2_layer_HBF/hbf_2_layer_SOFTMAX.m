@@ -25,13 +25,13 @@ t2_initial = rand(K1, K2)
 %% Precision = 1/standard dev. --------------------------------------------
 precision_gaussian = 1;
 %% SGD parameters
-mu_c = 0.008;
+mu_c = 0.01;
 mu_t1 = 0.008;
 mu_t2 = 0.008;
 lambda = 0;
 %% Learn the parameters
-iterations = 50;
-visualize = 0;
+iterations = 5*600;
+visualize = 1;
 disp('============++++++++++++++>>>> TRAINING STARTING');
 tic
 [c_2hbf_learned,t1_learned,t2_learned] = learn_HBF_parameters_2_hidden_layer_iterations(X_training_data,y_training_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian, mu_c,mu_t1,mu_t2, lambda, visualize, iterations);
@@ -59,6 +59,12 @@ final_y_pred_test_data = classify_data_set( X_test_data, c_2hbf_learned,t1_learn
 [final_test_classification_error, final_test_classification_percent_error] = classification_error(y_test_data, final_y_pred_test_data);
 %% Print classification errors
 disp('===============--------------------->>>')
+disp('amount of training data');
+N_training_data = size(X_training_data);
+disp(N_training_data);
+disp('amount of test data');
+N_test_data = size(X_test_data);
+disp(N_test_data);
 disp('--initial_training_classification_error');
 disp(initial_training_classification_error);
 disp('--initial_test_classification_error');
