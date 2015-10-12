@@ -1,10 +1,10 @@
 Simulation: c_rand_t2_rand_t1_rand 
-Ocurred: 12-Oct-2015 13:25:47 
-initial_training_empirical_risk: 892.18 
-final_training_empirical_risk: 892.08 
-initial_test_empirical_risk: 892.27 
-final_test_empirical_risk: 892.18 
+Ocurred: 12-Oct-2015 16:13:38 
+initial_training_empirical_risk: 891.65 
+final_training_empirical_risk: 891.61 
+initial_test_empirical_risk: 891.67 
+final_test_empirical_risk: 891.62 
 ----- 
 iterations  50.00 
-elapsed_time   7.19 
+elapsed_time   3.48 
 N_size_training_data:            N_size_test_data            

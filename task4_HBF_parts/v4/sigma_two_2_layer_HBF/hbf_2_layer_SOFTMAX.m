@@ -31,7 +31,7 @@ mu_t2 = 0.008;
 lambda = 0;
 %% Learn the parameters
 iterations = 50;
-visualize = 1;
+visualize = 0;
 disp('============++++++++++++++>>>> TRAINING STARTING');
 tic
 [c_2hbf_learned,t1_learned,t2_learned] = learn_HBF_parameters_2_hidden_layer_iterations(X_training_data,y_training_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian, mu_c,mu_t1,mu_t2, lambda, visualize, iterations);
@@ -48,22 +48,36 @@ disp(t2_initial);
 disp(N_size_training_data);
 disp(N_size_test_data);
 %% initial classification error
-initial_training_classification_error = classification_error( X_training_data,y_training_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian );
-initial_test_classification_error = classification_error(X_test_data,y_test_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian );
+initial_y_pred_training_data = classify_data_set( X_training_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian );
+[initial_training_classification_error, initial_training_classification_percent_error] = classification_error( y_training_data, initial_y_pred_training_data );
+initial_y_pred_test_data = classify_data_set( X_test_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian );
+[initial_test_classification_error, initial_test_classification_percent_error] = classification_error(y_test_data, initial_y_pred_test_data );
 %% final classification error
-final_training_classification_error = classification_error(X_training_data,y_training_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian );
-final_test_classification_error = classification_error(X_test_data,y_test_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian );
+final_y_pred_training_data = classify_data_set( X_training_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian );
+[final_training_classification_error, final_training_classification_percent_error] = classification_error(y_training_data, final_y_pred_training_data);
+final_y_pred_test_data = classify_data_set( X_test_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian );
+[final_test_classification_error, final_test_classification_percent_error] = classification_error(y_test_data, final_y_pred_test_data);
 %% Print classification errors
-didp('===============--------------------->>>')
-disp('initial_training_classification_error');
+disp('===============--------------------->>>')
+disp('--initial_training_classification_error');
 disp(initial_training_classification_error);
-disp('initial_test_classification_error');
+disp('--initial_test_classification_error');
 disp(initial_test_classification_error);
-disp('final_training_classification_error');
+disp('--final_training_classification_error');
 disp(final_training_classification_error);
-disp('final_test_classification_error');
+disp('--final_test_classification_error');
 disp(final_test_classification_error);
 
+disp('=initial_training_classification_percent_error');
+disp(initial_training_classification_percent_error);
+disp('=initial_test_classification_percent_error');
+disp(initial_test_classification_percent_error);
+disp('=final_training_classification_percent_error');
+disp(final_training_classification_percent_error);
+disp('=final_test_classification_percent_error');
+disp(final_test_classification_percent_error);
+
+disp('-----')
 %% intitial risk/errors
 initial_training_empirical_risk = compute_Hf(X_training_data,y_training_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian, lambda);
 initial_test_empirical_risk = compute_Hf(X_test_data,y_test_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian, lambda);
