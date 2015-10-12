@@ -6,7 +6,7 @@ function [ t2_new, dJ_dt2 ] = update_t2_gradient(t2, h,y, z_l2,a_l2,c,sig, mu_t2
 %       t2 = weights (K1 x K2)
 %       c = weights (K2 x L)
 %       y = label (1 x 1)
-%       f = f(x) (1 x 1)
+%       h = h(x) (1 x 1)
 %       z_l2 = inputs l1 (K2 x 1)
 %       a_l2 = activations l2 (Np x Dd)
 %       lambda = reg param (1 x 1)
@@ -28,7 +28,7 @@ dJ_df_M = permute(dJ_df_M, [1,3,2]); % (K1 x K2 x L)
 
 df_dt2_M = dJ_df_M .* df_dt2_M; % (K1 x K2 x L)
 
-dJ_dt2 = sum(df_dt2_M,3); % (K1 x K2)
+dJ_dt2 = -sum(df_dt2_M,3); % (K1 x K2)
 dJ_dt2 = dJ_dt2 + lambda * 0; %TODO
 %dJ_dt2
 %% update

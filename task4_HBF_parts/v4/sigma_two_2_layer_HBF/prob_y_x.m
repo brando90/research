@@ -13,6 +13,7 @@ L = length(h_x);
 largest = max(h_x);
 if largest > upper_limit - log(L)
     disp('here')
+    keyboard
     h_x = h_x - largest - log(L);
     indices_lower = h_x < lower_limit;
     h_x(indices_lower) = lower_limit;

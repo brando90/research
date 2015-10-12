@@ -16,7 +16,7 @@ function [ c_new, dJ_dc] = update_c_gradient(c, h,y, a_l3, mu_c, lambda)
 [K2, L] = size(c);
 dh_dc = compute_dh_dc(a_l3,L); %(K2 x L)
 dJ_dh = compute_dJ_dh(h,y,K2); %(K2 x L)
-dJ_dc = dJ_dh.*dh_dc; %(K2 x L)
+dJ_dc = -dJ_dh.*dh_dc; %(K2 x L)
 dJ_dc = dJ_dc + lambda * 0; %TODO
 %dJ_dc
 %% update

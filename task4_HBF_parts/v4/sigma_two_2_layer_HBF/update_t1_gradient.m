@@ -29,7 +29,7 @@ for l=1:L
     dJ_dt1_l = df_dt1_l .* delta_l;
     dJ_dt1 = dJ_dt1 + dJ_dt1_l;
 end
-dJ_dt1 = dJ_dt1 + lambda * 0; % TODO
+dJ_dt1 = -dJ_dt1 + lambda * 0; % TODO
 %% update
 t1_new = t1 - mu_t1 * dJ_dt1;
 end
