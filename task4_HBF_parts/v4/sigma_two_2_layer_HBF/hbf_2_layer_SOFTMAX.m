@@ -18,19 +18,19 @@ t2_initial = rand(K1, K2)
 %% C has true labels, t2 random, t1 parts
 % init_name = 'c_labels_t2_rand_t1_parts';
 % t2_initial = rand(K1, K2);
-% [ c_2hbf_initial, t1_initial, ~ ] = expected_good_initialization(list_dict, y, m)
+% [ c_2hbf_initial, t1_initial, ~ ] = expected_good_initialization(list_dict, y, m_train)
 %% C has true labels, t2 expected output, t1 parts
 %init_name = 'c_labels_t2_expected_t1_parts';
 %[ c_2hbf_initial, t1_initial, t2_initial ] = expected_good_initialization(list_dict, y, m_train)
 %% Precision = 1/standard dev. --------------------------------------------
-precision_gaussian = 0.001;
+precision_gaussian = 1;
 %% SGD parameters
-mu_c = 0.9;
-mu_t1 = 0.9;
-mu_t2 = 0.9;
+mu_c = 0.008;
+mu_t1 = 0.008;
+mu_t2 = 0.008;
 lambda = 0;
 %% Learn the parameters
-iterations = 100;
+iterations = 50;
 visualize = 1;
 disp('============++++++++++++++>>>> TRAINING STARTING');
 tic
@@ -54,6 +54,7 @@ initial_test_classification_error = classification_error(X_test_data,y_test_data
 final_training_classification_error = classification_error(X_training_data,y_training_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian );
 final_test_classification_error = classification_error(X_test_data,y_test_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian );
 %% Print classification errors
+didp('===============--------------------->>>')
 disp('initial_training_classification_error');
 disp(initial_training_classification_error);
 disp('initial_test_classification_error');
