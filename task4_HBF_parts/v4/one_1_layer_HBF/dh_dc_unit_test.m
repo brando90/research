@@ -1,4 +1,4 @@
-%% dh_dc unit test
+%% dh_dc_unit_test
 K = 4;
 L = 2;
 D = 3;
