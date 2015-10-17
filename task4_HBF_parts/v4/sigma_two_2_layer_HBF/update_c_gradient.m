@@ -5,10 +5,10 @@ function [ c_new, dJ_dc] = update_c_gradient(c, h,y, a_l3, mu_c, lambda)
 %   Input:
 %       c = weights (K2 x L)
 %       y = label (1 x 1)
-%       f = f(x) (L x 1)
+%       h = h(x) (L x 1)
 %       a_l3 = activations l3 (K2 x 1)
-%       lambda = reg param (1 x 1)
 %       mu_c = step size (1 x 1)
+%       lambda = reg param (1 x 1)
 %   Output:
 %       c = updated weights (K2 x 1)
 %       dJ_dc = derivative (K2 x 1)

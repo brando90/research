@@ -1,19 +1,26 @@
-function [ c_new ] = update_c_batch( X, y, c, t, mu_c, lambda )
+function [ c_new, dHf_dc ] = update_c_batch(X,y,c,t,mu_c, lambda )
 %update_c_batch
+%   Updates c according to:
+%       c := c - mu_c * dJ/dc
+%   Input:
+%       c = weights (K x L)
+%       y = label (1 x 1)
+%       a_l3 = activations l3 (K2 x 1)
+%       mu_c = step size (1 x 1)
+%       lambda = reg param (1 x 1)
+%   Output:
+%       c = updated weights (K2 x 1)
+%       dHf_dc = derivative (K2 x 1)
 [~, N] = size(X);
-dHf_dc = 0;
+dHf_dc = zeros(K,L);
 for i=1:N
-    xi = X(:,i);
-    yi = y(i);
-    df_dc = compute_df_dc(xi, c, t, lambda);
-    %eps = 1e-10;
-    %df_dc = compute_df_dc_numerical_derivatives(xi, c, t, eps);
-    fi = f_star(xi, c, t);
-    delta_i = fi - yi;
-    dJ_df = -2 * delta_i;
-    dJ_dc = dJ_df * df_dc;
+    x_i = X(:,i);
+    [h, a] = h(x_i,c,t,beta);
+    dJ_dc = compute_dJ_dc(h,y,a); %(K x L)
     dHf_dc = dHf_dc + dJ_dc;
 end
-%dHf_dc
+regularization_term = 0; %TODO
+dHf_dc = dHf_dc + lambda * regularization_term;
+%% update
 c_new = c - mu_c * dHf_dc;
 end

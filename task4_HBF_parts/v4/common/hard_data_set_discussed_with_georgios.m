@@ -1,5 +1,8 @@
 %% generate all data list dict Unit test
-%% test 1
+%% Code that generated difficult data set that I spoke with Georgios
+Dp = 10
+Dd = 2
+Np = 3
 list_dict = zeros(10, 3, 3);
 t1_1 = repmat([1 0],1,5)'
 t1_2 = (1:10)'/norm(1:10,2)
@@ -16,10 +19,8 @@ list_dict(:,:,3) = [t3_1, t3_2, t3_3];
 [X_perfect_data, y] = generate_all_data_list_dict(list_dict);
 size(X_perfect_data)
 size(y)
-
 X_perfect_data = X_perfect_data(:,[10,27]);
-y = [1,2];
-
+y = [1, 2]';
 m_train = 1000;
 [X_training_data,y_training_data] = replicate_data_with_noise(X_perfect_data, y, m_train);
 [~, N_size_training_data] = size(X_training_data)

@@ -5,16 +5,21 @@ disp('-------------------------->>> SCRIPT: 2HBF generate_all_data_list_dict ...
 load('../common/data_3parts_Dp10_3slots_divided_by_9_noise_snr_1')
 %% Parameters 
 % repetitions = 2;
+%[Dp, Dd, Np] = size(list_dict)
+% K1 = Dd * Np
+% K2 = Dd^Np
+% L = K2
+%%
 [Dp, Dd, Np] = size(list_dict)
 K1 = Dd * Np
-K2 = Dd^Np
-L = K2
+K2 = 2
+L = 2
 %% parameter initilization ------------------------------------------------
 %% Random initilization
-init_name = 'c_rand_t2_rand_t1_rand';
-c_2hbf_initial = rand(K2,L)
-t1_initial = rand(Dp, Dd, Np)
-t2_initial = rand(K1, K2)
+% init_name = 'c_rand_t2_rand_t1_rand';
+% c_2hbf_initial = rand(K2,L)
+% t1_initial = rand(Dp, Dd, Np)
+% t2_initial = rand(K1, K2)
 %% C has true labels, t2 random, t1 parts
 % init_name = 'c_labels_t2_rand_t1_parts';
 % t2_initial = rand(K1, K2);
@@ -22,15 +27,17 @@ t2_initial = rand(K1, K2)
 %% C has true labels, t2 expected output, t1 parts
 %init_name = 'c_labels_t2_expected_t1_parts';
 %[ c_2hbf_initial, t1_initial, t2_initial ] = expected_good_initialization(list_dict, y, m_train)
+%% Choose random data points as initilization
+
 %% Precision = 1/standard dev. --------------------------------------------
 precision_gaussian = 1;
 %% SGD parameters
-mu_c = 1000;
-mu_t1 = 0.008;
-mu_t2 = 0.008;
+mu_c = 0.9;
+mu_t1 = 0.9;
+mu_t2 = 0.9;
 lambda = 0;
 %% Learn the parameters
-iterations = 2*600;
+iterations = 1517;
 visualize = 1;
 disp('============++++++++++++++>>>> TRAINING STARTING');
 tic
@@ -60,7 +67,7 @@ final_y_pred_test_data = classify_data_set( X_test_data, c_2hbf_learned,t1_learn
 %% Print classification errors
 disp('===============--------------------->>>')
 disp('amount of training data');
-N_training_data = size(X_training_data);
+[~, N_training_data] = size(X_training_data);
 disp(N_training_data);
 disp('amount of test data');
 N_test_data = size(X_test_data);
@@ -105,8 +112,10 @@ disp(final_test_empirical_risk);
 %     visualize_center_parts(t1(:,:,np));
 % end
 
-disp('elapsed_time')
+disp('elapsed_time, seconds')
 disp(elapsed_time)
+disp('elapsed_time, minutes')
+disp(elapsed_time/60)
 
 fileID = fopen(strcat(strcat('statistical_performance_', init_name) ,'.txt'), 'w');
 fprintf(fileID, 'Simulation: %12s \n', init_name);
@@ -121,3 +130,5 @@ fprintf(fileID, 'elapsed_time %6.2f \n', elapsed_time );
 fprintf(fileID, 'N_size_training_data: %12s', N_size_training_data);
 fprintf(fileID, 'N_size_test_data %12s', N_size_test_data);
 fclose(fileID);
+beep;
+beep;

@@ -1,5 +1,4 @@
-%% generate all data list dict Unit test
-%% test 1
+%% most similar parts
 list_dict = zeros(10, 3, 3);
 t1_1 = repmat([1 0],1,5)'
 t1_2 = (1:10)'/norm(1:10,2)
@@ -14,17 +13,23 @@ list_dict(:,:,1) = [t1_1, t1_2, t1_3];
 list_dict(:,:,2) = [t2_1, t2_2, t2_3];
 list_dict(:,:,3) = [t3_1, t3_2, t3_3];
 [X_perfect_data, y] = generate_all_data_list_dict(list_dict);
-size(X_perfect_data)
-size(y)
-
-X_perfect_data = X_perfect_data(:,[10,27]);
-y = [1,2];
-
-m_train = 1000;
-[X_training_data,y_training_data] = replicate_data_with_noise(X_perfect_data, y, m_train);
-[~, N_size_training_data] = size(X_training_data)
-m_test = 1000;
-[X_test_data,y_test_data] = replicate_data_with_noise(X_perfect_data, y, m_train);
-[~, N_size_test_data] = size(X_test_data)
-save('data_3parts_Dp10_3slots_divided_by_9_noise_snr_1');
-disp('DONE');
+size(X_perfect_data);
+%% compare inner products
+[~, N] = size(X_perfect_data)
+inner_prods = zeros(N, N);
+normc(X_perfect_data);
+for i=1:N
+    data_i = X_perfect_data(:,i);
+    for j=1:N
+        data_j = X_perfect_data(:,j);
+        inner_prods(i,j) = data_i' * data_j;
+    end
+end
+inner_prods
+for i=1:N
+    inner_prods(i,i) = inf;
+end
+[min_val, I] = min(min(inner_prods))
+inner_prods(10,27)
+issymmetric(inner_prods)
+%% lest similar 10 and 27

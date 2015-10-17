@@ -4,7 +4,7 @@ disp('-------------------------->>> 1HBF...');
 %load('../common/data_3parts_3slots_divided_by_9.mat');
 %load('data_3parts_3slots_divided_by_9_noise');
 %load('data_3parts_Dp10_3slots_divided_by_9_noise');
-load('data_3parts_Dp10_3slots_divided_by_9_noise_snr_1');
+load('../common/data_3parts_Dp10_3slots_divided_by_9_noise_snr_1');
 %% Parameters 
 [Dp, Dd, Np] = size(list_dict)
 D = Dp*Np
