@@ -24,7 +24,7 @@ dh_dt_numerical = compute_dh_dt_numerical_derivatives(x,c,t,beta,eps);
 %dh_dt_z_Forward_Pass
 disp('----');
 dh_dt
-disp('----');
+%disp('----');
 %dh_dt_vec
 disp('----');
 dh_dt_numerical

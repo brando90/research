@@ -5,9 +5,9 @@ function [ j_xy ] = J(x,y, c,t, beta)
 %           x = [x1, ..., x_np, ..., x_Np]
 %       y = label (1 x 1)
 %       c = weights (K x L)
-%       t = centers (K x K2)
+%       t = centers (D x K)
 %   Outputs:
-%       J(y, f(x)) = (y - f(x))^2
+%       J(y, f(x))
 if any( any( isnan(c) ) ) || any( any( any( isnan(t) ) ) )
     disp(any( any( isnan(c) ) ) );
     disp(any( any( any( isnan(t1) ) ) ) );
