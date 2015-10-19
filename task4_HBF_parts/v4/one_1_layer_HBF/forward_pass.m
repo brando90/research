@@ -6,7 +6,8 @@ function [ a, z ] = forward_pass( x, t, beta )
 %   Outputs:
 %       z = (K x 1)
 %       a = activation the single layer (K x 1)
-z = pdist2(x', t').^2;
-a = exp(-1*beta*z)';
+z = pdist2(x', t').^2; %(1 x K)
+a = exp(-1*beta*z); %(1 x K)
+z = z';
+a = a';
 end
-

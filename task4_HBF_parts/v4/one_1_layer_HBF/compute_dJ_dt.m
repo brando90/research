@@ -12,6 +12,7 @@ for l=1:L
     c_l = c(:,l);
     dh_dc = compute_dh_dt(z,x,t,c_l); %(D x K)
     dJ_dh = repmat( y==l , D, K); %(D x K)
-    dJ_dc = dJ_dc + -dJ_dh.*dh_dc;
+    dJ_dc = dJ_dc + dJ_dh.*dh_dc;
 end
+dJ_dc = -dJ_dc;
 end

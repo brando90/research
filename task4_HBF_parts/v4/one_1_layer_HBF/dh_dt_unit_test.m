@@ -1,4 +1,5 @@
-%% dh_dc unit test
+%% dh_dt unit test
+disp('==----');
 K = 4;
 L = 2;
 D = 3;
@@ -7,10 +8,15 @@ c = rand(K,L);
 t = rand(D,K);
 lambda = 0;
 beta = 1;
-[~, a] = h(x,c,t,beta);
-df_dc = compute_dh_dt(a,L);
+[~, z, ~] = h(x,c,t,beta);
+dh_dt = zeros([D, K, L]);
+for l=1:L
+    c_l = c(:,l);
+    dh_dt(:,:,l) = compute_dh_dt(z,x,t,c_l);
+end
 eps = 1e-10;
-df_dc_numerical = compute_dh_dc_numerical_derivatives(x,c,t,beta,eps);
+dh_dt_numerical = compute_dh_dt_numerical_derivatives(x,c,t,beta,eps);
 %% print derivatives
-df_dc
-df_dc_numerical
+dh_dt
+disp('----');
+dh_dt_numerical
