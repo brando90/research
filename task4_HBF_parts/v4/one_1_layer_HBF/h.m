@@ -1,4 +1,4 @@
-function [ h, a ] = h( x,c,t,beta )
+function [ h, z, a ] = h( x,c,t,beta )
 %computes 1HBF
 %   Computes h(x) 
 %   Inputs:
@@ -7,6 +7,6 @@ function [ h, a ] = h( x,c,t,beta )
 %       t = centers (D x K)
 %   Outputs:
 %       f = f^*(x) (K x L)
-a = forward_pass( x,t,beta );
+[z, a] = forward_pass( x,t,beta );
 h = c' * a;
 end
