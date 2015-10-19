@@ -1,4 +1,4 @@
-function [ dHf_dt ] = compute_dHf_dt(X,y,c,t,beta, lambda)
+function [ dHf_dt ] = compute_dHf_dt(X,y, c,t,beta, lambda)
 %Computes dHf_dc
 %   Input:
 %       X = data (D, N)

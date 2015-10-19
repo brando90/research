@@ -14,19 +14,21 @@ K = Dd^Np
 init_name = 'c_rand_t_rand';
 c_initial = rand(K,1)
 t_initial = rand(D,K)
+beta = 1;
 %% C has data labels, t has x points
 % init_name = 'c_data_t_data';
 % c_initial = y_training_data(1:m_train:m_train*K)
 % t_initial = X_training_data(:,1:m_train:m_train*K)
+% beta = 1;
 %% GD parameters
-mu_c = 300;
-mu_t = 300;
+mu_c = 0.9;
+mu_t = 0.9;
 lambda = 0; %reg param
 %% Learn the parameters
-iterations = 100
+iterations = 5
 visualize = 1;
 tic
-[c_learned,t_learned] = learn_HBF_parameters_1_hidden_layer_iterations(X_training_data,y_training_data, c_initial,t_initial, mu_c,mu_t, lambda, iterations,visualize);
+[c_learned,t_learned] = learn_HBF_parameters_1_hidden_layer_iterations(X_training_data,y_training_data, c_initial,t_initial,beta, mu_c,mu_t, lambda, iterations,visualize);
 elapsed_time = toc;
 %% Print some results
 disp('Final Parameters:');

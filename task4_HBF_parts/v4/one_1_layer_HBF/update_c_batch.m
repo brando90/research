@@ -1,4 +1,4 @@
-function [ c_new, dHf_dc ] = update_c_batch(X,y,c,t,beta, mu_c, lambda )
+function [ c_new, dHf_dc ] = update_c_batch(X,y, c,t,beta, mu_c, lambda )
 %update_c_batch
 %   Updates c according to:
 %       c := c - mu_c * dJ/dc

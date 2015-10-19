@@ -10,8 +10,7 @@ function [ j_xy ] = J(x,y, c,t, beta)
 %       J(y, f(x))
 if any( any( isnan(c) ) ) || any( any( any( isnan(t) ) ) )
     disp(any( any( isnan(c) ) ) );
-    disp(any( any( any( isnan(t1) ) ) ) );
-    disp(any( any( isnan(t2) ) ) );
+    disp(any( any( any( isnan(t) ) ) ) );
     keyboard
 end
 
