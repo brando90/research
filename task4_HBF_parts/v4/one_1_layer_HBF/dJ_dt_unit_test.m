@@ -12,8 +12,8 @@ lambda = 0;
 beta = 1;
 
 [h_x, z, ~] = h(x,c,t,beta);
-dJ_dt = compute_dJ_dt(z,x,y,t,c);
-dJ_dt_vec = compute_dJ_dt_vec(z,x,y,t,c);
+dJ_dt = compute_dJ_dt(h_x,z,x,y,t,c);
+dJ_dt_vec = compute_dJ_dt_vec(h_x,z,x,y,t,c);
 eps = 1e-10;
 dJ_dt_numerical = compute_dJ_dt_numerical_derivatives(x,y,c,t,beta,eps);
 %% print derivatives

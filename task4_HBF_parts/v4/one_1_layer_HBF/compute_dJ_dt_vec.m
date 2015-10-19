@@ -1,4 +1,4 @@
-function [ dJ_dt ] = compute_dJ_dt_vec(z,x,y,t,c)
+function [ dJ_dt ] = compute_dJ_dt_vec(h_x,z,x,y,t,c)
 %Computes dJ_dc
 %   Input:
 %       z = (K x 1)
@@ -14,7 +14,9 @@ dJ_dt = zeros(D, K);
 for l=1:L
     c_l = c(:,l);
     dh_dt = compute_dh_dt(z,x,t,c_l); %(D x K)
-    dJ_dh = repmat( y==l , D, K); %(D x K)
+    ind_y_l = (y==l);
+    prob_y_x_h_x = prob_y_x(h_x); % (L x 1)
+    dJ_dh = repmat( ind_y_l - prob_y_x_h_x(l) , D, K); %(D x K)
     dJ_dt = dJ_dt + dJ_dh.*dh_dt;
 end
 dJ_dt = -dJ_dt;

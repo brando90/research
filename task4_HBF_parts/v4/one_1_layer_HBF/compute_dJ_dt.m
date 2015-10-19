@@ -1,4 +1,4 @@
-function [ dJ_dt ] = compute_dJ_dt(z,x,y,t,c)
+function [ dJ_dt ] = compute_dJ_dt(h_x,z,x,y,t,c)
 %Computes dJ_dc
 %   Input:
 %       z = (K x 1)
@@ -16,7 +16,9 @@ for k=1:K
     for l=1:L
         c_l = c(:,l);
         dh_dt_l = compute_dh_dt(z,x,t,c_l); %(D x K)
-        delta = (y==l);
+        prob_y_x_h_x = prob_y_x(h_x); % (L x 1)
+        ind_y_l = (y==l);
+        delta = ind_y_l - prob_y_x_h_x(l);
         dJ_dt_k = dJ_dt_k + dh_dt_l(:,k) * delta;
     end
     dJ_dt(:,k) = -dJ_dt_k;
