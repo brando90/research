@@ -1,4 +1,4 @@
-function [ c_new, dHf_dc ] = update_c_batch(X,y, c,t,beta, mu_c, lambda )
+function [ c_new, dHf_dc ] = update_c_batch(X,y, mdl, mu_c, lambda )
 %update_c_batch
 %   Updates c according to:
 %       c := c - mu_c * dJ/dc
@@ -13,7 +13,7 @@ function [ c_new, dHf_dc ] = update_c_batch(X,y, c,t,beta, mu_c, lambda )
 %   Output:
 %       c = updated weights (K x L)
 %       dHf_dc = derivative (K x L)
-dHf_dc = compute_dHf_dc(X,y,c,t,beta, lambda); %((K x L)
+dHf_dc = compute_dHf_dc(X,y,mdl.c,mdl.t,mdl.beta, lambda); %((K x L)
 %% update
-c_new = c - mu_c * dHf_dc;
+c_new = mdl.c - mu_c * dHf_dc;
 end

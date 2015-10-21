@@ -1,4 +1,4 @@
-function [ regularized_cost_hf ] = compute_Hf( X,y, mdl )
+function [ regularized_cost_hf ] = compute_Hf( X,y, mdl, lambda )
 %compute_Hf - computes regularized cost 
 %H[F] = sum (y_i, f(x_i))^2 + lambda || Pf ||^2
 %   Inputs:

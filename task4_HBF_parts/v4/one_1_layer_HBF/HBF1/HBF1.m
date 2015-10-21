@@ -25,13 +25,13 @@ classdef HBF1
             %returns true if any parameter is nan
             c_nan = any( isnan(obj.c) );
             t_nan = any( any( any( isnan(obj.t) ) ) );
-            any_nan_param = c_nan || t_nan;
+            any_nan_param = c_nan | t_nan;
         end
-        function [ f_x, a ] = f(~, x,c,t,beta)
-            [ f_x, a ] = f(x,c,t,beta);
+        function [ f_x, a ] = f(obj,x)
+            [ f_x, a ] = f(x,obj.c,obj.t,obj.beta);
         end
-        function [ h_x, z, a ] = h( ~, x,c,t,beta )
-            [ h_x, z, a ] = h( x,c,t,beta );
+        function [ h_x, z, a ] = h( obj, x)
+            [ h_x, z, a ] = h( x,obj.c,obj.t,obj.beta );
         end
     end
     

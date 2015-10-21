@@ -8,11 +8,11 @@ function [ j_xy ] = J(x,y, mdl)
 %       t = centers (D x K)
 %   Outputs:
 %       J(y, f(x))
-if mdl.any_nan()
+if mdl.any_param_nan()
     keyboard;
 end
 
-[~, L] = size(c);
+[~, L] = size(mdl.c);
 ind = ((1:L) == y)'; %(L x 1)
 
 [ h_x, ~, ~ ] = mdl.h(x);

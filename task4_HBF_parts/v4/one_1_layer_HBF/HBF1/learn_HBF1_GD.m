@@ -1,4 +1,4 @@
-function [ c, t ] = learn_HBF_parameters_1_hidden_layer_iterations(X,y, c,t,beta, mu_c,mu_t, lambda, iterations,visualize)
+function [ mdl_final ] = learn_HBF1_GD(X,y, mdl, mu_c,mu_t, lambda, iterations,visualize)
 %learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
 %   Inputs:
 %       X = data matrix (D x N)
@@ -13,30 +13,33 @@ function [ c, t ] = learn_HBF_parameters_1_hidden_layer_iterations(X,y, c,t,beta
 %   Outputs:
 %       c_new = learned weights (K x 1)
 %       t_new = learned centers (D x K)
-[~, K] = size(t);
+[~, K] = size(mdl.t);
+[~, L] = size(mdl.c);
 errors = zeros(iterations,1);
 changes_c = zeros(L, iterations);
-dJ_dc_mu_c_iter = zeros(L, iterations);
-% changes_t = zeros(K, iterations);
+dHf_dc_mu_c_iterion = zeros(L, iterations);
+changes_t = zeros(K, iterations);
+dHf_dt_mu_t_iter = zeros(K, iterations);
+mdl_final = HBF1(mdl.c, mdl.t, mdl.beta);
 for i=1:iterations
     %% get new parameters
-    [c_new, dHf_dc] = update_c_batch(X,y, c,t,beta, mu_c, lambda);
-    [t_new, dHf_dt] = update_t_batch(X,y, c,t,beta, mu_t, lambda);
-    %% get plotting info about parameters
-    % get changes for c/iter.
-    change_c_wrt_current_iteration = get_dc_dt(c, c_new); % (L x 1)
+    [c_new, dHf_dc] = update_c_batch(X,y, mdl, mu_c, lambda);
+    [t_new, dHf_dt] = update_t_batch(X,y, mdl, mu_t, lambda);
+    %% get changes for c/iter.
+    change_c_wrt_current_iteration = get_dc_diter(mdl.c, c_new); % (L x 1)
     changes_c(:,i) = change_c_wrt_current_iteration; % (L x 1)
-    dJ_dc_col_norms = get_norms_col_dJ_dc(dJ_dc); % (L x 1)
-    dJ_dc_mu_c_iter(:, i) = mu_c * dJ_dc_col_norms;
-    c = c_new;
-    t = t_new;
+    dJ_dc_col_norms = get_norms_col_dHf_dc(dHf_dc); % (L x 1)
+    dHf_dc_mu_c_iterion(:, i) = mu_c * dJ_dc_col_norms;
     %% get changes for t2s/iter.
-    change_t_wrt_iteration = get_dt_dt(t, t_new );
-    changes_t(:, i) = change_t2_wrt_iteration;
-    dJ_dt_col_norms = get_norms_col_dJ_dt(dJ_dt);
-    dJ_dt_mu_t_iter(:, i) = mu_t2 * dJ_dt2_col_norms;
+    change_t_wrt_iteration = get_dt_diter(mdl.t, t_new );
+    changes_t(:, i) = change_t_wrt_iteration;
+    dHf_diter_col_norms = get_norms_col_dHf_dt(dHf_dt);
+    dHf_dt_mu_t_iter(:, i) = mu_t * dHf_diter_col_norms;
+    %% update HBF1 model
+    mdl_final.c = c_new;
+    mdl_final.t = t_new;
     %% Calculate current errors
-    current_error = compute_Hf(X,y, c,t,beta, lambda);
+    current_error = compute_Hf(X,y, mdl, lambda);
     errors(i) = current_error;
 end
 if visualize
