@@ -26,7 +26,7 @@ mu_c = 0.9;
 mu_t = 0.9;
 lambda = 0; %reg param
 %% Learn the parameters
-iterations = 50
+iterations = 53
 visualize = 1;
 tic
 [c_learned,t_learned] = learn_HBF_parameters_1_hidden_layer_iterations(X_training_data,y_training_data, c_initial,t_initial,beta, mu_c,mu_t, lambda, iterations,visualize);
