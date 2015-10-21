@@ -8,6 +8,9 @@ function [ j_xy ] = J(x,y, mdl)
 %       t = centers (D x K)
 %   Outputs:
 %       J(y, f(x))
+if mdl.any_nan()
+    keyboard;
+end
 
 [~, L] = size(c);
 ind = ((1:L) == y)'; %(L x 1)
@@ -17,18 +20,11 @@ exp_h_x = exp(h_x);
 z = sum( exp_h_x );
 log_z = log(z);
 if log_z == inf
-    disp('log_z == inf')
-    %h_x_p = h_x(exp_h_x > 1)
-    %log_z = sum(h_x_p);
     %log_z = 710;
     log_z = max(h_x);
 elseif log_z == -inf
-    disp('log_z == -inf')
-    %h_x_p = h_x(exp_h_x < 1);
-    %log_z = sum(h_x_p);
-    %log_z = -709;
-    %log_z = max(h_x);
     log_z = -708;
+    %log_z = min(h_x);
 end
 log_prob = h_x - log_z;
 j_xy = -ind' * log_prob;

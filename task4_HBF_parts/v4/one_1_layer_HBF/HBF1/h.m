@@ -1,4 +1,4 @@
-function [ h, z, a ] = h( x,c,t,beta )
+function [ h_x, z, a ] = h( x,c,t,beta )
 %computes 1HBF
 %   Computes h(x) 
 %   Inputs:
@@ -10,5 +10,5 @@ function [ h, z, a ] = h( x,c,t,beta )
 %       z = (K x 1)
 %       a = (K x 1)
 [z, a] = forward_pass( x,t,beta );
-h = c' * a;
+h_x = c' * a;
 end

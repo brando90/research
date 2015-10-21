@@ -1,15 +1,11 @@
 disp('-------------------------->>> SCRIPT: 2HBF generate_all_data_list_dict ...');
 %% Create vectors to learn from
-%load('../common/data_3parts_3slots_divided_by_9_noise.mat');
-%load('data_3parts_Dp10_3slots_divided_by_9_noise');
 load('../common/data_3parts_Dp10_3slots_divided_by_9_noise_snr_1')
 %% Parameters 
-% repetitions = 2;
 %[Dp, Dd, Np] = size(list_dict)
 % K1 = Dd * Np
 % K2 = Dd^Np
 % L = K2
-%%
 [Dp, Dd, Np] = size(list_dict)
 K1 = Dd * Np
 K2 = 2
@@ -28,7 +24,6 @@ L = 2
 %init_name = 'c_labels_t2_expected_t1_parts';
 %[ c_2hbf_initial, t1_initial, t2_initial ] = expected_good_initialization(list_dict, y, m_train)
 %% Choose random data points as initilization
-
 %% Precision = 1/standard dev. --------------------------------------------
 precision_gaussian = 1;
 %% SGD parameters

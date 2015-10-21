@@ -11,15 +11,24 @@ classdef HBF2
     
     methods
         function obj = HBF2(c,t1,t2,beta)
+            %constructs HBF2
             obj.c = c;
             obj.t1 = t1;
             obj.t2 = t2;
             obj.beta = beta;
         end
         function y_prediction = predict(obj, x)
+            %returns predicted/classification label
             [h_x, ~, ~,~,~ ] = h(x,obj.c,obj.t1,obj.t2,obj.beta);
             y_prediction = find((max(h_x) == h_x));
             y_prediction = y_prediction(1);
+        end
+        function any_nan_param = any_param_nan(obj)
+            %returns true if any parameter is nan
+            c_nan = any( any( isnan(obj.c) ) );
+            t1_nan = any( any( any( isnan(onj.t1) ) ) );
+            t2_nan = any( any( isnan(obj.t2) );
+            any_nan_param = c_nan || t1_nan || t2_nan;
         end
     end
     

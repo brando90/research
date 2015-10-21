@@ -1,9 +1,6 @@
 disp('-------------------------->>> 1HBF...');
 %% Create vectors to learn from
-%% Create vectors to learn from
-%load('../common/data_3parts_3slots_divided_by_9.mat');
-%load('data_3parts_3slots_divided_by_9_noise');
-%load('data_3parts_Dp10_3slots_divided_by_9_noise');
+addpath('.');
 load('../common/data_3parts_Dp10_3slots_divided_by_9_noise_snr_1');
 %% Parameters 
 [Dp, Dd, Np] = size(list_dict)
@@ -12,21 +9,23 @@ K = Dd^Np
 L = 2
 %% parameter initilization ------------------------------------------------
 %% Random initilization
-init_name = 'c_rand_t_rand';
-c_initial = rand(K,L)
-t_initial = rand(D,K)
-beta = 1;
-%% C has data labels, t has x points
-% init_name = 'c_data_t_data';
-% c_initial = y_training_data(1:m_train:m_train*K)
-% t_initial = X_training_data(:,1:m_train:m_train*K)
+% init_name = 'c_rand_t_rand';
+% c_initial = rand(K,L)
+% t_initial = rand(D,K)
 % beta = 1;
+%% Random Data points
+size_subset = K
+X_training_data_subset = datasample(X_training_data', size_subset, 'Replace', false);
+t_initial = X_training_data_subset';
+size(t_initial)
+c_initial = rand(K,L);
+beta = 1;
 %% GD parameters
-mu_c = 0.9;
-mu_t = 0.9;
+mu_c = 0.7;
+mu_t = 0.7;
 lambda = 0; %reg param
 %% Learn the parameters
-iterations = 53
+iterations = 60
 visualize = 1;
 tic
 [c_learned,t_learned] = learn_HBF_parameters_1_hidden_layer_iterations(X_training_data,y_training_data, c_initial,t_initial,beta, mu_c,mu_t, lambda, iterations,visualize);
@@ -70,6 +69,8 @@ disp(final_test_empirical_risk);
 save('most_recent_state_of_HBF1_run')
 
 %% Time Elapsed
+disp('--==>>iterations = 53')
+iterations
 disp('--==--==> TIME');
 disp('elapsed_time, seconds')
 disp(elapsed_time)
@@ -97,3 +98,5 @@ disp(elapsed_time/60)
 % fprintf(fileID, 'iterations %6.2f \n', iterations );
 % fprintf(fileID, 'elapsed_time %6.2f \n', elapsed_time );
 % fclose(fileID);
+beep;
+beep;
