@@ -1,3 +1,9 @@
+addpath('../..');
+addpath('../../derivatives_c');
+addpath('../../derivatives_t');
+addpath('../../update_rules');
+addpath('../../analytic_tools_analysis_HBF1_GD');
+addpath('../../../../common/softmax_risk');
 %% dJ_dt_unit_test
 K = 4;
 L = 2;
@@ -8,8 +14,9 @@ y = 1;
 
 c = rand(K,L);
 t = rand(D,K);
-lambda = 0;
 beta = 1;
+mdl = HBF1(c,t,beta)
+lambda = 0;
 
 [h_x, z, ~] = h(x,c,t,beta);
 dJ_dt = compute_dJ_dt(h_x,z,x,y,t,c);

@@ -1,3 +1,10 @@
+addpath('./HBF1');
+addpath('./HBF1/derivatives_c');
+addpath('./HBF1/derivatives_t');
+addpath('./HBF1/update_rules');
+addpath('./HBF1/analytic_tools_analysis_HBF1_GD');
+addpath('../common/classification');
+addpath('../common/softmax_risk');
 %% f star unit test
 x = (1:3)'/norm(1:3, 2)
 c = [17:20;21:24;25:28]'

@@ -1,3 +1,9 @@
+addpath('../..');
+addpath('../../derivatives_c');
+addpath('../../derivatives_t');
+addpath('../../update_rules');
+addpath('../../analytic_tools_analysis_HBF1_GD');
+addpath('../../../../common/softmax_risk');
 %% dh_dt unit test
 disp('==================-------------------');
 K = 4;

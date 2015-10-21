@@ -4,7 +4,8 @@ restoredefaultpath
 addpath('./HBF1');
 addpath('./HBF1/derivatives_c');
 addpath('./HBF1/derivatives_t');
-addpath('./HBF1/update_rules');
+addpath('./HBF1/batch_gradient_descent');
+addpath('./HBF1/batch_gradient_descent/update_rules');
 addpath('./HBF1/analytic_tools_analysis_HBF1_GD');
 addpath('../common/classification');
 addpath('../common/softmax_risk');
@@ -32,7 +33,7 @@ mu_c = 0.9;
 mu_t = 0.9;
 lambda = 0; %reg param
 %% Learn the parameters
-iterations = 50
+iterations = 10
 visualize = 1;
 tic
 mdl_initial = HBF1(c_initial,t_initial,beta);
