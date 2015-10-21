@@ -9,7 +9,9 @@ function [ j_xy ] = J(x,y, c,t, beta)
 %   Outputs:
 %       J(y, f(x))
 if any( any( isnan(c) ) ) || any( any( any( isnan(t) ) ) )
+    disp('any NaNs in c:');
     disp(any( any( isnan(c) ) ) );
+    disp('any NaNs in t:');
     disp(any( any( any( isnan(t) ) ) ) );
     keyboard
 end
@@ -17,7 +19,7 @@ end
 [~, L] = size(c);
 ind = ((1:L) == y)'; %(L x 1)
 
-[ h_x, ~ ] = h(x, c,t, beta );
+[ h_x, ~, ~ ] = h(x, c,t, beta );
 exp_h_x = exp(h_x);
 z = sum( exp_h_x );
 log_z = log(z);

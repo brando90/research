@@ -54,17 +54,18 @@ disp(t2_initial);
 %% Data sizes:
 disp(N_size_training_data);
 disp(N_size_test_data);
-%% initial classification error
+%% Classification
+% initial classification error
 initial_y_pred_training_data = classify_data_set( X_training_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian );
 [initial_training_classification_error, initial_training_classification_percent_error] = classification_error( y_training_data, initial_y_pred_training_data );
 initial_y_pred_test_data = classify_data_set( X_test_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian );
 [initial_test_classification_error, initial_test_classification_percent_error] = classification_error(y_test_data, initial_y_pred_test_data );
-%% final classification error
+% final classification error
 final_y_pred_training_data = classify_data_set( X_training_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian );
 [final_training_classification_error, final_training_classification_percent_error] = classification_error(y_training_data, final_y_pred_training_data);
 final_y_pred_test_data = classify_data_set( X_test_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian );
 [final_test_classification_error, final_test_classification_percent_error] = classification_error(y_test_data, final_y_pred_test_data);
-%% Print classification errors
+% Print classification errors
 disp('===============--------------------->>>')
 disp('amount of training data');
 [~, N_training_data] = size(X_training_data);
@@ -91,13 +92,14 @@ disp('=final_test_classification_percent_error');
 disp(final_test_classification_percent_error);
 
 disp('-----')
-%% intitial risk/errors
+%% Risk
+% intitial risk/errors
 initial_training_empirical_risk = compute_Hf(X_training_data,y_training_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian, lambda);
 initial_test_empirical_risk = compute_Hf(X_test_data,y_test_data, c_2hbf_initial,t1_initial,t2_initial,precision_gaussian, lambda);
-%% final risk/errors
+% final risk/errors
 final_training_empirical_risk = compute_Hf(X_training_data,y_training_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian, lambda);
 final_test_empirical_risk = compute_Hf(X_test_data,y_test_data, c_2hbf_learned,t1_learned,t2_learned,precision_gaussian, lambda);
-%% Print Empirical Risks
+% Print Empirical Risks
 disp('initial_training_empirical_risk');
 disp(initial_training_empirical_risk);
 disp('initial_test_empirical_risk');
@@ -112,11 +114,13 @@ disp(final_test_empirical_risk);
 %     visualize_center_parts(t1(:,:,np));
 % end
 
+%% Time
 disp('elapsed_time, seconds')
 disp(elapsed_time)
 disp('elapsed_time, minutes')
 disp(elapsed_time/60)
 
+%% File write
 fileID = fopen(strcat(strcat('statistical_performance_', init_name) ,'.txt'), 'w');
 fprintf(fileID, 'Simulation: %12s \n', init_name);
 fprintf(fileID, 'Ocurred: %12s \n', datestr(clock, 0));

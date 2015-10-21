@@ -6,7 +6,7 @@ function [ h, z, a ] = h( x,c,t,beta )
 %       c = weights (K x L)
 %       t = centers (D x K)
 %   Outputs:
-%       h = h^*(x) (K x L)
+%       h = h^*(x) (L x 1)
 %       z = (K x 1)
 %       a = (K x 1)
 [z, a] = forward_pass( x,t,beta );
