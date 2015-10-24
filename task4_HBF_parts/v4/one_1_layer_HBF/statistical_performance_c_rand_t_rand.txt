@@ -1,9 +1,0 @@
-Simulation: c_rand_t_rand 
-Ocurred: 20-Oct-2015 17:16:29 
-initial_training_error: 1386.29 
-final_training_error: 1386.27 
-initial_test_error: 1386.29 
-final_test_error: 1386.35 
------ 
-iterations   3.00 
-elapsed_time  26.71 

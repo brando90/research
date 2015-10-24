@@ -1,39 +1,39 @@
 disp('-------------------------->>> 1HBF...');
 %% Create vectors to learn from
 restoredefaultpath
-addpath('./HBF1');
-addpath('./HBF1/derivatives_c');
-addpath('./HBF1/derivatives_t');
-addpath('./HBF1/batch_gradient_descent');
-addpath('./HBF1/batch_gradient_descent/update_rules');
-addpath('./HBF1/analytic_tools_analysis_HBF1_GD');
-addpath('../common/classification');
-addpath('../common/softmax_risk');
-load('../common/data_3parts_Dp10_3slots_divided_by_9_noise_snr_1');
+addpath('../HBF1');
+addpath('../HBF1/derivatives_c');
+addpath('../HBF1/derivatives_t');
+addpath('../HBF1/batch_gradient_descent');
+addpath('../HBF1/batch_gradient_descent/update_rules');
+addpath('../HBF1/analytic_tools_analysis_HBF1_GD');
+addpath('../../common/classification');
+addpath('../../common/softmax_risk');
+load('../../common/data_3parts_Dp10_3slots_divided_by_9_noise_snr_1');
 %% Parameters 
 [Dp, Dd, Np] = size(list_dict)
 D = Dp*Np
 %K = Dd^Np
-K = 2
+K = 10
 L = 2
 %% parameter initilization ------------------------------------------------
 %% Random initilization
-c_initial = rand(K,L);
-t_initial = rand(D,K);
-beta = 1;
-%% Random Data points
-% size_subset = K
-% X_training_data_subset = datasample(X_training_data', size_subset, 'Replace', false);
-% t_initial = X_training_data_subset';
-% size(t_initial)
 % c_initial = rand(K,L);
+% t_initial = rand(D,K);
 % beta = 1;
+%% Random Data points
+size_subset = K
+X_training_data_subset = datasample(X_training_data', size_subset, 'Replace', false);
+t_initial = X_training_data_subset';
+size(t_initial)
+c_initial = rand(K,L);
+beta = 1;
 %% GD parameters
-mu_c = 0.9;
-mu_t = 0.9;
+mu_c = 0.01;
+mu_t = 0.1;
 lambda = 0; %reg param
 %% Learn the parameters
-iterations = 20
+iterations = 50
 visualize = 1;
 tic
 mdl_initial = HBF1(c_initial,t_initial,beta);

@@ -8,14 +8,14 @@ load('../common/data_3parts_Dp10_3slots_divided_by_9_noise_snr_1')
 % L = K2
 [Dp, Dd, Np] = size(list_dict)
 K1 = Dd * Np
-K2 = 2
+K2 = 10
 L = 2
 %% parameter initilization ------------------------------------------------
 %% Random initilization
-% init_name = 'c_rand_t2_rand_t1_rand';
-% c_2hbf_initial = rand(K2,L)
-% t1_initial = rand(Dp, Dd, Np)
-% t2_initial = rand(K1, K2)
+init_name = 'c_rand_t2_rand_t1_rand';
+c_2hbf_initial = rand(K2,L);
+t1_initial = rand(Dp, Dd, Np);
+t2_initial = rand(K1, K2);
 %% C has true labels, t2 random, t1 parts
 % init_name = 'c_labels_t2_rand_t1_parts';
 % t2_initial = rand(K1, K2);
@@ -27,12 +27,12 @@ L = 2
 %% Precision = 1/standard dev. --------------------------------------------
 precision_gaussian = 1;
 %% SGD parameters
-mu_c = 0.9;
-mu_t1 = 0.9;
+mu_c = 10.0;
+mu_t1 = 100;
 mu_t2 = 0.9;
 lambda = 0;
 %% Learn the parameters
-iterations = 1517;
+iterations = 250;
 visualize = 1;
 disp('============++++++++++++++>>>> TRAINING STARTING');
 tic
