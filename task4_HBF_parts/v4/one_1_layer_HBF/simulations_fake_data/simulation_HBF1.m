@@ -2,6 +2,7 @@ disp('-------------------------->>> 1HBF...');
 %% Create vectors to learn from
 restoredefaultpath
 addpath('../HBF1');
+addpath('../HBF1/model_functions');
 addpath('../HBF1/derivatives_c');
 addpath('../HBF1/derivatives_t');
 addpath('../HBF1/batch_gradient_descent');
