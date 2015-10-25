@@ -26,12 +26,15 @@ classdef HBF2
         function any_nan_param = any_param_nan(obj)
             %returns true if any parameter is nan
             c_nan = any( any( isnan(obj.c) ) );
-            t1_nan = any( any( any( isnan(onj.t1) ) ) );
+            t1_nan = any( any( any( isnan(obj.t1) ) ) );
             t2_nan = any( any( isnan(obj.t2) ) );
             any_nan_param = c_nan || t1_nan || t2_nan;
         end
         function [ f_x, a ] = f(obj,x)
             [ f_x, a ] = f(x,obj.c,obj.t,obj.beta);
+        end
+        function [ h_x, z_l1, z_l2,a_l2,a_l3 ] = h(obj, x)
+            [h_x,z_l1,z_l2,a_l2,a_l3] = h(x,obj.c,obj.t1,obj.t2,obj.beta);
         end
     end
     

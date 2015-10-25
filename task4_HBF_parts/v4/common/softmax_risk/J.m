@@ -15,7 +15,14 @@ end
 [~, L] = size(mdl.c);
 ind = ((1:L) == y)'; %(L x 1)
 
-[ h_x, ~, ~ ] = mdl.h(x);
+%output = mdl.h(x);
+%TODO code properly
+if isa(mdl,'HBF1')
+    [h_x,~,~,~,~] = mdl.h(x);
+else
+    [h_x,~,~,] = mdl.h(x);
+end
+
 exp_h_x = exp(h_x);
 z = sum( exp_h_x );
 log_z = log(z);
@@ -34,6 +41,9 @@ if isnan(j_xy)
     disp(h_x);
     disp('log_z: ')
     disp(log_z);
+    keyboard
+end
+if length(j_xy) >= 2
     keyboard
 end
 end
