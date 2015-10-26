@@ -17,7 +17,7 @@ ind = ((1:L) == y)'; %(L x 1)
 
 %output = mdl.h(x);
 %TODO code properly
-if isa(mdl,'HBF1')
+if isa(mdl,'HBF2')
     [h_x,~,~,~,~] = mdl.h(x);
 else
     [h_x,~,~,] = mdl.h(x);

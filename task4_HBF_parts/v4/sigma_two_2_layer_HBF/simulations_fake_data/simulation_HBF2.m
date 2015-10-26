@@ -13,31 +13,22 @@ addpath('../../common/softmax_risk');
 load('../../common/data_3parts_Dp10_3slots_divided_by_9_noise_snr_1');
 %% Parameters 
 [Dp, Dd, Np] = size(list_dict)
+%Dd = 10
 K1 = Dd * Np % Dd * Np good?
-K2 = 10 % Dd^Np good?
+Dd_to_pwr_Np = Dd^Np
+K2 = 20 % Dd^Np good
 L = 2 % L = K2 good?
-%% parameter initilization ------------------------------------------------
+%% Param initilization ------------------------------------------------
 %% Random initilization
-init_name = 'c_rand_t2_rand_t1_rand';
 c_2hbf_initial = rand(K2,L);
-t1_initial = rand(Dp, Dd, Np);
+
+t_initial = initialization_from_data_t1( X_training_data, Dp,Dd,Np);
+
 t2_initial = rand(K1, K2);
-precision_gaussian = 1;
-%% C has true labels, t2 random, t1 parts
-% init_name = 'c_labels_t2_rand_t1_parts';
-% t2_initial = rand(K1, K2);
-% [ c_2hbf_initial, t1_initial, ~ ] = expected_good_initialization(list_dict, y, m_train)
-%precision_gaussian = 1;
-%% C has true labels, t2 expected output, t1 parts
-%init_name = 'c_labels_t2_expected_t1_parts';
-%[ c_2hbf_initial, t1_initial, t2_initial ] = expected_good_initialization(list_dict, y, m_train)
-%precision_gaussian = 1;
-%% Choose random data points as initilization
-%TODO 
-%precision_gaussian = 1;
+beta = 1;
 %% SGD parameters
-mu_c = 10.0;
-mu_t1 = 100;
+mu_c = 1.2;
+mu_t1 = 12;
 mu_t2 = 0.9;
 lambda = 0;
 %% Learn the parameters
@@ -57,15 +48,15 @@ print_classification_errors_train_test( X_training_data, y_training_data, X_test
 disp('-- Final Classification Errors after learned model');
 print_classification_errors_train_test( X_training_data, y_training_data, X_test_data,y_test_data, mdl_final )
 
-disp('c');
-mdl_initial.c
-mdl_final.c
-disp('t1');
-mdl_initial.t1
-mdl_final.t1
-disp('t2');
-mdl_initial.t2
-mdl_final.t2
+% disp('c');
+% mdl_initial.c
+% mdl_final.c
+% disp('t1');
+% mdl_initial.t1
+% mdl_final.t1
+% disp('t2');
+% mdl_initial.t2
+% mdl_final.t2
 
 %% Risk
 % % intitial risk/errors
