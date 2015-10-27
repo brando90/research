@@ -39,7 +39,7 @@ for i=1:iterations
     mdl_new.c = c_new;
     mdl_new.t = t_new;
     %% Calculate current errors
-    current_Hf = compute_Hf(X,y, mdl_new, lambda);
+    current_Hf = compute_Hf_sq_error(X,y, mdl_new, lambda);
     errors_Hfs(i) = current_Hf;
 end
 if visualize

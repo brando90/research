@@ -15,11 +15,9 @@ classdef HBF1
             obj.t = t;
             obj.beta = beta;
         end
-        function y_prediction = predict(obj, x)
+        function f_x = predict(obj, x)
             %returns predicted/classification label
-            [h_x] = h(x,obj.c,obj.t,obj.beta);
-            y_prediction = find((max(h_x) == h_x));
-            y_prediction = y_prediction(1);
+            [f_x, ~] = obj.f(x);
         end
         function any_nan_param = any_param_nan(obj)
             %returns true if any parameter is nan
@@ -29,9 +27,6 @@ classdef HBF1
         end
         function [ f_x, a ] = f(obj,x)
             [ f_x, a ] = f(x,obj.c,obj.t,obj.beta);
-        end
-        function [ h_x, z, a ] = h( obj, x)
-            [ h_x, z, a ] = h( x,obj.c,obj.t,obj.beta );
         end
     end
     
