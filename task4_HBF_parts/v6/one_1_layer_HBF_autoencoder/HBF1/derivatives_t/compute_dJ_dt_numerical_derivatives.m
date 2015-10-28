@@ -14,8 +14,8 @@ for d=1:D
     for k=1:K
         e = zeros([D,K]);
         e(d,k) = eps;
-        J_e1 = J(x,y, HBF1(c,t + e, beta));
-        J_e2 = J(x,y, HBF1(c,t - e, beta));
+        J_e1 = J_sq_error(x,y, HBF1(c,t + e, beta));
+        J_e2 = J_sq_error(x,y, HBF1(c,t - e, beta));
         numerical_derivative = (J_e1 - J_e2)/(2*eps);
         dJ_dt_numerical(d,k) = numerical_derivative;
     end

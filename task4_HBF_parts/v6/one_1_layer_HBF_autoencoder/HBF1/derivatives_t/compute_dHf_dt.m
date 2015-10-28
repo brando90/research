@@ -15,7 +15,7 @@ for i=1:N
     x_i = X(:,i);
     y_i = y(:,i);
     [f_x, z, ~] = f(x_i,c,t,beta);
-    dJ_dt = compute_dJ_dt_loops(f_x,z,x_i,y_i,t,c); %(D x K)
+    dJ_dt = compute_dJ_dt(f_x,z,x_i,y_i,t,c); %(D x K)
     dHf_dt = dHf_dt + dJ_dt;
 end
 regularization_term = 0; %TODO

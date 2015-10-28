@@ -11,13 +11,14 @@ classdef HBF1
     methods
         function obj = HBF1(c,t,beta)
             %constructs HBF1
+            %addpath('model_functions');
             obj.c = c;
             obj.t = t;
             obj.beta = beta;
         end
         function f_x = predict(obj, x)
             %returns predicted/classification label
-            [f_x, ~] = obj.f(x);
+            [f_x, ~, ~] = obj.f(x);
         end
         function any_nan_param = any_param_nan(obj)
             %returns true if any parameter is nan
@@ -25,8 +26,8 @@ classdef HBF1
             t_nan = any( any( any( isnan(obj.t) ) ) );
             any_nan_param = c_nan | t_nan;
         end
-        function [ f_x, a ] = f(obj,x)
-            [ f_x, a ] = f(x,obj.c,obj.t,obj.beta);
+        function [ f_x, z, a ] = f(obj,x)
+            [ f_x, z, a ] = f(x,obj.c,obj.t,obj.beta);
         end
     end
     
