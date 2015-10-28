@@ -36,7 +36,7 @@ mu_t = 0.0000005;
 lambda = 0; %reg param
 %% Learn the parameters
 disp('============++++++++++++++>>>> TRAINING STARTING');
-iterations = 14
+iterations = 1
 visualize = 1;
 mdl_initial = HBF1(c_initial,t_initial,beta);
 tic

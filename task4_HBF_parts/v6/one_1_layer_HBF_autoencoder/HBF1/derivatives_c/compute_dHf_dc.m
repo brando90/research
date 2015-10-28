@@ -14,7 +14,7 @@ dHf_dc = zeros(K,D);
 for i=1:N
     x_i = X(:,i);
     y_i = y(:,i);
-    [f_x, a] = f(x_i,c,t,beta);
+    [f_x, ~, a] = f(x_i,c,t,beta);
     dJ_dc = compute_dJ_dc_loops(f_x,y_i,a); %(K x L)
     dHf_dc = dHf_dc + dJ_dc;
 end

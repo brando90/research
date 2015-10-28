@@ -1,18 +1,28 @@
 %% dHf_dc_unit_test
-K = 4;
-L = 2;
-D = 3;
+restoredefaultpath;
+addpath('../..');
+addpath('../../derivatives_c');
+addpath('../../derivatives_t');
+addpath('../../update_rules_GD');
+addpath('../../model_functions');
+addpath('../../analytic_tools_analysis_HBF1_GD');
+addpath('../../../../common/squared_error_risk');
+%%
 N = 100;
+K = 4;
+D = 3;
 X = rand(D,N);
-y = ones(N,1);
-c = rand(K,L);
+y = rand(D,N);
+%% HBF1 params
+c = rand(K,D);
 t = rand(D,K);
-lambda = 0;
-mu_c = 1;
 beta = 1;
-dHf_dc = compute_dHf_dc(X,y,c,t,beta, lambda);
+mdl = HBF1(c,t,beta);
+lambda = 0;
+%%
+dHf_dc = compute_dHf_dc(X,y, mdl.c,mdl.t,mdl.beta, lambda);
 eps = 1e-10;
-dHf_dc_numerical = compute_dHf_dc_numerical_derivatives(X,y,c,t,beta, lambda, eps);
+dHf_dc_numerical = compute_dHf_dc_numerical_derivatives(X,y, mdl.c,mdl.t,mdl.beta, lambda, eps);
 %% print derivatives
 dHf_dc
 dHf_dc_numerical

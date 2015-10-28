@@ -19,9 +19,9 @@ mdl = HBF1(c,t,beta);
 lambda = 0;
 %%
 [f_x, ~, a] = mdl.f(x);
-dJ_dc = compute_dJ_dc_loops(f_x,y,a);
+dJ_dc_loops = compute_dJ_dc_loops(f_x,y,a);
 eps = 1e-10;
 dJ_dc_numerical = compute_dJ_dc_numerical_derivatives(x,y,c,t,beta,eps);
 %% print derivatives
-dJ_dc
+dJ_dc_loops
 dJ_dc_numerical

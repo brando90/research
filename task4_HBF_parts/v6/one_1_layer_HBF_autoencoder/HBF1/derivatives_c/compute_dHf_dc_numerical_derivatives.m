@@ -15,8 +15,8 @@ for l=1:L
     for k=1:K
         e = zeros([K,L]);
         e(k,l) = eps;
-        Hf_e1 = compute_Hf(X,y,c + e,t,beta, lambda );
-        Hf_e2 = compute_Hf(X,y,c - e,t,beta, lambda );
+        Hf_e1 = compute_Hf_sq_error(X,y,HBF1(c + e,t,beta), lambda );
+        Hf_e2 = compute_Hf_sq_error(X,y,HBF1(c - e,t,beta), lambda );
         numerical_derivative = (Hf_e1 - Hf_e2)/(2*eps);
         dHf_dc_numerical(k,l) = numerical_derivative;
     end
