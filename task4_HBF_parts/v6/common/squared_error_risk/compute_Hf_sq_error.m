@@ -10,7 +10,7 @@ function [ regularized_cost_hf ] = compute_Hf_sq_error( X,y, mdl, lambda )
 empirical_risk = 0;
 for i=1:N
     x_i = X(:, i);
-    y_i = y(i);
+    y_i = y(:, i);
     j_xy = J_sq_error(x_i,y_i, mdl);
     empirical_risk = empirical_risk + j_xy;
 end

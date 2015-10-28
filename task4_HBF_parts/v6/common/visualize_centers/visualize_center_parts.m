@@ -1,7 +1,7 @@
 function [ ] = visualize_center_parts( centers )
 % Vizualizes the centers
 %   input:
-%       centers = parts to plot (D x N)
+%       centers = vectors to plot (D x N)
 [~, N] = size(centers);
 figure
 for n=1:N

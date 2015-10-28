@@ -64,15 +64,15 @@ if visualize
     %% plot changes in param t
     for k=1:K
         figure
-        t2_changes_k2 = changes_t(k,:); % (1 x iterations)
+        t_changes_k = changes_t(k,:); % (1 x iterations)
         subplot(2,1,1)
-        plot(iteration_axis, t2_changes_k2)
-        title(strcat('t2/iter -- ', num2str(k)))
+        plot(iteration_axis, t_changes_k)
+        title(strcat('t/iter -- ', num2str(k)))
 
         dHf_dt_mu_t = dHf_dt_mu_t_iter(k,:); % (1 x iterations)
         subplot(2,1,2)
         plot(iteration_axis, dHf_dt_mu_t)
-        title(strcat('dJ dt2 -- ', num2str(k)))
+        title(strcat('dJ dt -- ', num2str(k)))
     end
 end
 end
