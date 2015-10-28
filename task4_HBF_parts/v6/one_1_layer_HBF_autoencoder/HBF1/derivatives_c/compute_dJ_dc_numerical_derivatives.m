@@ -13,8 +13,8 @@ for l=1:L
     for k=1:K
         e = zeros([K,L]);
         e(k,l) = eps;
-        J_e1 = J(x,y, c + e, t, beta);
-        J_e2 = J(x,y, c - e, t, beta);
+        J_e1 = J_sq_error(x,y, HBF1(c + e, t, beta) );
+        J_e2 = J_sq_error(x,y, HBF1(c - e, t, beta) );
         numerical_derivative = (J_e1 - J_e2)/(2*eps);
         dJ_dc_numerical(k,l) = numerical_derivative;
     end

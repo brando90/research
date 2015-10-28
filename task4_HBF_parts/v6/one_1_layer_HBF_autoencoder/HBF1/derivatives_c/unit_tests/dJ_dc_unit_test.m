@@ -1,4 +1,4 @@
-%% dJ_dt_unit_test
+%% dJ_dc_unit_test
 restoredefaultpath;
 addpath('../..');
 addpath('../../derivatives_c');
@@ -13,18 +13,15 @@ D = 3;
 x = rand(D,1);
 y = rand(D,1);
 %% HBF1 params
-beta = 1;
 c = rand(K,D);
 t = rand(D,K);
 mdl = HBF1(c,t,beta);
 lambda = 0;
 %%
-[f_x, z, ~] = mdl.f(x);
-dJ_dt_loops = compute_dJ_dt_loops(f_x,z,x,y,mdl.t,mdl.c);
-%dJ_dt_vec = compute_dJ_dt_vec(f_x,z,x,y,t,c);
+[f_x, ~, a] = mdl.f(x);
+dJ_dc = compute_dJ_dc_loops(f_x,y,a);
 eps = 1e-10;
-dJ_dt_numerical = compute_dJ_dt_numerical_derivatives(x,y,mdl.c,mdl.t,mdl.beta,eps);
+dJ_dc_numerical = compute_dJ_dc_numerical_derivatives(x,y,c,t,beta,eps);
 %% print derivatives
-dJ_dt_loops
-%dJ_dt_vec
-dJ_dt_numerical
+dJ_dc
+dJ_dc_numerical
