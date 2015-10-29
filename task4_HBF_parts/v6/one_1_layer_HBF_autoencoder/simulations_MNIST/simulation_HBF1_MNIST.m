@@ -1,38 +1,70 @@
-disp('------------->>> Running simulations 1 layer HBF...');
-%% Create vectors to learn from
-%N = 100; %size of data
-%D = 4*10; %dim of data
-%[X, y] = generate_supervised_classification_dumy_data_set(N, D);
-addpath('../common')
-X = loadMNISTImages('../common/data/train-images-idx3-ubyte');
-y = loadMNISTLabels('../common/data/train-labels-idx1-ubyte');
-[D, ~] = size(X);
-N = 1000;
-X = X(:,1:N);
-size(X(:,1))
-y = y(1:N);
-disp('---> Size(X) = (D, N)');
-disp(size(X));
-disp('---> Size(y) = (N, 1)')
-disp(size(y));
+disp('-------------------------->>> 1HBF...');
+%% Load paths
+restoredefaultpath
+addpath('../HBF1');
+addpath('../HBF1/model_functions');
+addpath('../HBF1/derivatives_c');
+addpath('../HBF1/derivatives_t');
+addpath('../HBF1/update_rules_GD/batch_gradient_descent');
+addpath('../HBF1/analytic_tools_analysis_HBF1_GD');
+addpath('../../common/squared_error_risk');
+addpath('../../common/visualize_centers')
+addpath('../../common/MNIST')
+
+X_training_data = loadMNISTImages('../../common/data/train-images-idx3-ubyte');
+X_training_data = X_training_data(:,1:2000);
 %% Parameters
+[D, N] = size(X_training_data)
+K = 50
+%% parameter initilization ------------------------------------------------
+%t_initial = datasample(X_training_data', K, 'Replace', false)';
+t_initial = datasample(X_training_data', K, 'Replace', false)';
+%t_initial = X_perfect_data;
+%t_initial = X_training_data(:,[1,1002]);
+%t_initial = rand(D,K);
+size(t_initial)
+c_initial = rand(K,D);
+beta = 1;
+%% GD parameters
+mu_c = 0.1;
+mu_t = 0.1;
 lambda = 0; %reg param
-K = 200; %num hidden units
-c = rand(K,1);
-t = rand(D,K);
-%t = X(:,1:K);
-mu_c = 1;
-mu_t = 1;
 %% Learn the parameters
+disp('============++++++++++++++>>>> TRAINING STARTING');
+iterations = 2
 visualize = 1;
-prec = 0.01;
-[c_new, t_new] = learn_HBF_parameters_1_hidden_layer(X, y, c, t, lambda, mu_c, mu_t, prec, visualize);
-%iterations = 500;
-%[c_new, t_new] = learn_HBF_parameters_1_hidden_layer_iterations(X, y, c, t, lambda, mu_c, mu_t, iterations, visualize);
-%% Print some results
-initial_error = compute_Hf(X, y, c, t, lambda);
-disp('initial error: ');
-disp(initial_error);
-final_error = compute_Hf(X, y, c_new, t_new, lambda);
-disp('final error (after training): ');
-disp(final_error);
+mdl_initial = HBF1(c_initial,t_initial,beta);
+tic
+mdl_final = learn_HBF1_batch_GD(X_training_data,X_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize);
+%mdl_final = learn_HBF1_alternating_minimization(X_training_data,y_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize);
+elapsed_time = toc;
+
+%%
+error_training_initial_model = compute_Hf_sq_error(X_training_data,X_training_data, mdl_initial, lambda)
+%error_test_initial_model = compute_Hf_sq_error(X_test_data,X_test_data, mdl_initial, lambda)
+
+error_training_final_model = compute_Hf_sq_error(X_training_data,X_training_data, mdl_final, lambda)
+%error_test_final_model = compute_Hf_sq_error(X_test_data,X_test_data, mdl_final, lambda)
+
+%% Time Elapsed
+disp('--==>>iterations')
+disp(iterations);
+disp('--==--==> TIME');
+disp('elapsed_time, seconds')
+disp(elapsed_time)
+disp('elapsed_time, minutes')
+disp(elapsed_time/60)
+
+original_X = X_training_data(:,1:10);
+[rows, cols] = size(original_X);
+X_reconstruction = zeros(rows, cols);
+for i=1:cols
+    X_reconstruction(:,i) = mdl_final.predict(X_training_data(:,i));
+end
+display_network(X_training_data(:,1:10)); % Show the first 100 images
+display_network(X_reconstruction(:,1:10));
+
+
+%% End
+beep;beep;beep;beep;beep;beep;
+save('most_recent_state_of_HBF1_run')
