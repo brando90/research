@@ -14,10 +14,10 @@ function [ mdl_new ] = learn_HBF1_batch_GD(X,y, mdl, mu_c,mu_t, lambda, iteratio
 %       c_new = learned weights (K x 1)
 %       t_new = learned centers (D x K)
 [~, K] = size(mdl.t);
-[~, L] = size(mdl.c);
+[~, D] = size(mdl.c);
 errors_Hfs = zeros(iterations,1);
-changes_c = zeros(L, iterations);
-dHf_dc_mu_c_iterion = zeros(L, iterations);
+changes_c = zeros(D, iterations);
+dHf_dc_mu_c_iterion = zeros(D, iterations);
 changes_t = zeros(K, iterations);
 dHf_dt_mu_t_iter = zeros(K, iterations);
 mdl_new = HBF1(mdl.c, mdl.t, mdl.beta);
@@ -49,7 +49,8 @@ if visualize
     plot(iteration_axis, errors_Hfs);
     title('Error Hf over iteration -- ');
     %% plot changes in param c
-    for l=1:L
+    D = 10
+    for l=1:D
         figure
         c_changes_l = changes_c(l,:); % (1 x iterations)
         subplot(2,1,1)
