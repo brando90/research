@@ -12,33 +12,37 @@ addpath('../../common/visualize_centers')
 addpath('../../common/MNIST')
 
 X_training_data = loadMNISTImages('../../common/data/train-images-idx3-ubyte');
-X_training_data = zscore( X_training_data(:,1:200) );
-X_training_data = X_training_data(:,1:200);
+X_test_data = loadMNISTImages('../../common/data/t10k-images-idx3-ubyte');
+%X_training_data = zscore( X_training_data(:,1:200) );
+X_training_data = X_training_data(:,1:1000);
 % figure
-% display_network(X_training_data(:,1:12));
+% display_network(X_training_data);
+%display_network(X_training_data(:,1:12));
 % display_network(X_training_data(:,13:24));
 %% Parameters
 [D, N] = size(X_training_data)
-K = 20 % hidden units
+K = 100 % hidden units
 %% parameter initilization ------------------------------------------------
+one_letter_of_each = X_training_data(:,[1:6,8,14,16,18]);
+t_initial = [one_letter_of_each, datasample(X_training_data', K-10, 'Replace', false)' ];
 %t_initial = datasample(X_training_data', K, 'Replace', false)';
-t_initial = datasample(X_training_data', K, 'Replace', false)';
 %t_initial = X_perfect_data;
 %t_initial = X_training_data(:,[1,1002]);
 %t_initial = rand(D,K);
 size(t_initial)
 beta = 1; % BETA
-c_initial = rand(K,D);
+c_initial = normc(rand(K,D));
+%c_initial = rand(K,D);
 lambda = 0; %reg param
 %% GD step-size parameters
 mu_c = 0.1;
-mu_t = 0.3;
+mu_t = 0.001;
 % mu_c = 0.00009;
 % mu_t = 0.0000005;
 
 %% Learn the parameters
 disp('============++++++++++++++>>>> TRAINING STARTING');
-iterations = 16 % NUMBER OF ITERATIONS!!!!
+iterations = 10 % NUMBER OF ITERATIONS!!!!
 visualize = 1;
 mdl_initial = HBF1(c_initial,t_initial,beta);
 tic
@@ -62,31 +66,70 @@ disp(elapsed_time)
 disp('elapsed_time, minutes')
 disp(elapsed_time/60)
 
-original_X = X_training_data(:,1:12);
-[rows, cols] = size(original_X);
-X_reconstruction = zeros(rows, cols);
-for i=1:cols
-    reconstructed_img = mdl_final.predict( original_X(:,i) );
-    X_reconstruction(:,i) = reconstructed_img;
-%     figure
-%     display_network(X_reconstruction(:,i))
+%% Visualize data TRAIN
+originalTrainingX = X_training_data(:,1:30);
+[rows_train, cols_train] = size(originalTrainingX);
+reconstructionTrainingX = zeros(rows_train, cols_train);
+for i=1:cols_train
+    reconstructed_img = mdl_final.predict( originalTrainingX(:,i) );
+    reconstructionTrainingX(:,i) = reconstructed_img;
 end
+%% visualize original_training_X
+%original
 figure
-display_network( original_X ); % Show the first 100 images
+display_network( originalTrainingX );
+title('originalTrainingX')
 figure
-display_network( X_reconstruction );
-
+display_network( reconstructionTrainingX );
+title('reconstructionTrainingX')
+%normalized
 figure
-display_network( nromc(original_X) ); % Show the first 100 images
+display_network( normc(originalTrainingX) );
+title('normc(originalTrainingX) NORMALIZED')
 figure
-display_network( normc(X_reconstruction) );
+display_network( normc(reconstructionTrainingX) );
+title('normc(reconstructionTrainingX) NORMALIZED')
+%% visualize centers
+%original
+figure;
+display_network( mdl_final.t );
+title('learned centers: mdl final.t')
+%normalized
+figure;
+display_network( normc(mdl_final.t) );
+title('learned centers normalized: normc(mdl_final.t)')
+%original
+figure;
+display_network( t_initial );
+title('initial centers: t initial')
+%normalized
+figure;
+display_network( normc(t_initial) );
+title('initial centers normalized: normc(t initial)')
 
-
-% for i=1:3
-%     figure
-%     display_network(X_reconstruction(:,i));
-% end
-
+%% Visualize data TEST
+originalTestX = X_test_data(:,1:30);
+[rows_test, cols_test] = size(originalTestX);
+reconstructionTestX = zeros(rows_test, cols_test);
+for i=1:cols_test
+    reconstructed_img = mdl_final.predict( originalTestX(:,i) );
+    reconstructionTestX(:,i) = reconstructed_img;
+end
+%% visualize original_training_X
+%original
+figure
+display_network( originalTestX );
+title('originalTestX')
+figure
+display_network( reconstructionTestX );
+title('reconstructionTestX')
+%normalized
+figure
+display_network( normc(originalTestX) );
+title('normc(originalTestX) NORMALIZED')
+figure
+display_network( normc(reconstructionTestX) );
+title('normc(reconstructionTestX) NORMALIZED')
 
 %% End
 beep;beep;beep;beep;beep;beep;

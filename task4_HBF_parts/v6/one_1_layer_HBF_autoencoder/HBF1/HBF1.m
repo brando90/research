@@ -3,7 +3,7 @@ classdef HBF1
     %   class that holds a 1 layered HBF
     
     properties
-        c % (K x L)
+        c % (K x D)
         t % (D x K)
         beta % (1 x 1)
     end

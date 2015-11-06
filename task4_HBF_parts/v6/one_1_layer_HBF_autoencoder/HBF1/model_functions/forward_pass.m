@@ -12,9 +12,6 @@ for k=1:K
     t_k = t(:,k);
     z(k) = norm(x - t_k, 2)^2;
 end
-z = z';
 %z = pdist2(x', t').^2; %(1 x K)
-a = exp(-beta*z); %(1 x K)
-z = z';
-a = a';
+a = exp(-beta*z); %(K x 1)
 end
