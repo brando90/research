@@ -11,6 +11,7 @@ addpath('../../common/squared_error_risk');
 addpath('../../common/visualize_centers')
 addpath('../../common/MNIST')
 
+%% Create (balanced) Data sets
 num_labels = 10;
 amount_per_label = 100;
 
@@ -21,7 +22,7 @@ X_test_data = loadMNISTImages('../../common/data/t10k-images-idx3-ubyte');
 Y_test_labels = loadMNISTLabels('../../common/data/t10k-labels-idx1-ubyte');
 
 [X_training_data, ~] = get_balanced_training_set( X_training_data, Y_training_labels, amount_per_label, num_labels );
-[X_test_data, ~] = get_balanced_training_set( X_test_data, Y_training_labels, amount_per_label, num_labels );
+[X_test_data, ~] = get_balanced_training_set( X_test_data, Y_test_labels, amount_per_label, num_labels );
 
 %X_training_data = loadMNISTImages('../../common/data/train-images-idx3-ubyte');
 %X_test_data = loadMNISTImages('../../common/data/t10k-images-idx3-ubyte');
@@ -43,25 +44,41 @@ c_initial = normc(rand(K,D));
 %c_initial = rand(K,D);
 lambda = 0; %reg param
 %% GD step-size parameters
-mu_c = 0.1;
-mu_t = 0.001;
+mu_c = 0.01;
+mu_t = 0.01;
 
-%% Learn the parameters
+%% Learn parameters GD
 disp('============++++++++++++++>>>> TRAINING STARTING');
-iterations = 5 % NUMBER OF ITERATIONS!!!!
+iterations = 20 % NUMBER OF ITERATIONS!!!!
 visualize = 1;
 mdl_initial = HBF1(c_initial,t_initial,beta);
 tic
-mdl_final = learn_HBF1_batch_GD(X_training_data,X_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize);
+mdl_final = learn_HBF1_batch_GD(X_training_data,X_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize, X_test_data);
 %mdl_final = learn_HBF1_alternating_minimization(X_training_data,y_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize);
 elapsed_time = toc;
 
-%% Error of model
-error_training_initial_model = compute_Hf_sq_error(X_training_data,X_training_data, mdl_initial, lambda)
-error_training_final_model = compute_Hf_sq_error(X_training_data,X_training_data, mdl_final, lambda)
+%% Learn parameters Linear Algebra (LA)
+Kern_matrix = produce_kernel_matrix(X_training_data, t_initial, beta);
+mdl_final_LA = HBF1( zeros(size(c_initial)) ,t_initial,beta);
+C = pinv(Kern_matrix) * X_training_data';
+mdl_final_LA.c = C;
 
+%% Error of model 
+test_initial = 'initial';
+text_GD = ' Gradient Descent';
+text_LA = ' Linear Algebra';
+
+disp(test_initial);
+error_training_initial_model = compute_Hf_sq_error(X_training_data,X_training_data, mdl_initial, lambda)
 error_test_initial_model = compute_Hf_sq_error(X_test_data,X_test_data, mdl_initial, lambda)
+
+disp(text_GD);
+error_training_final_model = compute_Hf_sq_error(X_training_data,X_training_data, mdl_final, lambda)
 error_test_final_model = compute_Hf_sq_error(X_test_data,X_test_data, mdl_final, lambda)
+
+disp(text_LA);
+error_training_final_model_LA = compute_Hf_sq_error(X_training_data,X_training_data, mdl_final_LA, lambda)
+error_test_final_model_LA = compute_Hf_sq_error(X_test_data,X_test_data, mdl_final_LA, lambda)
 
 %% Time Elapsed
 disp('--==>>iterations')
@@ -73,69 +90,31 @@ disp('elapsed_time, minutes')
 disp(elapsed_time/60)
 
 %% Visualize data TRAIN
-originalTrainingX = X_training_data(:,1:30);
-[rows_train, cols_train] = size(originalTrainingX);
-reconstructionTrainingX = zeros(rows_train, cols_train);
-for i=1:cols_train
-    reconstructed_img = mdl_final.predict( originalTrainingX(:,i) );
-    reconstructionTrainingX(:,i) = reconstructed_img;
-end
-%% visualize original_training_X
-%original
-figure
-display_network( originalTrainingX );
-title('originalTrainingX')
-figure
-display_network( reconstructionTrainingX );
-title('reconstructionTrainingX')
-%normalized
-% figure
-% display_network( normc(originalTrainingX) );
-% title('normc(originalTrainingX) NORMALIZED')
-figure
-display_network( normc(reconstructionTrainingX) );
-title('normc(reconstructionTrainingX) NORMALIZED')
+%disp(text_GD);
+print_reconstructions( mdl_final, X_training_data, X_test_data, text_GD );
+%disp(text_LA);
+print_reconstructions( mdl_final_LA, X_training_data, X_test_data, text_LA)
+
 %% visualize centers
 %original
 figure;
 display_network( mdl_final.t );
 title('learned centers: mdl final.t')
+colorbar
 %normalized
 figure;
 display_network( normc(mdl_final.t) );
 title('learned centers normalized: normc(mdl_final.t)')
+colorbar
 %original
 figure;
 display_network( t_initial );
 title('initial centers: t initial')
-%normalized
-figure;
-display_network( normc(t_initial) );
-title('initial centers normalized: normc(t initial)')
-
-%% Visualize data TEST
-originalTestX = X_test_data(:,1:30);
-[rows_test, cols_test] = size(originalTestX);
-reconstructionTestX = zeros(rows_test, cols_test);
-for i=1:cols_test
-    reconstructed_img = mdl_final.predict( originalTestX(:,i) );
-    reconstructionTestX(:,i) = reconstructed_img;
-end
-%% visualize original_training_X
-%original
-figure
-display_network( originalTestX );
-title('originalTestX')
-figure
-display_network( reconstructionTestX );
-title('reconstructionTestX')
-%normalized
-% figure
-% display_network( normc(originalTestX) );
-% title('normc(originalTestX) NORMALIZED')
-figure
-display_network( normc(reconstructionTestX) );
-title('normc(reconstructionTestX) NORMALIZED')
+colorbar
+% %normalized
+% figure;
+% display_network( normc(t_initial) );
+% title('initial centers normalized: normc(t initial)')
 
 %% End
 beep;beep;beep;beep;beep;beep;

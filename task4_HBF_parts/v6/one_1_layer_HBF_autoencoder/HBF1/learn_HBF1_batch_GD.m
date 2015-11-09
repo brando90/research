@@ -1,4 +1,4 @@
-function [ mdl_new ] = learn_HBF1_batch_GD(X,y, mdl, mu_c,mu_t, lambda, iterations,visualize)
+function [ mdl_new ] = learn_HBF1_batch_GD(X,y, mdl, mu_c,mu_t, lambda, iterations,visualize, Xtest)
 %learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
 %   Inputs:
 %       X = data matrix (D x N)
@@ -16,6 +16,7 @@ function [ mdl_new ] = learn_HBF1_batch_GD(X,y, mdl, mu_c,mu_t, lambda, iteratio
 [~, K] = size(mdl.t);
 [~, D] = size(mdl.c);
 errors_Hfs = zeros(iterations,1);
+errors_Test = zeros(iterations,1);
 changes_c = zeros(D, iterations);
 dHf_dc_mu_c_iterion = zeros(D, iterations);
 changes_t = zeros(K, iterations);
@@ -40,7 +41,9 @@ for i=1:iterations
     mdl_new.t = t_new;
     %% Calculate current errors
     current_Hf = compute_Hf_sq_error(X,y, mdl_new, lambda);
+    current_Hf_test = compute_Hf_sq_error(Xtest,y, mdl_new, lambda);
     errors_Hfs(i) = current_Hf;
+    errors_Test(i) = current_Hf_test;
 end
 if visualize
     %% plot error progression
@@ -48,6 +51,11 @@ if visualize
     iteration_axis = 1:iterations;
     plot(iteration_axis, errors_Hfs);
     title('Error Hf over iteration -- ');
+    %% plot test error progression
+    figure
+    iteration_axis = 1:iterations;
+    plot(iteration_axis, errors_Test);
+    title('TEST error over iteration -- ');
     %% plot changes in param c
     D = min(D,50);
     for l=1:D
