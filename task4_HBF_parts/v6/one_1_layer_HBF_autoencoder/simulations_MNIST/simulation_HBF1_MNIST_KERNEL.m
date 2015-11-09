@@ -13,18 +13,20 @@ addpath('../../common/MNIST')
 
 X = loadMNISTImages('../../common/data/train-images-idx3-ubyte');
 X_test_data = loadMNISTImages('../../common/data/t10k-images-idx3-ubyte');
-%X_training_data = zscore( X_training_data(:,1:200) );
 X = X(:,1:1000);
+rankX = rank(X)
+%[X, ~] = licols(X(:,1:60000));
 
 %% Parameters
 [D, N] = size(X)
-K = 100 % hidden units
+K = 1000 % hidden units
 lambda = 0;
 %% parameter initilization ------------------------------------------------
-one_letter_of_each = X(:,[1:6,8,14,16,18]);
-t_initial = [one_letter_of_each, datasample(X', K-10, 'Replace', false)' ];
+%one_letter_of_each = X(:,[1:6,8,14,16,18]);
+%t_initial = [one_letter_of_each, datasample(X', K-10, 'Replace', false)' ];
+t_initial = datasample(X', K, 'Replace', false)';
 %% Learn
-%beta = 1e-10000000000000000
+%beta = 1e-7
 beta = 1;
 %% K data
 %Kdata =  zeros(N, K);
@@ -51,10 +53,12 @@ end
 %% Kdagger
 % eee = eye(N);
 % Kdata = eee(:,1:K);
-K_dagger = Kdata' * Kdata \ Kdata';
+K_dagger = (Kdata' * Kdata) \ Kdata';
 
 %% Compute C
 C = K_dagger * X';
+%Kdata = produce_kernel_matrix(X, t_initial, beta);
+%rank(Kdata)
 mdl_final.c = C;
 size(C)
 size(X')

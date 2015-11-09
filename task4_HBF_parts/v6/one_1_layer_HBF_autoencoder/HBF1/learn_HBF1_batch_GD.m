@@ -49,7 +49,7 @@ if visualize
     plot(iteration_axis, errors_Hfs);
     title('Error Hf over iteration -- ');
     %% plot changes in param c
-    D = 50
+    D = min(D,50);
     for l=1:D
         figure
         c_changes_l = changes_c(l,:); % (1 x iterations)
@@ -63,7 +63,7 @@ if visualize
         title(strcat('dJ dc -- ', num2str(l)))
     end
     %% plot changes in param t
-    K = 50
+    K = min(K,50);
     for k=1:K
         figure
         t_changes_k = changes_t(k,:); % (1 x iterations)

@@ -11,20 +11,28 @@ addpath('../../common/squared_error_risk');
 addpath('../../common/visualize_centers')
 addpath('../../common/MNIST')
 
+num_labels = 10;
+amount_per_label = 100;
+
 X_training_data = loadMNISTImages('../../common/data/train-images-idx3-ubyte');
+Y_training_labels = loadMNISTLabels('../../common/data/train-labels-idx1-ubyte');
+
 X_test_data = loadMNISTImages('../../common/data/t10k-images-idx3-ubyte');
-%X_training_data = zscore( X_training_data(:,1:200) );
-X_training_data = X_training_data(:,1:1000);
-% figure
-% display_network(X_training_data);
-%display_network(X_training_data(:,1:12));
-% display_network(X_training_data(:,13:24));
+Y_test_labels = loadMNISTLabels('../../common/data/t10k-labels-idx1-ubyte');
+
+[X_training_data, ~] = get_balanced_training_set( X_training_data, Y_training_labels, amount_per_label, num_labels );
+[X_test_data, ~] = get_balanced_training_set( X_test_data, Y_training_labels, amount_per_label, num_labels );
+
+%X_training_data = loadMNISTImages('../../common/data/train-images-idx3-ubyte');
+%X_test_data = loadMNISTImages('../../common/data/t10k-images-idx3-ubyte');
+%X_training_data = X_training_data(:,1:1000);
 %% Parameters
 [D, N] = size(X_training_data)
-K = 100 % hidden units
+K = 10 % hidden units
 %% parameter initilization ------------------------------------------------
 one_letter_of_each = X_training_data(:,[1:6,8,14,16,18]);
-t_initial = [one_letter_of_each, datasample(X_training_data', K-10, 'Replace', false)' ];
+t_initial = one_letter_of_each;
+%t_initial = [one_letter_of_each, datasample(X_training_data', K-10, 'Replace', false)' ];
 %t_initial = datasample(X_training_data', K, 'Replace', false)';
 %t_initial = X_perfect_data;
 %t_initial = X_training_data(:,[1,1002]);
@@ -37,12 +45,10 @@ lambda = 0; %reg param
 %% GD step-size parameters
 mu_c = 0.1;
 mu_t = 0.001;
-% mu_c = 0.00009;
-% mu_t = 0.0000005;
 
 %% Learn the parameters
 disp('============++++++++++++++>>>> TRAINING STARTING');
-iterations = 10 % NUMBER OF ITERATIONS!!!!
+iterations = 5 % NUMBER OF ITERATIONS!!!!
 visualize = 1;
 mdl_initial = HBF1(c_initial,t_initial,beta);
 tic
@@ -50,12 +56,12 @@ mdl_final = learn_HBF1_batch_GD(X_training_data,X_training_data, mdl_initial, mu
 %mdl_final = learn_HBF1_alternating_minimization(X_training_data,y_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize);
 elapsed_time = toc;
 
-%%
+%% Error of model
 error_training_initial_model = compute_Hf_sq_error(X_training_data,X_training_data, mdl_initial, lambda)
-%error_test_initial_model = compute_Hf_sq_error(X_test_data,X_test_data, mdl_initial, lambda)
-
 error_training_final_model = compute_Hf_sq_error(X_training_data,X_training_data, mdl_final, lambda)
-%error_test_final_model = compute_Hf_sq_error(X_test_data,X_test_data, mdl_final, lambda)
+
+error_test_initial_model = compute_Hf_sq_error(X_test_data,X_test_data, mdl_initial, lambda)
+error_test_final_model = compute_Hf_sq_error(X_test_data,X_test_data, mdl_final, lambda)
 
 %% Time Elapsed
 disp('--==>>iterations')
@@ -83,9 +89,9 @@ figure
 display_network( reconstructionTrainingX );
 title('reconstructionTrainingX')
 %normalized
-figure
-display_network( normc(originalTrainingX) );
-title('normc(originalTrainingX) NORMALIZED')
+% figure
+% display_network( normc(originalTrainingX) );
+% title('normc(originalTrainingX) NORMALIZED')
 figure
 display_network( normc(reconstructionTrainingX) );
 title('normc(reconstructionTrainingX) NORMALIZED')
@@ -124,9 +130,9 @@ figure
 display_network( reconstructionTestX );
 title('reconstructionTestX')
 %normalized
-figure
-display_network( normc(originalTestX) );
-title('normc(originalTestX) NORMALIZED')
+% figure
+% display_network( normc(originalTestX) );
+% title('normc(originalTestX) NORMALIZED')
 figure
 display_network( normc(reconstructionTestX) );
 title('normc(reconstructionTestX) NORMALIZED')
