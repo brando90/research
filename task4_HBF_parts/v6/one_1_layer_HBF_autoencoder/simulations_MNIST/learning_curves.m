@@ -26,12 +26,10 @@ for i=1:iterations
 end
 %% plot error progression
 figure
-iteration_axis = 1:iterations;
-plot(iteration_axis, errors_Hfs);
+plot(N_data_sizes, errors_Hfs);
 title('Error Hf over iteration -- ');
 %% plot test error progression
 figure
-iteration_axis = 1:iterations;
-plot(iteration_axis, errors_Test);
+plot(N_data_sizes, errors_Test);
 title('TEST error over iteration -- ');
 end
