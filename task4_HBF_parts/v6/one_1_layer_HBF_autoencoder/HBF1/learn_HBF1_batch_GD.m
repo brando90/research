@@ -1,4 +1,4 @@
-function [ mdl_new ] = learn_HBF1_batch_GD(X,y, mdl, mu_c,mu_t, lambda, iterations,visualize, Xtest)
+function [ mdl_new ] = learn_HBF1_batch_GD(X,y, mdl, mu_c,mu_t, lambda, iterations,visualize, Xtest,Ytest)
 %learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
 %   Inputs:
 %       X = data matrix (D x N)
@@ -41,7 +41,7 @@ for i=1:iterations
     mdl_new.t = t_new;
     %% Calculate current errors
     current_Hf = compute_Hf_sq_error(X,y, mdl_new, lambda);
-    current_Hf_test = compute_Hf_sq_error(Xtest,y, mdl_new, lambda);
+    current_Hf_test = compute_Hf_sq_error(Xtest,Ytest, mdl_new, lambda);
     errors_Hfs(i) = current_Hf;
     errors_Test(i) = current_Hf_test;
 end

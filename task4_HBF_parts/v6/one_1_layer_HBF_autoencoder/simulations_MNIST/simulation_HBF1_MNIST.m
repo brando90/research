@@ -49,11 +49,11 @@ mu_t = 0.01;
 
 %% Learn parameters GD
 disp('============++++++++++++++>>>> TRAINING STARTING');
-iterations = 20 % NUMBER OF ITERATIONS!!!!
+iterations = 40 % NUMBER OF ITERATIONS!!!!
 visualize = 1;
 mdl_initial = HBF1(c_initial,t_initial,beta);
 tic
-mdl_final = learn_HBF1_batch_GD(X_training_data,X_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize, X_test_data);
+mdl_final = learn_HBF1_batch_GD(X_training_data,X_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize, X_test_data,X_test_data);
 %mdl_final = learn_HBF1_alternating_minimization(X_training_data,y_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize);
 elapsed_time = toc;
 
