@@ -1,0 +1,4 @@
+%
+foobar();
+%addpath('dummy');
+%foobar();
