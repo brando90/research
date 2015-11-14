@@ -7,6 +7,7 @@ addpath('../HBF1/model_functions');
 addpath('../HBF1/derivatives_c');
 addpath('../HBF1/derivatives_t');
 addpath('../HBF1/update_rules_GD/batch_gradient_descent');
+addpath('../HBF1/update_rules_GD/Stochastic_gracient_descent');
 addpath('../HBF1/analytic_tools_analysis_HBF1_GD');
 addpath('../../common/squared_error_risk');
 addpath('../../common/visualize_centers')
@@ -17,11 +18,11 @@ addpath('../../common/MNIST')
 num_labels = 10;
 amount_per_label = 100;
 
-% X_training_data = loadMNISTImages('../../common/data/train-images-idx3-ubyte');
-% Y_training_labels = loadMNISTLabels('../../common/data/train-labels-idx1-ubyte');
-% 
-% X_test_data = loadMNISTImages('../../common/data/t10k-images-idx3-ubyte');
-% Y_test_labels = loadMNISTLabels('../../common/data/t10k-labels-idx1-ubyte');
+X_training_data = loadMNISTImages('../../common/data/train-images-idx3-ubyte');
+Y_training_labels = loadMNISTLabels('../../common/data/train-labels-idx1-ubyte');
+
+X_test_data = loadMNISTImages('../../common/data/t10k-images-idx3-ubyte');
+Y_test_labels = loadMNISTLabels('../../common/data/t10k-labels-idx1-ubyte');
 
 [X_training_data, ~] = get_balanced_training_set( X_training_data, Y_training_labels, amount_per_label, num_labels );
 [X_test_data, ~] = get_balanced_training_set( X_test_data, Y_test_labels, amount_per_label, num_labels );
@@ -55,7 +56,8 @@ iterations = 40 % NUMBER OF ITERATIONS!!!!
 visualize = 1;
 mdl_initial = HBF1(c_initial,t_initial,beta);
 tic
-% mdl_final_GD = learn_HBF1_batch_GD(X_training_data,X_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize, X_test_data,X_test_data);
+%mdl_final_GD = learn_HBF1_batch_GD(X_training_data,X_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize, X_test_data,X_test_data);
+mdl_final_GD = learn_HBF1_SGD(X_training_data,X_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize, X_test_data,X_test_data);
 % mdl_final = learn_HBF1_alternating_minimization(X_training_data,y_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize);
 elapsed_time = toc;
 
