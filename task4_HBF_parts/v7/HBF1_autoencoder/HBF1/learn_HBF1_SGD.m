@@ -55,12 +55,9 @@ if visualize
     figure
     iteration_axis = 1:iterations;
     plot(iteration_axis, errors_Hfs);
-    title('Error Hf over iteration -- ');
-    %% plot test error progression
-    figure
-    iteration_axis = 1:iterations;
-    plot(iteration_axis, errors_Test);
-    title('TEST error over iteration -- ');
+    plot(iteration_axis,errors_Hfs,'-ro',iteration_axis, errors_Test,'-b*');
+    legend('Training risk','Test risk');
+    title('Train and Test risk over iteration -- ');
     %% plot changes in param c
     D = min(D,50);
     for l=1:D

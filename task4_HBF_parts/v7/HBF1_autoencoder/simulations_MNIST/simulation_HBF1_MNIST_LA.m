@@ -46,67 +46,34 @@ beta = 1; % BETA
 c_initial = normc(rand(K,D));
 %c_initial = rand(K,D);
 lambda = 0; %reg param
-%% GD step-size parameters
-mu_c = 0.25;
-mu_t = 0.9;
-
-%% Learn parameters GD
-disp('============++++++++++++++>>>> TRAINING STARTING');
-iterations = 1 % NUMBER OF ITERATIONS!!!!
-visualize = 1;
-mdl_initial = HBF1(c_initial,t_initial,beta);
-tic
-mdl_final_GD = learn_HBF1_batch_GD(X_training_data,X_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize, X_test_data,X_test_data);
-% mdl_final_GD = learn_HBF1_SGD(X_training_data,X_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize, X_test_data,X_test_data);
-% mdl_final = learn_HBF1_alternating_minimization(X_training_data,y_training_data, mdl_initial, mu_c,mu_t, lambda, iterations,visualize);
-elapsed_time = toc;
 
 %% Learn parameters Linear Algebra (LA)
 mdl_final_LA = HBF1( zeros(size(c_initial)) ,t_initial,beta);
 % Kern_matrix = produce_kernel_matrix(X_training_data, t_initial, beta);
 % C = pinv(Kern_matrix) * X_training_data';
+tic
 mdl_final_LA = train_LinearAlgebra( X_training_data, mdl_final_LA, t_initial,beta)
-
+elapsed_time = toc
 %% Error of model 
 test_initial = 'initial';
-text_GD = ' Gradient Descent';
 text_LA = ' Linear Algebra';
 
 disp(test_initial);
 error_training_initial_model = compute_Hf_sq_error(X_training_data,X_training_data, mdl_initial, lambda)
 error_test_initial_model = compute_Hf_sq_error(X_test_data,X_test_data, mdl_initial, lambda)
 
-disp(text_GD);
-error_training_final_model = compute_Hf_sq_error(X_training_data,X_training_data, mdl_final_GD, lambda)
-error_test_final_model = compute_Hf_sq_error(X_test_data,X_test_data, mdl_final_GD, lambda)
-
 disp(text_LA);
 error_training_final_model_LA = compute_Hf_sq_error(X_training_data,X_training_data, mdl_final_LA, lambda)
 error_test_final_model_LA = compute_Hf_sq_error(X_test_data,X_test_data, mdl_final_LA, lambda)
 
 %% Visualize data TRAIN
-print_reconstructions( mdl_final_GD, X_training_data, X_test_data, text_GD );
 print_reconstructions( mdl_final_LA, X_training_data, X_test_data, text_LA)
 
 %% visualize centers
 figure;
-display_network( mdl_final_GD.t );
-title('learned centers: mdl final GD.t')
-colorbar
-%%normalized
-figure;
-display_network( normc(mdl_final_GD.t) );
-title('learned centers normalized: normc(mdl final GD.t)')
-colorbar
-%%original
-figure;
 display_network( t_initial );
 title('initial centers: t initial')
 colorbar
-% %normalized
-% figure;
-% display_network( normc(t_initial) );
-% title('initial centers normalized: normc(t initial)')
 
 %% Time Elapsed
 disp('--==>>iterations')
