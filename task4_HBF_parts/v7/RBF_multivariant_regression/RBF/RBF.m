@@ -29,9 +29,10 @@ classdef RBF
         function [ f_x, z, a ] = f(obj,x)
             [ f_x, z, a ] = f(x,obj.c,obj.t,obj.beta);
         end
-        function [f] = predict_data_set(X)
-            K = produce_kernel_matrix(X);
-            f = K * mdl.c; % (N x D)
+        function [f] = predict_data_set(obj,X)
+            Kern = produce_kernel_matrix( X, obj.t, obj.beta ); % (N x K)
+            f = Kern * obj.c; % (N x D)
+            f = f';
         end
     end
     
