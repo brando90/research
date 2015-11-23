@@ -44,6 +44,7 @@ classdef RBF < handle
                 mdl_new = learn_RBF_batch_GD(X,y, obj, obj.mu_c, obj.lambda, obj.iterations,visualize, 0,0);
                 return
             elseif strcmp( func2str(train_func), 'learn_RBF_linear_algebra')
+                %learn_RBF_linear_algebra( X_training_data, mdl, t,beta )
                 mdl_new = learn_RBF_linear_algebra(X,y, obj, obj.t, obj.beta);
                 return
             else
