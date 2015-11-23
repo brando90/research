@@ -29,6 +29,8 @@ classdef HBF1
         function [ f_x, z, a ] = f(obj,x)
             [ f_x, z, a ] = f(x,obj.c,obj.t,obj.beta);
         end
+%         function [] = train_HBF1(obj )
+%         end
     end
     
 end

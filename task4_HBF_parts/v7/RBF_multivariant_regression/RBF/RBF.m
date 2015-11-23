@@ -1,4 +1,4 @@
-classdef RBF
+classdef RBF < handle
     %RBF class
     %   class that holds a 1 layered RBF
     
@@ -6,6 +6,9 @@ classdef RBF
         c % (K x D)
         t % (D x K)
         beta % (1 x 1)
+        mu_c % (1 x 1)
+        lambda % (1 x 1)
+        iterations % (1 x 1)
     end
     
     methods
@@ -15,6 +18,7 @@ classdef RBF
             obj.c = c;
             obj.t = t;
             obj.beta = beta;
+            obj.lambda = 0; %TOD
         end
         function f_x = predict(obj, x)
             %returns predicted/classification label
@@ -33,6 +37,18 @@ classdef RBF
             Kern = produce_kernel_matrix( X, obj.t, obj.beta ); % (N x K)
             f = Kern * obj.c; % (N x D)
             f = f';
+        end
+        function [mdl_new] = train(obj, X,y, train_func)
+            visualize = 0;
+            if strcmp( func2str(train_func), 'learn_RBF_batch_GD')
+                mdl_new = learn_RBF_batch_GD(X,y, obj, obj.mu_c, obj.lambda, obj.iterations,visualize, 0,0);
+                return
+            elseif strcmp( func2str(train_func), 'learn_RBF_linear_algebra')
+                mdl_new = learn_RBF_linear_algebra(X,y, obj, obj.t, obj.beta);
+                return
+            else
+                keyboard
+            end
         end
     end
     

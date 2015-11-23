@@ -15,35 +15,41 @@ function [ mdl_new ] = learn_HBF1_batch_GD(X,y, mdl, mu_c,mu_t, lambda, iteratio
 %       t_new = learned centers (D x K)
 [~, K] = size(mdl.t);
 [~, D] = size(mdl.c);
-errors_Hfs = zeros(iterations,1);
-errors_Test = zeros(iterations,1);
-changes_c = zeros(D, iterations);
-dHf_dc_mu_c_iterion = zeros(D, iterations);
-changes_t = zeros(K, iterations);
-dHf_dt_mu_t_iter = zeros(K, iterations);
+if visualize
+    errors_Hfs = zeros(iterations,1);
+    errors_Test = zeros(iterations,1);
+    changes_c = zeros(D, iterations);
+    dHf_dc_mu_c_iterion = zeros(D, iterations);
+    changes_t = zeros(K, iterations);
+    dHf_dt_mu_t_iter = zeros(K, iterations);
+end
 mdl_new = HBF1(mdl.c, mdl.t, mdl.beta);
 for i=1:iterations
     %% get new parameters
     [c_new, dHf_dc] = update_c_batch(X,y, mdl_new, mu_c, lambda);
     [t_new, dHf_dt] = update_t_batch(X,y, mdl_new, mu_t, lambda);
-    %% get changes for c/iter.
-    change_c_wrt_current_iteration = get_dc_diter(mdl_new.c, c_new); % (L x 1)
-    changes_c(:,i) = change_c_wrt_current_iteration; % (L x 1)
-    dJ_dc_col_norms = get_norms_col_dHf_dc(dHf_dc); % (L x 1)
-    dHf_dc_mu_c_iterion(:, i) = mu_c * dJ_dc_col_norms;
-    %% get changes for t2s/iter.
-    change_t_wrt_iteration = get_dt_diter(mdl_new.t, t_new );
-    changes_t(:, i) = change_t_wrt_iteration;
-    dHf_diter_col_norms = get_norms_col_dHf_dt(dHf_dt);
-    dHf_dt_mu_t_iter(:, i) = mu_t * dHf_diter_col_norms;
+    if visualize
+        %% get changes for c/iter.
+        change_c_wrt_current_iteration = get_dc_diter(mdl_new.c, c_new); % (L x 1)
+        changes_c(:,i) = change_c_wrt_current_iteration; % (L x 1)
+        dJ_dc_col_norms = get_norms_col_dHf_dc(dHf_dc); % (L x 1)
+        dHf_dc_mu_c_iterion(:, i) = mu_c * dJ_dc_col_norms;
+        %% get changes for t2s/iter.
+        change_t_wrt_iteration = get_dt_diter(mdl_new.t, t_new );
+        changes_t(:, i) = change_t_wrt_iteration;
+        dHf_diter_col_norms = get_norms_col_dHf_dt(dHf_dt);
+        dHf_dt_mu_t_iter(:, i) = mu_t * dHf_diter_col_norms;
+    end
     %% update HBF1 model
     mdl_new.c = c_new;
     mdl_new.t = t_new;
     %% Calculate current errors
-    current_Hf = compute_Hf_sq_error(X,y, mdl_new, lambda);
-    current_Hf_test = compute_Hf_sq_error(Xtest,Ytest, mdl_new, lambda);
-    errors_Hfs(i) = current_Hf;
-    errors_Test(i) = current_Hf_test;
+    if visualize
+        current_Hf = compute_Hf_sq_error(X,y, mdl_new, lambda);
+        current_Hf_test = compute_Hf_sq_error(Xtest,Ytest, mdl_new, lambda);
+        errors_Hfs(i) = current_Hf;
+        errors_Test(i) = current_Hf_test;
+    end
 end
 if visualize
     %% plot error progression
