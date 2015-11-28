@@ -7,17 +7,15 @@ classdef RBF < handle
         t % (D x K)
         beta % (1 x 1)
         lambda % (1 x 1)
-        parameters4training % handle
     end
     
     methods
-        function obj = RBF(parameters4training)
+        function obj = RBF(rbf_params)
             %constructs RBF
-            %addpath('model_functions');
-            obj.c = parameters4training.c_initilizations(:,:,1);
-            obj.t = parameters4training.t_initilizations(:,:,1);
-            obj.lambda = parameters4training.lambda; %TODO
-            obj.parameters4training = parameters4training;
+            obj.c = rbf_params.c;
+            obj.t = rbf_params.t;
+            obj.beta = rbf_params.beta;
+            obj.lambda = rbf_params.lambda; %TODO
         end
         function f_x = predict(obj, x)
             %returns predicted/classification label
@@ -37,13 +35,10 @@ classdef RBF < handle
             f = Kern * obj.c; % (N x D)
             f = f';
         end
-        function [mdl_new] = train(obj, X,y)
-            train_func_name = func2str(obj.parameters4training.train_func);
+        function [mdl_new] = train(obj, X,y,train_func, train_params)
+            train_func_name = func2str(train_func);
             if strcmp( train_func_name, 'learn_RBF_batch_GD')
-                mu_c = obj.parameters4training.mu_c;
-                lambda_reg = obj.parameters4training.lambda;
-                iterations = obj.parameters4training.iterations;
-                mdl_new = learn_RBF_batch_GD(X,y, obj, mu_c, lambda_reg, iterations, 0,0,0);
+                mdl_new = learn_RBF_batch_GD(X,y, obj, train_params.mu_c, train_params.lambda, train_params.iterations, 0,0,0);
                 obj.c = mdl_new.c;
                 obj.t = mdl_new.t;
                 return
@@ -56,13 +51,6 @@ classdef RBF < handle
             else
                 keyboard
             end
-        end
-        function [mdl_new] = train_iterator(obj,X,y,current_training_iteration)
-            c_initilizations = obj.parameters4training.c_initilizations(:,:,current_training_iteration);
-            t_initilizations = obj.parameters4training.t_initilizations(:,:,current_training_iteration);
-            obj.c = c_initilizations;
-            obj.t = t_initilizations;
-            mdl_new = obj.train(X,y);
         end
     end
 end

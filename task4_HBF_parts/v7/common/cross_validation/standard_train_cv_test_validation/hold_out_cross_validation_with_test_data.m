@@ -1,4 +1,4 @@
-function [ best_mdl, error_best_mdl] = hold_out_cross_validation_with_test_data(data_for_cross_validation, betas, mdl2train_init_func,params4mdl, visualize)
+function [ best_mdl, error_best_mdl] = hold_out_cross_validation_with_test_data(data_for_cross_validation, betas, params4mdl_iter, visualize)
 %   Input:
 %   Output:
 [ X_train,X_cv,X_test, y_train,y_cv,y_test ] = data_for_cross_validation.get_data_for_hold_out_cross_validation();
@@ -12,8 +12,9 @@ error_best_mdl = inf;
 for i=1:iterations
     current_beta = betas(i);
     %% train current model (choose the one with smallest training error)
-    params4mdl.beta = current_beta;
-    current_trained_mdl = train_best_init_smallest_train_error(X_train,y_train,  mdl2train_init_func,params4mdl);
+    params4mdl_iter.beta = current_beta;
+    params4mdl_iter.current_training_iteration = 1;
+    current_trained_mdl = train_best_init_smallest_train_error(X_train,y_train, params4mdl_iter);
     %% record the trained models error
     if visualize
         list_train_errors(i) = compute_Hf_sq_error( X_train,y_train, current_trained_mdl, lambda );

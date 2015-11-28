@@ -29,19 +29,20 @@ num_betas = 100;
 betas = linspace(beta_start, beta_end, num_betas);
 %% RBF
 beta = inf;
+mdl_func = @RBF;
+param4mdl_func = @RBF_parameters;
 train_func = @learn_RBF_batch_GD;
 mu_c = 0.9;
-num_initilizations = 10;
 iterations = 10; %GD
+num_initilizations = 10;
 lambda = 0;
-params4mdl = RBF_parameters4training(beta,train_func,mu_c,iterations,num_initilizations,lambda);
+params4mdl_iter = RBF_iterator4training(beta,mdl_func,param4mdl_func,train_func,mu_c,iterations,num_initilizations,lambda);
 D_out = 1;
-params4mdl.create_initilizations(X,D_out);
-mdl2train_init_func = @RBF;
+params4mdl_iter.create_initilizations(X,D_out);
 %%
 visualize = 1;
 tic
-[ best_mdl, error_best_mdl] = hold_out_cross_validation_with_test_data(data_for_cross_validation, betas, mdl2train_init_func,params4mdl, visualize);
+[ best_mdl, error_best_mdl] = hold_out_cross_validation_with_test_data(data_for_cross_validation, betas, params4mdl_iter, visualize);
 time_passed = toc;
 time_elapsed(-1, time_passed )
 error_best_mdl

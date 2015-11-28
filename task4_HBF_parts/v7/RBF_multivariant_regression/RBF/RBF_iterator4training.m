@@ -1,11 +1,13 @@
-classdef RBF_parameters4training < handle
+classdef RBF_iterator4training < handle
     %
     
     properties
         c_initilizations
         t_initilizations
         beta
-        %% train_function
+        %% mdl functions
+        mdl_func
+        param4mdl_func
         train_func
         %% GD
         mu_c
@@ -13,16 +15,21 @@ classdef RBF_parameters4training < handle
         num_initilizations
         %% regularization param
         lambda
+        %% iterator index
+        current_training_iteration
     end
     
     methods
-        function obj = RBF_parameters4training(beta,train_func,mu_c,iterations,num_initilizations,lambda)
+        function obj = RBF_iterator4training(beta, mdl_func,param4mdl_func,train_func, mu_c,iterations,num_initilizations,lambda)
             obj.beta = beta;
+            obj.mdl_func = mdl_func;
+            obj.param4mdl_func = param4mdl_func;
             obj.train_func = train_func;
             obj.mu_c = mu_c;
             obj.iterations = iterations;
             obj.num_initilizations = num_initilizations;
             obj.lambda = lambda;
+            obj.current_training_iteration = 1;
         end
         function [] = create_initilizations(obj,X,D_out)
             %
@@ -40,6 +47,14 @@ classdef RBF_parameters4training < handle
         function [] = set_inits(obj, c_initilizations,t_initilizations)
             obj.c_initilizations = c_initilizations;
             obj.t_initilizations = t_initilizations;
+        end
+        function [mdl_trained] = train_iterator(obj,X,y)
+            c_init = obj.c_initilizations(:,:,obj.current_training_iteration);
+            t_init = obj.t_initilizations(:,:,obj.current_training_iteration);
+            rbf_params = obj.param4mdl_func(c_init,t_init,obj.beta,obj.lambda);
+            rbd_mdl = obj.mdl_func(rbf_params);
+            mdl_trained = rbd_mdl.train(X,y, obj.train_func, obj);
+            obj.current_training_iteration = obj.current_training_iteration + 1;   
         end
     end
 end

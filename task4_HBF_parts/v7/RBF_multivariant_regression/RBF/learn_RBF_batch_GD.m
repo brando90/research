@@ -20,7 +20,7 @@ if visualize
     changes_c = zeros(D, iterations);
     dHf_dc_mu_c_iterion = zeros(D, iterations);
 end
-mdl_new = RBF(mdl.c, mdl.t, mdl.beta);
+mdl_new = RBF(RBF_parameters(mdl.c, mdl.t, mdl.beta, lambda));
 for i=1:iterations
     %% get new parameters
     [c_new, dHf_dc] = update_c_batch(X,y, mdl_new, mu_c, lambda);
