@@ -20,8 +20,8 @@ per_train = 0.6;
 per_cv = 0.3;
 %%
 beta_start = 0.2;
-beta_end = 10;
-num_betas = 400;
+beta_end = 1;
+num_betas = 100;
 betas = linspace(beta_start, beta_end, num_betas);
 betas(1:10)
 %%
@@ -34,7 +34,7 @@ visualize = 1;
 tic
 [ best_mdl, error_best_mdl] = hold_out_cross_validation_with_test_data(X,y, per_train,per_cv, betas, train_func,c_initilizations,t_initilizations, gd_iterations, visualize);
 time_passed = toc;
-time_elapsed(-3.14159, time_passed )
+time_elapsed(-1, time_passed )
 error_best_mdl
 best_beta = best_mdl.beta
 %% Plot function
