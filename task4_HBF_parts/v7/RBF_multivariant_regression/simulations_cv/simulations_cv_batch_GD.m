@@ -15,8 +15,8 @@ addpath('../../common/MNIST')
 addpath('../../common/kernel_functions')
 addpath('../../common/data_generation/simple_regression_example_high_dimensions')
 %% data set
-N = 1000;
-D = 100;
+N = 500;
+D = 50;
 [X, y] = generate_high_dim_regression( N, D );
 %% data set split
 per_train = 0.6;
@@ -33,12 +33,12 @@ mdl_func = @RBF;
 param4mdl_func = @RBF_parameters;
 train_func = @learn_RBF_batch_GD;
 mu_c = 0.9;
-iterations = 10; %GD
-num_initilizations = 10;
+iterations = 3; %GD
+num_initilizations = 3;
 lambda = 0;
 params4mdl_iter = RBF_iterator4training(beta,mdl_func,param4mdl_func,train_func,mu_c,iterations,num_initilizations,lambda);
 D_out = 1;
-params4mdl_iter.create_initilizations(X,D_out);
+params4mdl_iter.create_initilizations(data_for_cross_validation.X_train,D_out);
 %%
 visualize = 1;
 tic

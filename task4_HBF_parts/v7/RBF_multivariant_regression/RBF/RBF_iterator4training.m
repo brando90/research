@@ -10,7 +10,6 @@ classdef RBF_iterator4training < handle
         param4mdl_func
         train_func
         %% GD
-        mu_c
         iterations
         num_initilizations
         %% regularization param

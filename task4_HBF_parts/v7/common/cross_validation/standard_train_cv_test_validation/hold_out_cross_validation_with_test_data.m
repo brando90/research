@@ -14,7 +14,7 @@ for i=1:iterations
     %% train current model (choose the one with smallest training error)
     params4mdl_iter.beta = current_beta;
     params4mdl_iter.current_training_iteration = 1;
-    current_trained_mdl = train_best_init_smallest_train_error(X_train,y_train, params4mdl_iter);
+    current_trained_mdl = train_model_class_test_iterations_smallest_error(X_train,y_train,X_cv,y_cv, params4mdl_iter);
     %% record the trained models error
     if visualize
         list_train_errors(i) = compute_Hf_sq_error( X_train,y_train, current_trained_mdl, lambda );
