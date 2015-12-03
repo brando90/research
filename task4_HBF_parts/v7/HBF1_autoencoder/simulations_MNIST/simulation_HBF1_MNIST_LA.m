@@ -24,8 +24,8 @@ Y_training_labels = loadMNISTLabels('../../common/data/train-labels-idx1-ubyte')
 X_test_data = loadMNISTImages('../../common/data/t10k-images-idx3-ubyte');
 Y_test_labels = loadMNISTLabels('../../common/data/t10k-labels-idx1-ubyte');
 
-[X_training_data, ~] = get_balanced_training_set( X_training_data, Y_training_labels, amount_per_label, num_labels );
-[X_test_data, ~] = get_balanced_training_set( X_test_data, Y_test_labels, amount_per_label, num_labels );
+[X_training_data, ~] = get_balanced_data_set( X_training_data, Y_training_labels, amount_per_label, num_labels );
+[X_test_data, ~] = get_balanced_data_set( X_test_data, Y_test_labels, amount_per_label, num_labels );
 
 %X_training_data = loadMNISTImages('../../common/data/train-images-idx3-ubyte');
 X_test_data = X_test_data(:,:);

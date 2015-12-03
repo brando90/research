@@ -4,9 +4,6 @@ restoredefaultpath
 clear
 addpath('../RBF');
 addpath('../RBF/model_functions');
-addpath('../RBF/update_rules_GD');
-addpath('../RBF/update_rules_GD/batch_gradient_descent');
-addpath('../RBF/derivatives_c');
 addpath('../../common/squared_error_risk');
 addpath('../../common/visualize_centers')
 addpath('../../common/cross_validation/standard_train_cv_test_validation')
@@ -15,30 +12,24 @@ addpath('../../common/MNIST')
 addpath('../../common/kernel_functions')
 addpath('../../common/data_generation/simple_regression_example_high_dimensions')
 %% data set
-snr = 10;
-N = 1000;
-D = 20;
-D_out = 1;
-[X, y] = generate_high_dim_regression( N, D, D_out, snr);
-%% data set split
+load('./all_MNIST_Combine');
 per_train = 0.6;
 per_cv = 0.3;
 data_for_cross_validation = cross_validation_data(X,y,per_train,per_cv);
 %%
-beta_start = 0.15;
-beta_end = 0.6;
-num_betas = 200;
-betas = linspace(beta_start, beta_end, num_betas)
-%% RBF
+beta_start = 0.1;
+beta_end = 10;
+num_betas = 100;
+betas = linspace(beta_start, beta_end, num_betas);
+%%
 beta = inf;
 mdl_func = @RBF;
 param4mdl_func = @RBF_parameters;
-train_func = @learn_RBF_batch_GD;
-%mu_c = 0.9;
-iterations = 1000; %GD
-num_inits = 6;
+train_func = @learn_RBF_linear_algebra;
+gd_iterations = -1; %GD
+num_inits = 10;
 lambda = 0;
-params4mdl_iter = RBF_iterator4training(beta, mdl_func,param4mdl_func,train_func,iterations,num_inits,lambda);
+params4mdl_iter = RBF_iterator4training(beta, mdl_func,param4mdl_func,train_func,gd_iterations,num_inits,lambda);
 params4mdl_iter.create_initiliazations(data_for_cross_validation.X_train,D_out);
 %%
 visualize = 1;

@@ -39,6 +39,14 @@ classdef cross_validation_data < handle
             y_cv = obj.y_cv;
             y_test = obj.y_test;
         end
+        function [X_new, y_new] = shuffle_data(X,y)
+            [~, N_x] = size(X);
+            [~, N_y] = size(y);
+            ordering_x = randperm(N_x);
+            ordering_y = randperm(N_y);
+            X_new = X(:, ordering_x);
+            y_new = y(:, ordering_y);
+        end
     end
     
 end

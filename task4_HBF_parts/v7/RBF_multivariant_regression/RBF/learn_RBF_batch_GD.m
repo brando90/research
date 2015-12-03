@@ -1,29 +1,21 @@
-function [ mdl_params ] = learn_RBF_batch_GD(X,y, mdl_params, lambda, iterations,visualize, Xtest,Ytest)
+function [ mdl_params ] = learn_RBF_batch_GD(Xtrain,ytrain, mdl_params, iterations,visualize, Xtest,Ytest)
 % learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
 %   Inputs:
 %       X = data matrix (D x N)
 %       Y = labels (N x 1)
-%       c = weights (K x L)
-%       t = centers (D x K)
-%       lambda = regularization param (1 x 1)
-%       mu_c = (1 x 1)
-%       mu_t = (1 x 1)
-%       iterations = run gradient descent for a certain number of iterations
-%       visualize = whether to plot the error or not.
 %   Outputs:
 %       c_new = learned weights (K x 1)
-%       t_new = learned centers (D x K)
-[~, D] = size(mdl_params.c);
+[D, ~] = size(ytrain);
 if visualize
     errors_Hfs = zeros(iterations,1);
     errors_Test = zeros(iterations,1);
     changes_c = zeros(D, iterations);
     dHf_dc_mu_c_iterion = zeros(D, iterations);
 end
-Kern = produce_kernel_matrix(X,mdl_params.t,mdl_params.beta ); % (N x N)
+Kern = produce_kernel_matrix(Xtrain,mdl_params.t,mdl_params.beta ); % (N x N)
 for i=1:iterations
     %% get new parameters
-    [c_new, dHf_dc, mu_c] = update_c_batch(Kern,y, mdl_params);
+    [c_new, dHf_dc, mu_c] = update_c_batch(Kern,ytrain, mdl_params);
     if visualize
         %% get changes for c/iter.
         change_c_wrt_current_iteration = get_dc_diter(mdl_params.c, c_new); % (L x 1)
@@ -36,7 +28,7 @@ for i=1:iterations
     %% Calculate current errors
     if visualize
         mdl_new = RBF(mdl_params);
-        current_Hf = compute_Hf_sq_error(X,y, mdl_new, mdl_params.lambda);
+        current_Hf = compute_Hf_sq_error(Xtrain,ytrain, mdl_new, mdl_params.lambda);
         current_Hf_test = compute_Hf_sq_error(Xtest,Ytest, mdl_new, mdl_params.lambda);
         errors_Hfs(i) = current_Hf;
         errors_Test(i) = current_Hf_test;

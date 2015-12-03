@@ -1,4 +1,4 @@
-function [ dJ_dc_col_norms ] = get_norms_col_dJ_dc( dJ_c )
+function [ dJ_dc_col_norms ] = get_norms_col_dHf_dc( dJ_c )
 % Get norms of each column of dJ_dt2
 %   Input:
 %       dJ_dc = derivative of training error wrt c (K2 x L)

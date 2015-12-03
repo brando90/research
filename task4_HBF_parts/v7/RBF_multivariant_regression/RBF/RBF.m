@@ -35,22 +35,5 @@ classdef RBF < handle
             f = Kern * obj.c; % (N x D)
             f = f';
         end
-        function [mdl_new] = train(obj, X,y,train_func, train_params)
-            train_func_name = func2str(train_func);
-            if strcmp( train_func_name, 'learn_RBF_batch_GD')
-                mdl_new = learn_RBF_batch_GD(X,y, obj, train_params.mu_c, train_params.lambda, train_params.iterations, 0,0,0);
-                obj.c = mdl_new.c;
-                obj.t = mdl_new.t;
-                return
-            elseif strcmp( train_func_name, 'learn_RBF_linear_algebra')
-                %learn_RBF_linear_algebra( X_training_data, mdl, t,beta )
-                mdl_new = learn_RBF_linear_algebra(X,y, obj, obj.t, obj.beta);
-                obj.c = mdl_new.c;
-                obj.t = mdl_new.t;
-                return
-            else
-                keyboard
-            end
-        end
     end
 end

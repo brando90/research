@@ -1,4 +1,4 @@
-function [ X_train_balanced, Y_train_balanced ] = get_balanced_training_set( X_train, Y_labels, amount_per_label, num_labels )
+function [ X_train_balanced, Y_train_balanced ] = get_balanced_data_set( X_train, Y_labels, amount_per_label, num_labels )
 %
 [D, N] = size(X_train);
 count_labels = zeros(1,num_labels);

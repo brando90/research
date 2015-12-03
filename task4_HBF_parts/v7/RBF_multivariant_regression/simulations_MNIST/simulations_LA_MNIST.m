@@ -16,28 +16,28 @@ addpath('../../common/MNIST')
 addpath('../../common/kernel_functions')
 addpath('../../common/data_generation/simple_regression_example_high_dimensions')
 %% data set
-snr = 5;
-D_out = 1;
-N_train = 1400;
-D_train = 20;
-[X_train, y_train] = generate_high_dim_regression( N_train, D_train, D_out, snr);
-N_test = 700;
-D_train = 20;
-[X_test, y_test] = generate_high_dim_regression( N_test, D_train, D_out, snr);
+load('../../common/data/all_MNIST_Combine.mat');
+num_labels = 10;
+amount_per_label = 100;
+[X_train, ~] = get_balanced_data_set( X_training_data, Y_training_labels, amount_per_label, num_labels );
+[X_test, ~] = get_balanced_data_set( X_test_data, Y_test_labels, amount_per_label, num_labels );
+[D, N_train] = size(X_train);
+y_train = X_train;
+y_test = X_test;
 %% RBF
-beta = 0.1;
+D_out = D;
+beta = 0.5;
 c = rand(N_train,D_out); % (N x D)
 %c = datasample(X_train', N_train, 'Replace', false);
 t = datasample(X_train', N_train, 'Replace', false)'; % (D x N)
 lambda = 0;
-%% GD params
-%mu_c = 0.1;
-iterations = 5000; %GD
+%% params
+iterations = -1; %GD
 %%
 visualize = 1;
 tic
 mdl_params = RBF_parameters(c,t,beta,lambda);
-mdl_new_params = learn_RBF_batch_GD(X_train,y_train, mdl_params, iterations,visualize, X_test,y_test);
+mdl_new_params = learn_RBF_linear_algebra( X_train, y_train, mdl_params );
 time_passed = toc;
 %%
 mdl_new = RBF(mdl_new_params);
