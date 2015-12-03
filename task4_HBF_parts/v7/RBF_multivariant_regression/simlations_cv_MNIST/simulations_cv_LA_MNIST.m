@@ -12,14 +12,24 @@ addpath('../../common/MNIST')
 addpath('../../common/kernel_functions')
 addpath('../../common/data_generation/simple_regression_example_high_dimensions')
 %% data set
-load('./all_MNIST_Combine');
-per_train = 0.6;
+load('../../common/data/all_MNIST_Combine.mat');
+per_train = 0.3;
 per_cv = 0.3;
-data_for_cross_validation = cross_validation_data(X,y,per_train,per_cv);
+data4cv = cross_validation_data(X,Y,per_train,per_cv);
+
+num_labels = 10;
+amount_per_label = 10;
+
+[X_train, ~] = get_balanced_data_set( data4cv.X_train, data4cv.y_train, amount_per_label, num_labels );
+[X_cv, ~] = get_balanced_data_set( data4cv.X_cv, data4cv.y_cv, amount_per_label, num_labels );
+[X_test, ~] = get_balanced_data_set( data4cv.X_test, data4cv.y_test, amount_per_label, num_labels );
+
+[D_train, ~] = size(X_train);
+D_out = D_train;
 %%
 beta_start = 0.1;
 beta_end = 10;
-num_betas = 100;
+num_betas = 10;
 betas = linspace(beta_start, beta_end, num_betas);
 %%
 beta = inf;
@@ -30,11 +40,11 @@ gd_iterations = -1; %GD
 num_inits = 10;
 lambda = 0;
 params4mdl_iter = RBF_iterator4training(beta, mdl_func,param4mdl_func,train_func,gd_iterations,num_inits,lambda);
-params4mdl_iter.create_initiliazations(data_for_cross_validation.X_train,D_out);
+params4mdl_iter.create_initiliazations(data4cv.X_train,D_out);
 %%
 visualize = 1;
 tic
-[ best_mdl, error_best_mdl] = hold_out_cross_validation_with_test_data(data_for_cross_validation, betas, params4mdl_iter, visualize);
+[ best_mdl, error_best_mdl] = hold_out_cross_validation_with_test_data(data4cv, betas, params4mdl_iter, visualize);
 time_passed = toc;
 time_elapsed(-1, time_passed )
 error_best_mdl
