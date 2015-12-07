@@ -12,24 +12,13 @@ addpath('../../common/MNIST')
 addpath('../../common/kernel_functions')
 addpath('../../common/data_generation/simple_regression_example_high_dimensions')
 %% data set
-load('../../common/data/all_MNIST_Combine.mat');
-per_train = 0.3;
-per_cv = 0.3;
-data4cv = cross_validation_data(X,Y,per_train,per_cv);
-
-num_labels = 10;
-amount_per_label = 100;
-
-[X_train, ~] = get_balanced_data_set( data4cv.X_train, data4cv.y_train, amount_per_label, num_labels );
-[X_cv, ~] = get_balanced_data_set( data4cv.X_cv, data4cv.y_cv, amount_per_label, num_labels );
-[X_test, ~] = get_balanced_data_set( data4cv.X_test, data4cv.y_test, amount_per_label, num_labels );
-data4cv.change_data_sets(X_train,X_cv,X_test, X_train,X_cv,X_test)
+load('../../common/data/data_MNIST_data4CV_1000.mat');
 [D, ~] = size(X_train);
 %%
-beta_start = 0.5;
-beta_end = 1;
-num_betas = 2;
-betas = linspace(beta_start, beta_end, num_betas)
+beta_start = 0.1;
+beta_end = 2;
+num_betas = 20
+betas = linspace(beta_start, beta_end, num_betas);
 
 %%
 beta = inf;

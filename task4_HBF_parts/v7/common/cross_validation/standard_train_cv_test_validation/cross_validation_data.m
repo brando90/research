@@ -39,14 +39,6 @@ classdef cross_validation_data < handle
             y_cv = obj.y_cv;
             y_test = obj.y_test;
         end
-        function [X_new, y_new] = shuffle_data(X,y)
-            [~, N_x] = size(X);
-            [~, N_y] = size(y);
-            ordering_x = randperm(N_x);
-            ordering_y = randperm(N_y);
-            X_new = X(:, ordering_x);
-            y_new = y(:, ordering_y);
-        end
         function [] = change_data_sets(obj, X_train,X_cv,X_test, y_train,y_cv,y_test)
             obj.X_train = X_train;
             obj.X_cv = X_cv;
@@ -67,6 +59,16 @@ classdef cross_validation_data < handle
             end
         end
     end
-    
+    methods (Static)
+                function [X_new, y_new] = shuffle_data(X,y)
+            [~, N_x] = size(X);
+            [~, N_y] = size(y);
+            ordering_x = randperm(N_x);
+            ordering_y = randperm(N_y);
+            X_new = X(:, ordering_x);
+            y_new = y(:, ordering_y);
+        end
+    end
+   
 end
 
