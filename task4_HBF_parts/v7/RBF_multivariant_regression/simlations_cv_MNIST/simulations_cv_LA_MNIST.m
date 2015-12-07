@@ -10,16 +10,16 @@ addpath('../../common/cross_validation/standard_train_cv_test_validation')
 addpath('../../common')
 addpath('../../common/MNIST')
 addpath('../../common/kernel_functions')
-addpath('../../common/data_generation/simple_regression_example_high_dimensions')
+%addpath('../../common/data_generation/simple_regression_example_high_dimensions')
 %% data set
-load('../../common/data/data_MNIST_data4CV_1000.mat');
+load('../../common/data/data_MNIST_data4CV_4000.mat'); % data4cv
+%data4cv.normalize_data_auto_encoder()
 [D, ~] = size(X_train);
 %%
-beta_start = 0.1;
-beta_end = 2;
-num_betas = 20
+beta_start = 0.000001;
+beta_end = 0.5;
+num_betas = 50
 betas = linspace(beta_start, beta_end, num_betas);
-
 %%
 beta = inf;
 mdl_func = @RBF;
@@ -32,12 +32,12 @@ D_out = D;
 params4mdl_iter = RBF_iterator4training(beta, mdl_func,param4mdl_func,train_func,gd_iterations,num_inits,lambda);
 params4mdl_iter.create_initiliazations(data4cv.X_train,D_out);
 %%
-visualize = 0;
+visualize = 1;
 tic
-[ best_mdl, error_best_mdl] = hold_out_cross_validation_with_test_data(data4cv, betas, params4mdl_iter, visualize);
+[ best_mdl, test_error_best_mdl] = hold_out_cross_validation_with_test_data(data4cv, betas, params4mdl_iter, visualize);
 time_passed = toc;
 time_elapsed(-1, time_passed )
-error_best_mdl
+test_error_best_mdl
 best_beta = best_mdl.beta
 %% Plot function
 %Y_pred = best_mdl.predict_data_set(X);

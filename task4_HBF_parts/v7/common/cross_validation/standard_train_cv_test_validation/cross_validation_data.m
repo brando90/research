@@ -58,6 +58,16 @@ classdef cross_validation_data < handle
                 new.(p{i}) = this.(p{i});
             end
         end
+        function [] = normalize_data_auto_encoder(obj)
+            obj.X = norm(obj.X);
+            obj.y = norm(obj.y);
+            obj.X_train = norm(obj.X_train);
+            obj.X_cv = norm(obj.X_cv);
+            obj.X_test = norm(obj.X_test);
+            obj.y_train = norm(obj.y_train);
+            obj.y_cv = norm(obj.y_cv);
+            obj.y_test = norm(obj.y_test);
+        end
     end
     methods (Static)
                 function [X_new, y_new] = shuffle_data(X,y)
