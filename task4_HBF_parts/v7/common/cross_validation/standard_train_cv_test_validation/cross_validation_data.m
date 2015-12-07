@@ -47,6 +47,14 @@ classdef cross_validation_data < handle
             X_new = X(:, ordering_x);
             y_new = y(:, ordering_y);
         end
+        function [] = change_data_sets(obj, X_train,X_cv,X_test, y_train,y_cv,y_test)
+            obj.X_train = X_train;
+            obj.X_cv = X_cv;
+            obj.X_test = X_test;
+            obj.y_train = y_train;
+            obj.y_cv = y_cv;
+            obj.y_test = y_test;
+        end
         % Make a copy of a handle object.
         function new = copy(this)
             % Instantiate new object of the same class.
