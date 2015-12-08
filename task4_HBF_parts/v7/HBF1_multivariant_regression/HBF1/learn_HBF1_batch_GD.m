@@ -2,8 +2,7 @@ function [ mdl_params ] = learn_HBF1_batch_GD(Xtrain,ytrain, mdl_params, iterati
 %learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
 %   Inputs:
 %   Outputs:
-[~, K] = size(mdl_params.t);
-[~, D] = size(mdl_params.c);
+[D, K] = size(mdl_params.t);
 if visualize
     errors_Hfs = zeros(iterations,1);
     errors_Test = zeros(iterations,1);

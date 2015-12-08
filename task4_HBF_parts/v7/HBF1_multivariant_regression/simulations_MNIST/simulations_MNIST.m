@@ -1,4 +1,4 @@
-disp('-------------------------->>> RBF...');
+disp('-------------------------->>> HBF1...');
 %% Load paths
 restoredefaultpath
 clear
@@ -28,19 +28,21 @@ y_test = X_test;
 %% RBF
 D_out = D;
 beta = 0.5;
-c = rand(N_train,D_out); % (N x D)
+K = 10;
 %c = datasample(X_train', N_train, 'Replace', false);
-t = datasample(X_train', N_train, 'Replace', false)'; % (D x N)
+c = rand(K,D_out); % (N x D)
+t = datasample(X_train', K, 'Replace', false)'; % (D x N)
 lambda = 0;
 %% params
-iterations = 2; %GD
+iterations = 1; %GD
 %%
-visualize = 1;
+visualize = 0;
 tic
 mdl_params = HBF1_parameters(c,t,beta,lambda);
 mdl_new_params = learn_HBF1_batch_GD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test);
 time_passed = toc;
 %%
-mdl_new = RBF(mdl_new_params);
+mdl_new = HBF1(mdl_new_params);
 error_best_mdl = compute_Hf_sq_error(X_test,y_test, mdl_new, lambda)
 time_elapsed(iterations, time_passed )
+beep;
