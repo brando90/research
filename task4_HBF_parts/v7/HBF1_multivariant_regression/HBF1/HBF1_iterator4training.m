@@ -4,6 +4,7 @@ classdef HBF1_iterator4training < handle
     properties
         c_inits
         t_inits
+        K
         beta
         %% mdl functions
         mdl_func
@@ -19,8 +20,9 @@ classdef HBF1_iterator4training < handle
     end
     
     methods
-        function obj = HBF1_iterator4training(num_centers, mdl_func,param4mdl_func,train_func,iterations,num_inits,lambda)
-            obj.beta = num_centers;
+        function obj = HBF1_iterator4training(K, beta, mdl_func,param4mdl_func,train_func,iterations,num_inits,lambda)
+            obj.beta = beta;
+            obj.K = K;
             obj.mdl_func = mdl_func;
             obj.param4mdl_func = param4mdl_func;
             obj.train_func = train_func;
@@ -35,7 +37,7 @@ classdef HBF1_iterator4training < handle
             obj.c_inits = zeros(N,D_out,obj.num_inits);
             obj.t_inits = zeros(D,N,obj.num_inits);
             for i=1:obj.num_inits
-                obj.c_inits(:,:,i) = rand(N,D_out);
+                obj.c_inits(:,:,i) = rand(N,K,D_out);
                 obj.t_inits(:,:,i) = datasample(X', N, 'Replace', false)';
             end
         end
@@ -45,20 +47,22 @@ classdef HBF1_iterator4training < handle
 %         end
         function [mdl_trained] = train_iterator(obj,X,y)
             c_init = obj.c_inits(:,:,obj.current_training_iteration);
+            c_init = c_init(1:obj.K,:);
             t_init = obj.t_inits(:,:,obj.current_training_iteration);
-            rbf_params = obj.param4mdl_func(c_init,t_init,obj.beta,obj.lambda);
-            mdl_trained = obj.train(X,y, obj.train_func, rbf_params);
+            t_init = t_init(:,1:obj.K);
+            hbf1_params = obj.param4mdl_func(c_init,t_init,obj.beta,obj.lambda);
+            mdl_trained = obj.train(X,y, obj.train_func, hbf1_params);
             obj.current_training_iteration = obj.current_training_iteration + 1;   
         end
         function [trained_mdl] = train(obj,X,y,train_func,mdl_params)
             train_func_name = func2str(train_func);
-            if strcmp( train_func_name, 'learn_HBF_stochastic_GD')
+            if strcmp( train_func_name, 'learn_HBF_SGD') % TODO
                 gd_iterations = obj.iterations;
-                new_mdl_params = learn_RBF_batch_GD(X,y, mdl_params, gd_iterations, 0, 0,0);
+                new_mdl_params = learn_HBF1_SGD(X,y, mdl_params, gd_iterations, 0, 0,0);
             elseif strcmp( train_func_name, 'learn_HBF_batch_GD')
                 %fixed centers
-                new_mdl_params = learn_RBF_linear_algebra(X,y, mdl_params);
-            elseif strcmp( train_func_name, 'learn_HBF_linear_algebra')
+                new_mdl_params = learn_HBF1_batch_GD(X, y, mdl_params, obj.iterations, 0, 0,0);
+            elseif strcmp( train_func_name, 'learn_HBF_linear_algebra') %TODO
                 %fixed centers
                 new_mdl_params = learn_RBF_linear_algebra(X,y, mdl_params);
             else
