@@ -1,9 +1,9 @@
-disp('-------------------------->>> RBF...');
+disp('-------------------------->>> HBF1...');
 %% Load paths
 restoredefaultpath
 clear
-addpath('../RBF');
-addpath('../RBF/model_functions');
+addpath('../HBF1');
+addpath('../HBF1/model_functions');
 addpath('../../common/squared_error_risk');
 addpath('../../common/visualize_centers')
 addpath('../../common/cross_validation/standard_train_cv_test_validation')
@@ -35,7 +35,7 @@ params4mdl_iter.create_initiliazations(data4cv.X_train,D_out);
 %%
 visualize = 1;
 tic
-[ best_mdl, test_error_best_mdl] = hold_out_cross_validation_with_test_data(data4cv, betas, params4mdl_iter, visualize);
+[ best_mdl, test_error_best_mdl] = hold_out_cross_validation_with_test_data_num_centers(data4cv, betas, params4mdl_iter, visualize);
 time_passed = toc;
 time_elapsed(-1, time_passed )
 test_error_best_mdl
