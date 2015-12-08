@@ -4,6 +4,9 @@ restoredefaultpath
 clear
 addpath('../HBF1');
 addpath('../HBF1/model_functions');
+addpath('../HBF1/update_rules_GD/batch_gradient_descent');
+addpath('../HBF1/derivatives_c');
+addpath('../HBF1/derivatives_t');
 addpath('../../common/squared_error_risk');
 addpath('../../common/visualize_centers')
 addpath('../../common/cross_validation/standard_train_cv_test_validation')
@@ -12,7 +15,7 @@ addpath('../../common/MNIST')
 addpath('../../common/kernel_functions')
 %addpath('../../common/data_generation/simple_regression_example_high_dimensions')
 %% data set
-load('../../common/data/data_MNIST_data4CV_4000.mat'); % data4cv
+load('../../common/data/data_MNIST_data4CV_1000.mat'); % data4cv
 %data4cv.normalize_data_auto_encoder()
 [D, ~] = size(X_train);
 %%
@@ -24,7 +27,7 @@ betas = linspace(num_centers_start, num_centers_end, amount_of_centers_to_test);
 beta = 0.5;
 mdl_func = @HBF1;
 param4mdl_func = @HBF1_parameters;
-train_func = @learn_HBF1_linear_algebra;
+train_func = @learn_HBF_batch_GD;
 gd_iterations = 1; %GD
 num_inits = 1;
 lambda = 0;

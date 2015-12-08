@@ -37,7 +37,7 @@ classdef HBF1_iterator4training < handle
             obj.c_inits = zeros(N,D_out,obj.num_inits);
             obj.t_inits = zeros(D,N,obj.num_inits);
             for i=1:obj.num_inits
-                obj.c_inits(:,:,i) = rand(N,K,D_out);
+                obj.c_inits(:,:,i) = rand(N,D_out);
                 obj.t_inits(:,:,i) = datasample(X', N, 'Replace', false)';
             end
         end

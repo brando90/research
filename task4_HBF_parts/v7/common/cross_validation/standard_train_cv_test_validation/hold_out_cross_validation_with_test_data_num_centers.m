@@ -10,9 +10,9 @@ list_test_errors = zeros(1,iterations_centers);
 lambda = 0; % TODO
 error_cv_best_mdl = inf;
 for k=1:iterations_centers
-    current_num_centers = centers(k);
+    current_K = centers(k);
     %% train current model (choose the one with smallest error)
-    params4mdl_iter.num_centers = current_num_centers;
+    params4mdl_iter.K = current_K;
     params4mdl_iter.current_training_iteration = 1;
     current_trained_mdl = train_model_class_iterations_smallest_cv_error(X_train,y_train,X_cv,y_cv, params4mdl_iter);
     %% record the trained models error
