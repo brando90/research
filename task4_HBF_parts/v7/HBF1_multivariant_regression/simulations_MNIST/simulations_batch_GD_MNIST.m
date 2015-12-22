@@ -34,9 +34,9 @@ c = rand(K,D_out); % (N x D)
 t = datasample(X_train', K, 'Replace', false)'; % (D x N)
 lambda = 0;
 %% params
-iterations = 1; %GD
+iterations = 10; %GD
 %%
-visualize = 0;
+visualize = 1;
 tic
 mdl_params = HBF1_parameters(c,t,beta,lambda);
 mdl_new_params = learn_HBF1_batch_GD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test);
