@@ -14,14 +14,14 @@ D = 3;
 N = 100;
 X = rand(D,N);
 y = rand(D,N);
+%% reg params
+lambda = 0;
+mu_c = 1;
 %% make mode
 c = rand(K,D);
 t = rand(D,K);
 beta = 1;
 mdl_params = HBF1_parameters(c,t,beta,lambda);
-%% reg params
-lambda = 0;
-mu_c = 1;
 %%
 Kern = produce_kernel_matrix( X, t, beta );
 F = Kern * mdl_params.c;
