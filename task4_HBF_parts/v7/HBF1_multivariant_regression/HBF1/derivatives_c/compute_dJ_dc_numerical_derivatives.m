@@ -9,12 +9,13 @@ function [ dJ_dc_numerical ] = compute_dJ_dc_numerical_derivatives(x,y, c,t,beta
 %       dj_dc_numerical = (K, L)
 [K, L] = size(c);
 dJ_dc_numerical = zeros(K, L);
+lambda = 0; %% TODO
 for l=1:L
     for k=1:K
         e = zeros([K,L]);
         e(k,l) = eps;
-        J_e1 = J_sq_error(x,y, HBF1(c + e, t, beta) );
-        J_e2 = J_sq_error(x,y, HBF1(c - e, t, beta) );
+        J_e1 = J_sq_error(x,y, HBF1(HBF1_parameters(c + e, t, beta, lambda) ) );
+        J_e2 = J_sq_error(x,y, HBF1(HBF1_parameters(c - e, t, beta, lambda) ) );
         numerical_derivative = (J_e1 - J_e2)/(2*eps);
         dJ_dc_numerical(k,l) = numerical_derivative;
     end

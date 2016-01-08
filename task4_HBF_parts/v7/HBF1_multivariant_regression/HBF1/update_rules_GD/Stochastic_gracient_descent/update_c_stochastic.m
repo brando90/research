@@ -1,4 +1,4 @@
-function [ c_new, dJ_dc ] = update_c_stochastic(f_x,y,a, mdl, mu_c, lambda )
+function [ c_new, dJ_dc, mu_c ] = update_c_stochastic(f_x,y,a, mdl_params)
 %update_c_batch
 %   Updates c according to:
 %       c := c - mu_c * dJ/dc
@@ -15,7 +15,8 @@ function [ c_new, dJ_dc ] = update_c_stochastic(f_x,y,a, mdl, mu_c, lambda )
 %       dHf_dc = derivative (K x L)
 %dJ_dc = compute_dJ_dc(f_x,y,a); %((K x L)
 dJ_dc = compute_dV_dt_vec( f_x,a, x,y, mdl_params);
+mu_c = TODO(); 
 dJ_dc = dJ_dc + lambda * 0; %TODO
 %% update
-c_new = mdl.c - mu_c * dJ_dc;
+c_new = mdl_params.c - mu_c * dJ_dc;
 end
