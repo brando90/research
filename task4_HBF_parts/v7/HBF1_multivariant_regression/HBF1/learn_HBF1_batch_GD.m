@@ -15,7 +15,7 @@ for i=1:iterations
     Kern = produce_kernel_matrix(Xtrain,mdl_params.t,mdl_params.beta ); % (N x K)
     F = Kern * mdl_params.c; % (N x D)
     %% get new parameters
-    [c_new, dHf_dc, mu_c] = update_c_batch(Kern,ytrain, mdl_params);
+    [c_new, dHf_dc, mu_c] = update_c_batch(F,Kern,ytrain, mdl_params);
     [t_new, dHf_dt, mu_t] = update_t_batch(F,Kern, Xtrain,ytrain, mdl_params);
 %     if visualize
 %         %% get changes for c/iter.

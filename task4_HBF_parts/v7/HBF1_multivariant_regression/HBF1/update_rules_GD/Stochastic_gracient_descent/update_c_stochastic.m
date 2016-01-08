@@ -15,7 +15,7 @@ function [ c_new, dJ_dc, mu_c ] = update_c_stochastic(f_x,y,a, mdl_params)
 %       dHf_dc = derivative (K x L)
 %dJ_dc = compute_dJ_dc(f_x,y,a); %((K x L)
 dJ_dc = compute_dV_dt_vec( f_x,a, x,y, mdl_params);
-mu_c = TODO(); 
+mu_c = choose_step_size_stochastic(a, dV_dtheta, y, mdl_params.c); 
 dJ_dc = dJ_dc + lambda * 0; %TODO
 %% update
 c_new = mdl_params.c - mu_c * dJ_dc;
