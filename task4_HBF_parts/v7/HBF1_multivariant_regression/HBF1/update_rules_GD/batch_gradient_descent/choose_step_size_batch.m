@@ -8,5 +8,5 @@ Kdelta = Kern*dHf_dtheta; % (N x D)
 F_Y = F - y'; % (N x D)
 denom = sum(sum(Kdelta .* (F_Y)));
 num = sum(sum(Kdelta .* Kdelta));
-mu_theta = -denom/ num;
+mu_theta = denom/ num;
 end
