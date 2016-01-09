@@ -10,7 +10,7 @@ function [ c_new, dJ_dc, mu_c ] = update_c_stochastic(f_x,y,a, mdl_params)
 %       beta = precision (1 x 1)
 %       mu_c = step size (1 x 1)
 %       lambda = reg param (1 x 1)
-%   Output:
+%   Output:w
 %       c = updated weights (K x L)
 %       dHf_dc = derivative (K x L)
 %dJ_dc = compute_dJ_dc(f_x,y,a); %((K x L)
