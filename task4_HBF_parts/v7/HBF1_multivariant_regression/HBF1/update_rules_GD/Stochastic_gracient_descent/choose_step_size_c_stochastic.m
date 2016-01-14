@@ -1,4 +1,4 @@
-function [ mu_c ] = choose_step_size_c_stochastic(x,y, c,t,beta, dV_dc )
+function [ mu_c ] = choose_step_size_c_stochastic(x,y, c,t,beta, dV_dc)
 %
 function h_val = h(eta)
     f_x = f(x, c - eta * dV_dc ,t,beta);

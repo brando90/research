@@ -1,4 +1,4 @@
-function [ mdl_new ] = learn_HBF1_SGD(X,y, mdl, iterations,visualize, Xtest,Ytest)
+function [ mdl_params ] = learn_HBF1_SGD(X,Y, mdl_params, iterations,visualize, Xtest,Ytest)
 %learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
 %   Inputs:
 %       X = data matrix (D x N)
@@ -14,7 +14,7 @@ function [ mdl_new ] = learn_HBF1_SGD(X,y, mdl, iterations,visualize, Xtest,Ytes
 %       c_new = learned weights (K x 1)
 %       t_new = learned centers (D x K)
 %[~, K] = size(mdl.t);
-%[D, N] = size(X);
+[D, N] = size(X);
 if visualize
     errors_Hfs = zeros(iterations,1);
     errors_Test = zeros(iterations,1);
@@ -26,12 +26,13 @@ end
 for i=1:iterations
     %% choose random data point x,y
     i_rand = randi(N);
-    x_i = X(:,i_rand);
-    y_i = y(:,i_rand);
+    x = X(:,i_rand);
+    y = Y(:,i_rand);
     %% get new parameters
-    [ f_x, z, a ] = mdl.f(x_i);
-    [c_new, dV_dc, mu_c] = update_c_stochastic(f_x,y,a, mdl_params);
-    [t_new, dV_dt, mu_t] = update_t_stochastic(f_x,x,y, mdl_params);
+    current_mdl = HBF1(mdl_params);
+    [ f_x, ~, a ] = current_mdl.f(x);
+    [c_new, dV_dc, mu_c] = update_c_stochastic(f_x,a, x,y, mdl_params);
+    [t_new, dV_dt, mu_t] = update_t_stochastic(f_x,a, x,y, mdl_params);
 %     %% get changes for c/iter.
 %     change_c_wrt_current_iteration = get_dc_diter(mdl_new.c, c_new); % (L x 1)
 %     changes_c(:,i) = change_c_wrt_current_iteration; % (L x 1)
@@ -43,12 +44,13 @@ for i=1:iterations
 %     dHf_diter_col_norms = get_norms_col_dHf_dt(dJ_dt);
 %     dHf_dt_mu_t_iter(:, i) = mu_t * dHf_diter_col_norms;
     %% update HBF1 model
-    mdl_new.c = c_new;
-    mdl_new.t = t_new;
+    mdl_params.c = c_new;
+    mdl_params.t = t_new;
     %% Calculate current errors
     if visualize
-        current_Hf = compute_Hf_sq_error(X,y, mdl_new, lambda);
-        current_Hf_test = compute_Hf_sq_error(Xtest,Ytest, mdl_new, lambda);
+        mdl_new = HBF1(mdl_params);
+        current_Hf = compute_Hf_sq_error(Xtrain,ytrain, mdl_new, mdl_params.lambda);
+        current_Hf_test = compute_Hf_sq_error(Xtest,Ytest, mdl_new, mdl_params.lambda);
         errors_Hfs(i) = current_Hf;
         errors_Test(i) = current_Hf_test;
     end

@@ -1,4 +1,5 @@
-function [ c_new, dJ_dc, mu_c ] = update_c_stochastic(f_x,y,a, mdl_params)
+function [ c_new, dJ_dc, mu_c ] = update_c_stochastic(f_x,a, x,y, mdl_params)
+%(f_x,y,a, mdl_params)
 %update_c_batch
 %   Updates c according to:
 %       c := c - mu_c * dJ/dc
@@ -14,9 +15,10 @@ function [ c_new, dJ_dc, mu_c ] = update_c_stochastic(f_x,y,a, mdl_params)
 %       c = updated weights (K x L)
 %       dHf_dc = derivative (K x L)
 %dJ_dc = compute_dJ_dc(f_x,y,a); %((K x L)
-dJ_dc = compute_dV_dt_vec( f_x,a, x,y, mdl_params);
-mu_c = choose_step_size_stochastic(a, dV_dtheta, y, mdl_params.c); 
-dJ_dc = dJ_dc + lambda * 0; %TODO
+dJ_dc = compute_dV_dc_vec( f_x,a, y); % f,a, y
+mu_c = choose_step_size_c_stochastic_closed_soln(f_x, a, dJ_dc, y);
+%mu_c = choose_step_size_c_stochastic(x,y, mdl_params.c,mdl_params.t,mdl_params.beta, dJ_dc );
+dJ_dc = dJ_dc + mdl_params.lambda * 0; %TODO
 %% update
 c_new = mdl_params.c - mu_c * dJ_dc;
 end

@@ -1,4 +1,4 @@
-function [ best_mdl, error_test_best_mdl] = hold_out_cross_validation_with_test_data(data_for_cross_validation, betas, params4mdl_iter, visualize)
+function [ best_mdl, error_test_best_mdl] = hold_out_cross_validation_with_test_data_beta(data_for_cross_validation, betas, params4mdl_iter, visualize)
 %   Input:
 %   Output:
 [ X_train,X_cv,X_test, y_train,y_cv,y_test ] = data_for_cross_validation.get_data_for_hold_out_cross_validation();

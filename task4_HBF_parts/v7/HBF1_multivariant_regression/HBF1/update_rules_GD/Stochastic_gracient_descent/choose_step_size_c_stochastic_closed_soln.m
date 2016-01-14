@@ -1,4 +1,4 @@
-function [ mu_c ] = choose_step_size_c_stochastic_closed_soln( f_x, a, dV_dc, y )
+function [ mu_c ] = choose_step_size_c_stochastic_closed_soln(f_x, a, dV_dc, y)
 %%step_size closed form
 Kx = a'; % (1 x K)
 Kdelta = Kx * dV_dc; % (1 x D) = (1 x K) * (K x D)

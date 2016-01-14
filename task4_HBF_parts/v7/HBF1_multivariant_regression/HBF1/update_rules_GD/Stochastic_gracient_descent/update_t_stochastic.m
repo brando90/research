@@ -1,8 +1,8 @@
-function [t_new, dV_dt, mu_t] = update_t_stochastic(f_x,x,y, mdl_params)
+function [t_new, dJ_dt, mu_t] = update_t_stochastic(f_x,a, x,y, mdl_params)
 %update_t_batch
-dV_dt = compute_dV_dt_vec(f_x,a, x,y, mdl_params );
-mu_t = choose_step_size_stochastic(a, dV_dtheta, y, mdl_params.c);
-dV_dt = dV_dt + 0 * lambda; %TODO
+dJ_dt = compute_dV_dt_vec(f_x,a, x,y, mdl_params );
+mu_t = choose_step_size_t_stochastic(x,y, mdl_params.c,mdl_params.t,mdl_params.beta, dJ_dt);
+dJ_dt = dJ_dt + 0 * mdl_params.lambda; %TODO
 %% update
-t_new = mdl.t - mu_t * dJ_dt;
+t_new = mdl_params.t - mu_t * dJ_dt;
 end
