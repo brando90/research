@@ -13,7 +13,7 @@ function [ mdl_params ] = learn_HBF1_SGD(X,Y, mdl_params, iterations,visualize, 
 %   Outputs:
 %       c_new = learned weights (K x 1)
 %       t_new = learned centers (D x K)
-%[~, K] = size(mdl.t);
+[~, K] = size(mdl_params.t);
 [D, N] = size(X);
 if visualize
     errors_Hfs = zeros(iterations,1);
@@ -23,6 +23,10 @@ if visualize
 %     changes_t = zeros(K, iterations);
 %     dHf_dt_mu_t_iter = zeros(K, iterations);
 end
+eta_c = 0.01;
+eta_t = 0.01;
+G_c = ones(K, D);
+G_t = ones(D, K);
 for i=1:iterations
     %% choose random data point x,y
     i_rand = randi(N);
@@ -31,8 +35,8 @@ for i=1:iterations
     %% get new parameters
     current_mdl = HBF1(mdl_params);
     [ f_x, ~, a ] = current_mdl.f(x);
-    [c_new, dV_dc, mu_c] = update_c_stochastic(f_x,a, x,y, mdl_params);
-    [t_new, dV_dt, mu_t] = update_t_stochastic(f_x,a, x,y, mdl_params);
+    [c_new, dV_dc,G_c, mu_c] = update_c_stochastic(f_x,a, x,y, mdl_params, G_c,eta_c);
+    [t_new, dV_dt,G_t, mu_t] = update_t_stochastic(f_x,a, x,y, mdl_params, G_t,eta_t);
 %     %% get changes for c/iter.
 %     change_c_wrt_current_iteration = get_dc_diter(mdl_new.c, c_new); % (L x 1)
 %     changes_c(:,i) = change_c_wrt_current_iteration; % (L x 1)

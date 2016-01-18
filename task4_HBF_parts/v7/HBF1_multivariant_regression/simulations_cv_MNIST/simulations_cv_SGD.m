@@ -16,11 +16,15 @@ addpath('../../common/kernel_functions')
 %addpath('../../common/data_generation/simple_regression_example_high_dimensions')
 %% data set
 load('../../common/data/data_MNIST_data4CV_1000.mat'); % data4cv
+X = normc(X);
+X_cv = normc(X_cv);
+X_test = normc(X_test);
+X_train = normc(X_train);
 %data4cv.normalize_data_auto_encoder()
 [D, ~] = size(X_train);
 %% number of centers to train/test
-num_centers_start = 10;
-num_centers_end = 20;
+num_centers_start = 5;
+num_centers_end = 30;
 amount_of_centers_to_test = 5
 centers = floor(linspace(num_centers_start, num_centers_end, amount_of_centers_to_test));
 %% preparing models to train/test for mdl_iterator
@@ -28,7 +32,7 @@ beta = 0.5;
 mdl_func = @HBF1;
 param4mdl_func = @HBF1_parameters;
 train_func = @learn_HBF_SGD;
-sgd_iterations = 15; %GD
+sgd_iterations = 3200; %GD
 num_inits = 2;
 lambda = 0;
 D_out = D;
