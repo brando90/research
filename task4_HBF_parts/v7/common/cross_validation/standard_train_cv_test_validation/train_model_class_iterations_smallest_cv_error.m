@@ -5,12 +5,6 @@ function [ best_mdl_train ] = train_model_class_iterations_smallest_cv_error(X_t
 %       minimum as best as it can)
 %       when there is CV and train data, it chooses the model with best cv
 %       error amongst the trained models.
-%   Input:
-%       X_train
-%       y_train
-%       X_cv
-%       y_cv
-%       params4mdl_iter
 params4mdl_iter.current_training_iteration = 1; % reset interator for re-training
 %% initialize by training 
 best_mdl_train = params4mdl_iter.train_iterator(X_train,y_train);

@@ -24,15 +24,15 @@ X_train = normc(X_train);
 [D, ~] = size(X_train);
 %% number of centers to train/test
 num_centers_start = 5;
-num_centers_end = 30;
-amount_of_centers_to_test = 5
+num_centers_end = 700;
+amount_of_centers_to_test = 100
 centers = floor(linspace(num_centers_start, num_centers_end, amount_of_centers_to_test));
 %% preparing models to train/test for mdl_iterator
 beta = 0.5;
 mdl_func = @HBF1;
 param4mdl_func = @HBF1_parameters;
 train_func = @learn_HBF_SGD;
-sgd_iterations = 3200; %GD
+sgd_iterations = 1400; %GD
 num_inits = 2;
 lambda = 0;
 D_out = D;
