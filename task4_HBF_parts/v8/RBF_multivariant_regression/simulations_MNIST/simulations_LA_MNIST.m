@@ -16,14 +16,8 @@ addpath('../../common/MNIST')
 addpath('../../common/kernel_functions')
 addpath('../../common/data_generation/simple_regression_example_high_dimensions')
 %% data set
-load('../../common/data/all_MNIST_Combine.mat');
-num_labels = 10;
-amount_per_label = 100;
-[X_train, ~] = get_balanced_data_set( X_training_data, Y_training_labels, amount_per_label, num_labels );
-[X_test, ~] = get_balanced_data_set( X_test_data, Y_test_labels, amount_per_label, num_labels );
-[D, N_train] = size(X_train);
-y_train = X_train;
-y_test = X_test;
+load('../../common/data/data_MNIST_data4CV_1000.mat');
+[D, ~] = size(X_train);
 %% RBF
 D_out = D;
 beta = 0.5;

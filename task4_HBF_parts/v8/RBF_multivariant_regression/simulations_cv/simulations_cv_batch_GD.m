@@ -19,11 +19,8 @@ snr = 10;
 N = 1000;
 D = 20;
 D_out = 1;
-[X, y] = generate_high_dim_regression( N, D, D_out, snr);
 %% data set split
-per_train = 0.6;
-per_cv = 0.3;
-data_for_cross_validation = cross_validation_data(X,y,per_train,per_cv);
+
 %%
 beta_start = 0.15;
 beta_end = 0.6;

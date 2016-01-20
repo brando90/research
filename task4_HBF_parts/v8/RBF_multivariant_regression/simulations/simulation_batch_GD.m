@@ -16,15 +16,12 @@ addpath('../../common/MNIST')
 addpath('../../common/kernel_functions')
 addpath('../../common/data_generation/simple_regression_example_high_dimensions')
 %% data set
-snr = 5;
-D_out = 1;
-N_train = 1400;
-D_train = 20;
-[X_train, y_train] = generate_high_dim_regression( N_train, D_train, D_out, snr);
-N_test = 700;
-D_train = 20;
-[X_test, y_test] = generate_high_dim_regression( N_test, D_train, D_out, snr);
+load('../../common/data/data_synthetic_data1_N3000_D300_Dout100snr8.mat');
+data4cv.normalize_data();
+[ X_train,~,X_test, y_train,~,y_test ] = data4cv.get_data_for_hold_out_cross_validation();
 %% RBF
+[~, N_train] = size(X_train);
+[D_out, ~] = size(y_train);
 beta = 0.1;
 c = rand(N_train,D_out); % (N x D)
 %c = datasample(X_train', N_train, 'Replace', false);

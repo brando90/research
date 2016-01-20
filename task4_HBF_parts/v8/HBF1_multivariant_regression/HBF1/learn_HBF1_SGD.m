@@ -15,6 +15,7 @@ function [ mdl_params ] = learn_HBF1_SGD(X,Y, mdl_params, iterations,visualize, 
 %       t_new = learned centers (D x K)
 [~, K] = size(mdl_params.t);
 [D, N] = size(X);
+[D_out, ~] = size(Y);
 if visualize
     errors_Hfs = zeros(iterations,1);
     errors_Test = zeros(iterations,1);
@@ -25,7 +26,7 @@ if visualize
 end
 eta_c = 0.01;
 eta_t = 0.01;
-G_c = ones(K, D);
+G_c = ones(K, D_out);
 G_t = ones(D, K);
 for i=1:iterations
     %% choose random data point x,y

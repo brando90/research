@@ -32,7 +32,7 @@ error_test_best_mdl = compute_Hf_sq_error( X_test,y_test, best_mdl_cv, lambda );
 best_mdl = best_mdl_cv;
 if visualize
     figure
-    list_train_errors
+    %list_train_errors
     plot(betas, list_train_errors, '-ro', betas, list_test_errors, '-b*');
     legend('list train errors','list test errors');
     title('Cost vs Beta');   

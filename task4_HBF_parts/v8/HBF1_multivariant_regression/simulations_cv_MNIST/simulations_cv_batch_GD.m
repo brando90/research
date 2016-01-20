@@ -16,7 +16,8 @@ addpath('../../common/kernel_functions')
 %addpath('../../common/data_generation/simple_regression_example_high_dimensions')
 %% data set
 load('../../common/data/data_MNIST_data4CV_1000.mat'); % data4cv
-%data4cv.normalize_data_auto_encoder()
+data4cv.normalize_data();
+[ X_train,X_cv,X_test, y_train,y_cv,y_test ] = data4cv.get_data_for_hold_out_cross_validation();
 [D, ~] = size(X_train);
 %%
 num_centers_start = 10;
