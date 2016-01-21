@@ -31,7 +31,6 @@ error_test_best_mdl = compute_Hf_sq_error( X_test,y_test, best_mdl_cv, lambda );
 best_mdl = best_mdl_cv;
 if visualize
     figure
-    list_train_errors
     plot(centers, list_train_errors, '-ro', centers, list_test_errors, '-b*');
     legend('list train errors','list test errors');
     title('Cost vs Centers');   
