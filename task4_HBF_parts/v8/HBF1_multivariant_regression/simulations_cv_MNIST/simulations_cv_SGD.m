@@ -15,22 +15,23 @@ addpath('../../common/MNIST')
 addpath('../../common/kernel_functions')
 %addpath('../../common/data_generation/simple_regression_example_high_dimensions')
 %% data set
-load('../../common/data/data_MNIST_data4CV_1000.mat'); % data4cv
+data_set_path = '../../common/data/data_MNIST_data4CV_1000.mat'
+load(data_set_path); % data4cv
 data4cv.normalize_data();
 [ X_train,X_cv,X_test, y_train,y_cv,y_test ] = data4cv.get_data_for_hold_out_cross_validation();
 [D, ~] = size(X_train);
 %% number of centers to train/test
-num_centers_start = 80
-num_centers_end = 300
-amount_of_centers_to_test = 20
+num_centers_start = 200
+num_centers_end = 500
+amount_of_centers_to_test = 40
 centers = floor(linspace(num_centers_start, num_centers_end, amount_of_centers_to_test));
 %% preparing models to train/test for mdl_iterator
 beta = 0.5
 mdl_func = @HBF1;
 param4mdl_func = @HBF1_parameters;
 train_func = @learn_HBF_SGD;
-sgd_iterations = 9900; %GD
-num_inits = 10
+sgd_iterations = 5100; %GD
+num_inits = 7
 lambda = 0;
 D_out = D
 K = inf;
@@ -50,3 +51,4 @@ test_error_best_mdl
 %plot(X, Y_pred, '-ro',X, y, '-b*')
 %legend('prediction','truth');
 beep;
+send_text_message(number,carrier,subject,message)

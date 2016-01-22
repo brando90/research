@@ -6,5 +6,7 @@ disp('elapsed_time, seconds')
 disp(elapsed_time)
 disp('elapsed_time, minutes')
 disp(elapsed_time/60)
+disp('elapsed_time, hours')
+disp(elapsed_time/(60 * 60))
 end
 

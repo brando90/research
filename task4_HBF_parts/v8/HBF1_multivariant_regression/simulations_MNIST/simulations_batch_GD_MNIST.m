@@ -17,24 +17,22 @@ addpath('../../common/MNIST')
 addpath('../../common/kernel_functions')
 addpath('../../common/data_generation/simple_regression_example_high_dimensions')
 %% data set
-load('../../common/data/all_MNIST_Combine.mat');
-num_labels = 10;
-amount_per_label = 100;
-[X_train, ~] = get_balanced_data_set( X_training_data, Y_training_labels, amount_per_label, num_labels );
-[X_test, ~] = get_balanced_data_set( X_test_data, Y_test_labels, amount_per_label, num_labels );
-[D, N_train] = size(X_train);
-y_train = X_train;
-y_test = X_test;
-%% RBF
-D_out = D;
-beta = 0.5;
-K = 10;
+data_set_path = '../../common/data/data_MNIST_data4CV_1000.mat'
+load(data_set_path); % data4cv
+data4cv.normalize_data();
+[ X_train,X_cv,X_test, y_train,y_cv,y_test ] = data4cv.get_data_for_hold_out_cross_validation();
+[D, ~] = size(X_train);
+%% HBF
+disp('number of centers')
+K = 10
+beta = 0.5
+D_out = D
 %c = datasample(X_train', N_train, 'Replace', false);
-c = rand(K,D_out); % (N x D)
+c = normc(rand(K,D_out)); % (N x D)
 t = datasample(X_train', K, 'Replace', false)'; % (D x N)
 lambda = 0;
 %% params
-iterations = 10; %GD
+iterations = 10 %GD
 %%
 visualize = 1;
 tic

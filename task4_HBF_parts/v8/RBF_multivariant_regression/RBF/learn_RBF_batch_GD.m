@@ -51,17 +51,17 @@ if visualize
     title('Train and Test risk over iteration -- ');
     %% plot changes in param c
     D = min(D,50);
-    for l=1:D
-        figure
-        c_changes_l = changes_c(l,:); % (1 x iterations)
-        subplot(2,1,1)
-        plot(iteration_axis, c_changes_l(iteration_axis) )
-        title(strcat('delta c/iter -- ', num2str(l)))
-
-        dHf_dc_mu_c = dHf_dc_mu_c_iterion(l,:); % (1 x iterations)
-        subplot(2,1,2)
-        plot(iteration_axis, dHf_dc_mu_c(iteration_axis) )
-        title(strcat('dJ dc -- ', num2str(l)))
-    end
+%     for l=1:D
+%         figure
+%         c_changes_l = changes_c(l,:); % (1 x iterations)
+%         subplot(2,1,1)
+%         plot(iteration_axis, c_changes_l(iteration_axis) )
+%         title(strcat('delta c/iter -- ', num2str(l)))
+% 
+%         dHf_dc_mu_c = dHf_dc_mu_c_iterion(l,:); % (1 x iterations)
+%         subplot(2,1,2)
+%         plot(iteration_axis, dHf_dc_mu_c(iteration_axis) )
+%         title(strcat('dJ dc -- ', num2str(l)))
+%     end
 end
 end
