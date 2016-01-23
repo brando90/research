@@ -1,4 +1,4 @@
-function [ mdl_params ] = learn_HBF1_SGD(X,Y, mdl_params, iterations,visualize, Xtest,Ytest)
+function [ mdl_params ] = learn_HBF1_SGD(X_train,Y_train, mdl_params, iterations,visualize, X_test,Y_test)
 %learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
 %   Inputs:
 %       X = data matrix (D x N)
@@ -14,8 +14,8 @@ function [ mdl_params ] = learn_HBF1_SGD(X,Y, mdl_params, iterations,visualize, 
 %       c_new = learned weights (K x 1)
 %       t_new = learned centers (D x K)
 [~, K] = size(mdl_params.t);
-[D, N] = size(X);
-[D_out, ~] = size(Y);
+[D, N] = size(X_train);
+[D_out, ~] = size(Y_train);
 if visualize
     errors_Hfs = zeros(iterations,1);
     errors_Test = zeros(iterations,1);
@@ -24,15 +24,15 @@ if visualize
 %     changes_t = zeros(K, iterations);
 %     dHf_dt_mu_t_iter = zeros(K, iterations);
 end
-eta_c = 0.01;
-eta_t = 0.01;
+eta_c = 0.3
+eta_t = 0.3
 G_c = ones(K, D_out);
 G_t = ones(D, K);
 for i=1:iterations
     %% choose random data point x,y
     i_rand = randi(N);
-    x = X(:,i_rand);
-    y = Y(:,i_rand);
+    x = X_train(:,i_rand);
+    y = Y_train(:,i_rand);
     %% get new parameters
     current_mdl = HBF1(mdl_params);
     [ f_x, ~, a ] = current_mdl.f(x);
@@ -54,8 +54,8 @@ for i=1:iterations
     %% Calculate current errors
     if visualize
         mdl_new = HBF1(mdl_params);
-        current_Hf = compute_Hf_sq_error(Xtrain,ytrain, mdl_new, mdl_params.lambda);
-        current_Hf_test = compute_Hf_sq_error(Xtest,Ytest, mdl_new, mdl_params.lambda);
+        current_Hf = compute_Hf_sq_error(X_train,Y_train, mdl_new, mdl_params.lambda);
+        current_Hf_test = compute_Hf_sq_error(X_test,Y_test, mdl_new, mdl_params.lambda);
         errors_Hfs(i) = current_Hf;
         errors_Test(i) = current_Hf_test;
     end
@@ -64,9 +64,11 @@ if visualize
     %% plot error progression
     figure
     iteration_axis = 1:iterations;
-    plot(iteration_axis, errors_Hfs);
     plot(iteration_axis,errors_Hfs,'-ro',iteration_axis, errors_Test,'-b*');
+    plot(iteration_axis(4100:iterations) ,errors_Hfs(4100:iterations) ,'-ro',iteration_axis(4100:iterations) , errors_Test(4100:iterations) ,'-b*');
     legend('Training risk','Test risk');
+    xlabel('SGD iterations') % x-axis label
+    ylabel('(Squared) Error') % y-axis label
     title('Train and Test risk over iteration -- ');
     %% plot changes in param c
 %     D = min(D,50);
