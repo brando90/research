@@ -29,7 +29,7 @@ c = normc(rand(K,D_out)); % (N x D)
 t = datasample(X_train', K, 'Replace', false)'; % (D x N)
 lambda = 0;
 %% params
-iterations = 5500 %SGD
+iterations = 500 %SGD
 %%
 visualize = 1;
 tic
