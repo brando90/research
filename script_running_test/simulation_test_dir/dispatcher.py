@@ -15,14 +15,14 @@ import sh as sh
 #print( type(x) )got
 print(">>> Dispatcher about to run \n")
 
-print(sh.wc(sh.ls("/etc", "-1"), "-l"))
+#print(sh.wc(sh.ls("/etc", "-1"), "-l"))
 
-#f = open('counter.txt', 'w+')
-#print(f)
-#sh.wc( sh.ls(".", "-1"), _out=f )
+f = open('counter.txt', 'w+')
+print(f)
+sh.wc( sh.ls(".", "-1"), "-l",_out="counter.txt")
 #print( sh.ls(".", "-1") )
 print('-------hello')
-#print(f.readlines() )
+print(f.readlines() )
 
 
 #for ps in processes:
