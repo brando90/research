@@ -1,6 +1,6 @@
 #!/home/brando90/envs/phy/bin/python
 import sh as sh
-import queue as queue
+
 #processes = []
 #for i in range(1,5):
 	#ps = sbatch('worker.sh' , str(i), _bg=True )
@@ -10,9 +10,19 @@ import queue as queue
 
 #while count != 5
 
-q = queue.Queue()
-x = sh.wc( sh.ls(".", "-1"), "-l", _out=q)
-print( type(x) )
+# = queue.Queue()
+#x = sh.wc( sh.ls(".", "-1"), "-l", _out=q)
+#print( type(x) )got
+print(">>> Dispatcher about to run \n")
+
+print(sh.wc(sh.ls("/etc", "-1"), "-l"))
+
+#f = open('counter.txt', 'w+')
+#print(f)
+#sh.wc( sh.ls(".", "-1"), _out=f )
+#print( sh.ls(".", "-1") )
+print('-------hello')
+#print(f.readlines() )
 
 
 #for ps in processes:
