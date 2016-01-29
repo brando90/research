@@ -42,6 +42,17 @@ classdef HBF1_iterator4training < handle
                 obj.t_inits(:,:,i) = datasample(X', N, 'Replace', false)';
             end
         end
+        function [] = create_inits_1layer(obj,X,k,D_out)
+            %
+            [D, ~] = size(X);
+            obj.c_inits = zeros(k,D_out,obj.num_inits);
+            obj.t_inits = zeros(D,k,obj.num_inits);
+            for i=1:obj.num_inits
+                %obj.c_inits(:,:,i) = rand(N,D_out);
+                obj.c_inits(:,:,i) = normc( rand(k,D_out) );
+                obj.t_inits(:,:,i) = datasample(X', k, 'Replace', false)';
+            end
+        end
 %         function [] = set_initializations(obj, c_inits,t_inits)
 %             obj.c_inits = c_inits;
 %             obj.t_inits = t_inits;
@@ -52,8 +63,8 @@ classdef HBF1_iterator4training < handle
             t_init = obj.t_inits(:,:,obj.current_training_iteration);
             t_init = t_init(:,1:obj.K);
             hbf1_params = obj.param4mdl_func(c_init,t_init,obj.beta,obj.lambda);
-            mdl_trained = obj.train(X,y, obj.train_func, hbf1_params);
-            obj.current_training_iteration = obj.current_training_iteration + 1;   
+            mdl_trained = obj.train(X,y, obj.train_func, hbf1_params); 
+            %obj.current_training_iteration = obj.current_training_iteration + 1; 
         end
         function [trained_mdl] = train(obj,X,y,train_func,mdl_params)
             train_func_name = func2str(train_func);
