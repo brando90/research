@@ -1,4 +1,4 @@
-function [] = get_best_trained_hbf1_model( K, beta, num_inits, iterations, train_alg, lambda )
+function [] = get_best_trained_hbf1_model( K, beta, num_inits, iterations, train_alg, lambda, dir_name_4_current_sim)
 % gets the best HBF1 model with k centers from the number of initilizations
 %% Load paths
 restoredefaultpath
@@ -15,6 +15,7 @@ addpath('../../common')
 addpath('../../common/MNIST')
 addpath('../../common/kernel_functions')
 %% load data sets
+disp('get_best_trained_hbf1_model ')
 data_set_path = '../../common/data/data_MNIST_data4CV_1000.mat';
 load(data_set_path); % data4cv
 data4cv.normalize_data();
@@ -30,7 +31,13 @@ params4mdl_iter.create_inits_1layer(X_train,K,D_out);
 %% Run Hold Out Cross Validation
 %tic
 best_mdl_train = train_model_class_iterations_smallest_cv_error(X_train,y_train,X_cv,y_cv, params4mdl_iter);
-compute_Hf_sq_error(X_test,y_test, mdl_current, mdl_current.lambda );
+test_error = compute_Hf_sq_error(X_test,y_test, best_mdl_train, best_mdl_train.lambda );
+%% write to file
+path = sprintf('../../../../dispatcher_scripts/HBF1_vs_RBF/simulations_results/%s', dir_name_4_current_sim);
+dtm = datetime('now','TimeZone','local','Format','d-MMM-y HH:mm:ss Z');
+file_name = sprintf('results_%s_%s_%s_%s_%s_%s_',dtm.Day,dtm.Month,dtm.Year,dtm.Hour,dtm.Minute,dtm.Second);
+fileID = fopen(strcat(path,file_name), 'w'); %open or creates a file on path
+fprintf(fileID, '%d,%d\n', K,test_error);
 %time_passed = toc;
 %time_elapsed(sgd_iterations, time_passed )
 end
