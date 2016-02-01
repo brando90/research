@@ -23,8 +23,8 @@ test_error = compute_Hf_sq_error(X_test,y_test, best_mdl_train, best_mdl_train.l
 %% write results to file
 %path = './results';
 file_name = sprintf('results_id%d',task_id);
-path_file = sprintf('%s%s',results_path,file_name)
-fileID = fopen(path_file, 'w')
+path_file = sprintf('%s%s',results_path,file_name);
+fileID = fopen(path_file, 'w');
 fprintf(fileID, '%d %d', center,test_error);
 %time_passed = toc;
 %time_elapsed(sgd_iterations, time_passed )
