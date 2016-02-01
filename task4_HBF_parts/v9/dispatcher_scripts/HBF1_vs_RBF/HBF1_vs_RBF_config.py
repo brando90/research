@@ -5,5 +5,4 @@ num_inits = 2
 train_alg = 'learn_HBF_SGD'
 iterations = 2
 reg_lambda = 0
-in_om = False
-print __name__
+in_om = False #in openmind or not

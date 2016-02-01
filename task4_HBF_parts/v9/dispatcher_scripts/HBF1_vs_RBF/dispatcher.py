@@ -16,7 +16,7 @@ def train_all_models(start_centers, end_centers, num_centers, beta, num_inits, t
 			path = '../HBF_mat_lib/HBF1_multivariant_regression/HBF1/train_model/get_best_trained_hbf1_model'
 			arguments = "{} , {}, {}, {}, {}, {}, {}".format(start_centers, end_centers, num_centers, beta, num_inits, train_alg, iterations, reg_lambda, dir_name_4_current_simulation)
 			matlab_cmd = 'get_best_trained_hbf1_model( {} )'.format(arguments)
-			h.matlab('-nodesktop', '-nosplash', '-nojvm', '-r', matlab_cmd)
+			sh.matlab('-nodesktop', '-nosplash', '-nojvm', '-r', matlab_cmd)
 
 def wait_until_all_simulations_have_ran(dir_name_4_current_sim, num_centers):
 	f = open('counter.txt', 'w+')
@@ -38,9 +38,10 @@ if __name__ == "__main__":
 		sh.mkdir("./simulations_results/"+dir_name_4_current_simulation)
 
 		## Train all the models
-		print start_centers
+		print "train_all_models"
 		train_all_models(start_centers, end_centers, num_centers, beta, num_inits, train_alg, iterations, reg_lambda, dir_name_4_current_simulation, in_om)
 		## wait until all simulations have ran
+		print "wait_until_all_simulations_have_ran"
 		wait_until_all_simulations_have_ran(num_centers)
 		elapsed = timeit.default_timer() - start_time
 		## if all models have finished running, collect simulation results
