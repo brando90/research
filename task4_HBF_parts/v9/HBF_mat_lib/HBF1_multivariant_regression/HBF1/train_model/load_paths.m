@@ -1,0 +1,13 @@
+%restoredefaultpath
+%clear
+addpath('../../HBF1');
+addpath('../../HBF1/model_functions');
+addpath('../../HBF1/update_rules_GD/Stochastic_gracient_descent');
+addpath('../../HBF1/derivatives_c');
+addpath('../../HBF1/derivatives_t');
+addpath('../../../common/squared_error_risk');
+addpath('../../../common/visualize_centers')
+addpath('../../../common/cross_validation/standard_train_cv_test_validation')
+addpath('../../../common')
+addpath('../../../common/MNIST')
+addpath('../../../common/kernel_functions')

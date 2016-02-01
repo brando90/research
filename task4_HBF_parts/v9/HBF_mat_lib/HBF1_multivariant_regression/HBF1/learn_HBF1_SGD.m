@@ -24,8 +24,8 @@ if visualize
 %     changes_t = zeros(K, iterations);
 %     dHf_dt_mu_t_iter = zeros(K, iterations);
 end
-eta_c = 0.3
-eta_t = 0.3
+eta_c = 0.3;
+eta_t = 0.3;
 G_c = ones(K, D_out);
 G_t = ones(D, K);
 for i=1:iterations

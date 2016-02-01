@@ -14,7 +14,7 @@ num_inits = params4mdl_iter.num_inits;
 for initialization_index=2:num_inits
     %% train model on the current iteration
     mdl_current = params4mdl_iter.train_iterator(X_train,y_train); % train current init.
-    obj.current_training_iteration = obj.current_training_iteration + 1; % advance init.
+    params4mdl_iter.current_training_iteration = params4mdl_iter.current_training_iteration + 1; % advance init.
     error_mdl_new_train = compute_Hf_sq_error(X_cv,y_cv, mdl_current, mdl_current.lambda );
     if error_mdl_new_train < error_best_mdl_train
         best_mdl_train = mdl_current;
