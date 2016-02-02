@@ -1,22 +1,29 @@
 %dtm = datetime('now','TimeZone','local','Format','d-MMM-y HH:mm:ss Z');
 %path = sprintf('./%d-%d-%d_%d:%d:%d',dtm.Day,dtm.Month,dtm.Year, dtm.Hour,dtm.Minute,dtm.Second);
-path='job_debug/'
-job_exists = exist(path,'dir');
+cp_folder = 'cp_job_debug1_2_feb_2016/'
+cp_param_files_names = 'cp_job_debug1_2_feb_2016_%d.m'
+results_path = '../results/results_job_debug1_2_feb_2016/'
+job_exists = exist(cp_folder,'dir');
 if job_exists == 7
     error('DIR/JOB ALREADY EXISTS');
 end
-dir_exists = mkdir(path)
+results_exists = exist(results_path,'dir');
+if job_exists == 7
+    error('DIR/JOB ALREADY EXISTS');
+end
+mkdir(results_path)
+mkdir(cp_folder)
 %% number of jobs
 jobs = 5
 %% number of centers
-start_centers = 1
-end_centers = 5
+start_centers = 5
+end_centers = 700
 num_centers = 5
 centers = floor(linspace(start_centers, end_centers, num_centers));
 %% create param files
 for job=1:jobs;
-    file_name = sprintf('changing_param_%d.m',job);
-    path_file = sprintf('%s%s',path,file_name);
+    job_name = sprintf(cp_param_files_names,job);
+    path_file = sprintf('%s%s',cp_folder,job_name);
     fileID = fopen(path_file, 'w');
     center = centers(job);
     fprintf(fileID, 'center=%d;', center);
