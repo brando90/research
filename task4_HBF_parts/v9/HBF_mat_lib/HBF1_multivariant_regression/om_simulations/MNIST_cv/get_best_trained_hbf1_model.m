@@ -1,6 +1,7 @@
 function [] = get_best_trained_hbf1_model(task_id, changing_params_config, fixed_params_config, results_path)
 % gets the best HBF1 model with k centers from the number of initilizations
 %% Load paths
+disp(task_id);
 run('load_paths');
 %% load configs
 run(changing_params_config);
@@ -22,10 +23,10 @@ best_mdl_train = train_model_class_iterations_smallest_cv_error(X_train,y_train,
 test_error = compute_Hf_sq_error(X_test,y_test, best_mdl_train, best_mdl_train.lambda );
 %% write results to file
 %path = './results';
-file_name = sprintf('results_id%d',task_id);
+file_name = sprintf('results_om_id%d',task_id);
 path_file = sprintf('%s%s',results_path,file_name);
-fileID = fopen(path_file, 'w');
-fprintf(fileID, '%d %d', center,test_error);
+fileID = fopen(path_file, 'w')
+fprintf(fileID, '%d %d.txt', center,test_error);
 %time_passed = toc;
 %time_elapsed(sgd_iterations, time_passed )
 end
