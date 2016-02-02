@@ -2,6 +2,9 @@ function [] = get_best_trained_hbf1_model(task_id, changing_params_config, fixed
 % gets the best HBF1 model with k centers from the number of initilizations
 %% Load paths
 disp(task_id);
+disp(changing_params_config);
+disp(fixed_params_config);
+disp(results_path);
 run('load_paths');
 %% load configs
 run(changing_params_config);
