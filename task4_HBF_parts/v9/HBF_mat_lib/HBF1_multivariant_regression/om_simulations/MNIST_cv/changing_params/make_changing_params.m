@@ -18,10 +18,8 @@ jobs = 5
 %% number of centers
 start_centers = 5
 end_centers = 700
-num_centers = 5
+num_centers = jobs
 centers = floor(linspace(start_centers, end_centers, num_centers));
-%%
-jobs = num_centers
 %% create param files
 for job=1:jobs;
     job_name = sprintf(cp_param_files_names,job);
