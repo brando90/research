@@ -3,7 +3,7 @@
 #SBATCH --nodes=1
 #SBATCH --mem=1500
 #SBATCH --time=1:00:00
-#SBATCH --array=1-11
+#SBATCH --array=1-5
 
 SLURM_ARRAY_TASK_ID=${SLURM_ARRAY_TASK_ID:-1}
 echo $SLURM_ARRAY_TASK_ID

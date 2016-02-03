@@ -1,6 +1,6 @@
 %dtm = datetime('now','TimeZone','local','Format','d-MMM-y HH:mm:ss Z');
 %path = sprintf('./%d-%d-%d_%d:%d:%d',dtm.Day,dtm.Month,dtm.Year, dtm.Hour,dtm.Minute,dtm.Second);
-path='job_1/'
+path='job_small_1/'
 job_exists = exist(path,'dir');
 if job_exists == 7
     error('DIR/JOB ALREADY EXISTS');
@@ -9,7 +9,7 @@ dir_exists = mkdir(path)
 %% number of centers
 start_centers = 5
 end_centers = 400
-num_centers = 40
+num_centers = 5
 centers = floor(linspace(start_centers, end_centers, num_centers));
 %%
 jobs = num_centers
