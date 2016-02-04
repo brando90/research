@@ -7,8 +7,9 @@ disp(changing_params_config);
 disp(fixed_params_config);
 disp(results_path);
 %path
-run('load_paths');
+run('load_paths.m');
 %path;
+help HBF1
 %% load configs
 run(changing_params_config);
 fixed_params_config
@@ -46,5 +47,5 @@ time_passed = toc;
 time_file_name = sprintf('time_duration_om_id%d.m',task_id);
 path_file = sprintf('%s%s',results_path,time_file_name);
 fileID = fopen(path_file, 'w')
-fprintf(fileID, 'task_id=%d;\nsecs=%d;\nminutes=%d;\nhours=%d;\niterations=%d;\ncenter=%d;', task_id,secs,minutes,hours,iterations,center);
+fprintf(fileID, 'task_id=%d;\nsecs=%d;\nminutes=%d;\nhours=%d;\niterations=%d;\ncenter=%d;\ndata_set=%s;', task_id,secs,minutes,hours,iterations,center,data_set_path);
 end
