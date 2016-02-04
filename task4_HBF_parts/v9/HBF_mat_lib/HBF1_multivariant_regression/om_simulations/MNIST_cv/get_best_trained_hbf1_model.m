@@ -7,7 +7,7 @@ disp(changing_params_config);
 disp(fixed_params_config);
 disp(results_path);
 %path
-run('load_paths');
+run('load_paths.m');
 %path;
 %% load configs
 run(changing_params_config);
