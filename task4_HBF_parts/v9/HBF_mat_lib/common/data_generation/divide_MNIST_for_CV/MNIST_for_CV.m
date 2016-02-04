@@ -11,7 +11,7 @@ per_cv = 0.3;
 data4cv = cross_validation_data(X,Y,per_train,per_cv);
 
 num_labels = 10;
-amount_per_label = 100;
+amount_per_label = 400;
 [X_train, y_train] = get_balanced_data_set( data4cv.X_train, data4cv.y_train, amount_per_label, num_labels );
 [X_cv, y_cv] = get_balanced_data_set( data4cv.X_cv, data4cv.y_cv, amount_per_label, num_labels );
 [X_test, y_test] = get_balanced_data_set( data4cv.X_test, data4cv.y_test, amount_per_label, num_labels );
