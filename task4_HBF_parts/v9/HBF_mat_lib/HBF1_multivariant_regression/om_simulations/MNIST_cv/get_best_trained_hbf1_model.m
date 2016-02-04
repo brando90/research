@@ -6,6 +6,8 @@ disp(changing_params_config);
 disp(fixed_params_config);
 disp(results_path);
 run('load_paths');
+%path
+help HBF1;
 %% load configs
 run(changing_params_config);
 run(fixed_params_config);
@@ -21,15 +23,16 @@ D_out = D;
 params4mdl_iter = HBF1_iterator4training(center, gau_precision, mdl_func,param4mdl_func,train_func,iterations,num_inits,lambda);
 params4mdl_iter.create_inits_1layer(X_train,center,D_out);
 %% Run Hold Out Cross Validation
-%tic
+tic
 best_mdl_train = train_model_class_iterations_smallest_cv_error(X_train,y_train,X_cv,y_cv, params4mdl_iter);
 test_error = compute_Hf_sq_error(X_test,y_test, best_mdl_train, best_mdl_train.lambda );
+train_error = compute_Hf_sq_error(X_train,y_train, best_mdl_train, best_mdl_train.lambda );
 %% write results to file
 %path = './results';
-file_name = sprintf('results_om_id%d',task_id);
+file_name = sprintf('results_om_id%d.m',task_id);
 path_file = sprintf('%s%s',results_path,file_name);
 fileID = fopen(path_file, 'w')
-fprintf(fileID, '%d %d.txt', center,test_error);
-%time_passed = toc;
-%time_elapsed(sgd_iterations, time_passed )
+fprintf(fileID, 'center=%d;\ntest_error=%d;\ntrain_error=%d;', center,test_error,train_error);
+time_passed = toc;
+time_elapsed(sgd_iterations, time_passed )
 end
