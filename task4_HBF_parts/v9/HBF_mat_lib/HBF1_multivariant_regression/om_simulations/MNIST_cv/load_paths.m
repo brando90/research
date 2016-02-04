@@ -11,3 +11,4 @@ addpath('../../../common/cross_validation/standard_train_cv_test_validation')
 addpath('../../../common')
 addpath('../../../common/MNIST')
 addpath('../../../common/kernel_functions')
+addpath('../../../RBF_multivariant_regression/RBF');
