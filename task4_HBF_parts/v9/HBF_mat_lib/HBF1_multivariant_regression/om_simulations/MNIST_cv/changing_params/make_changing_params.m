@@ -1,8 +1,8 @@
 %dtm = datetime('now','TimeZone','local','Format','d-MMM-y HH:mm:ss Z');
 %path = sprintf('./%d-%d-%d_%d:%d:%d',dtm.Day,dtm.Month,dtm.Year, dtm.Hour,dtm.Minute,dtm.Second);
-cp_folder = 'cp_j3/'
-cp_param_files_names = 'cp_j3_%d.m'
-results_path = '../results/r_j3/'
+cp_folder = 'cp_jtest/' %CHANGE
+cp_param_files_names = 'cp_jtest_%d.m' %CHANGE
+results_path = '../results/r_jtest/' %CHANGE
 job_exists = exist(cp_folder,'dir');
 if job_exists == 7
     error('DIR/JOB ALREADY EXISTS');
@@ -13,11 +13,14 @@ if job_exists == 7
 end
 mkdir(results_path)
 mkdir(cp_folder)
+source = '../fixed_params.m';
+destination = sprintf('./%s', cp_folder);
+copyfile(source, destination);
 %% number of jobs
-jobs = 25
+jobs = 5 %CHANGE
 %% number of centers
-start_centers = 5
-end_centers = 550
+start_centers = 2 %CHANGE
+end_centers = 750 %CHANGE
 num_centers = jobs
 centers = floor(linspace(start_centers, end_centers, num_centers));
 %% create param files
