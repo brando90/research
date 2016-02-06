@@ -15,7 +15,7 @@ run(changing_params_config);
 fixed_params_config
 run(fixed_params_config);
 %%
-data_set_path = '../../../common/data/data_MNIST_data4CV_1000.mat';
+data_set_path = '../../../common/data/data_MNIST_data4CV_5000.mat';
 load(data_set_path); % data4cv
 data4cv.normalize_data();
 [ X_train,X_cv,X_test, y_train,y_cv,y_test ] = data4cv.get_data_for_hold_out_cross_validation();
