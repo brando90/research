@@ -21,14 +21,21 @@ data4cv.normalize_data();
 [ X_train,X_cv,X_test, y_train,y_cv,y_test ] = data4cv.get_data_for_hold_out_cross_validation();
 [D, ~] = size(X_train);
 %% preparing models to train/test for mdl_iterator
-param4mdl_func = @HBF1_parameters;
 D_out = D;
 center
-params4mdl_iter = HBF1_iterator4training(center, gau_precision, mdl_func,param4mdl_func,train_func,iterations,num_inits,lambda);
-params4mdl_iter.create_inits_1layer(X_train,center,D_out);
 %% Run Hold Out Cross Validation
 tic;
-best_mdl_train = train_model_class_iterations_smallest_cv_error(X_train,y_train,X_cv,y_cv, params4mdl_iter);
+% param4mdl_func = @HBF1_parameters;
+% params4mdl_iter = HBF1_iterator4training(center, gau_precision, mdl_func,param4mdl_func,train_func,iterations,num_inits,lambda);
+% params4mdl_iter.create_inits_1layer(X_train,center,D_out);
+% params4mdl_iter.create_initiliazations(X_train,D_out);
+% best_mdl_train = train_model_class_iterations_smallest_cv_error(X_train,y_train,X_cv,y_cv, params4mdl_iter);
+visualize = 1
+K = center;
+c = normc(rand(K,D_out)); % (N x D)
+t = datasample(X_train', K, 'Replace', false)'; % (D x N)
+mdl_params = HBF1_parameters(c,t,gau_precision,lambda);
+best_mdl_train = learn_HBF1_SGD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test);
 test_error_HBF1 = compute_Hf_sq_error(X_test,y_test, best_mdl_train, best_mdl_train.lambda );
 train_error_HBF1 = compute_Hf_sq_error(X_train,y_train, best_mdl_train, best_mdl_train.lambda );
 %% RBF
