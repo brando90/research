@@ -15,7 +15,7 @@ run(changing_params_config);
 fixed_params_config
 run(fixed_params_config);
 %%
-data_set_path = '../../../common/data/data_MNIST_data4CV_23330.mat';
+data_set_path = '../../../common/data/data_MNIST_data4CV_1000.mat';
 load(data_set_path); % data4cv
 data4cv.normalize_data();
 [ X_train,X_cv,X_test, y_train,y_cv,y_test ] = data4cv.get_data_for_hold_out_cross_validation();
@@ -29,24 +29,42 @@ tic;
 % params4mdl_iter = HBF1_iterator4training(center, gau_precision, mdl_func,param4mdl_func,train_func,iterations,num_inits,lambda);
 % params4mdl_iter.create_inits_1layer(X_train,center,D_out);
 % params4mdl_iter.create_initiliazations(X_train,D_out);
-% best_mdl_train = train_model_class_iterations_smallest_cv_error(X_train,y_train,X_cv,y_cv, params4mdl_iter);
+%% best_iteration_mdl = train_model_class_iterations_smallest_cv_error(X_train,y_train,X_cv,y_cv, params4mdl_iter);
+%%
+% visualize = 1
+% K = center;
+% c = normc(rand(K,D_out)); % (N x D)
+% t = datasample(X_train', K, 'Replace', false)'; % (D x N)
+% mdl_params = HBF1_parameters(c,t,gau_precision,lambda);
+% best_iteration_mdl_params = learn_HBF1_SGD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test);
+% best_iteration_mdl = HBF1(best_iteration_mdl_params)
+%%
 visualize = 1
-K = center;
-c = normc(rand(K,D_out)); % (N x D)
-t = datasample(X_train', K, 'Replace', false)'; % (D x N)
-mdl_params = HBF1_parameters(c,t,gau_precision,lambda);
-best_mdl_train = learn_HBF1_SGD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test);
-test_error_HBF1 = compute_Hf_sq_error(X_test,y_test, best_mdl_train, best_mdl_train.lambda );
-train_error_HBF1 = compute_Hf_sq_error(X_train,y_train, best_mdl_train, best_mdl_train.lambda );
+error_best_mdl_on_cv = inf;
+best_iteration_mdl_params = -1;
+for initialization_index=1:num_inits
+    K = center;
+    c = normc(rand(K,D_out)); % (N x D)
+    t = datasample(X_train', K, 'Replace', false)'; % (D x N)
+    mdl_params = HBF1_parameters(c,t,gau_precision,lambda);
+    mdl_current = HBF1( learn_HBF1_SGD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test) );
+    error_mdl_new_on_cv = compute_Hf_sq_error(X_cv,y_cv, mdl_current, mdl_current.lambda );
+    if error_mdl_new_on_cv < error_best_mdl_on_cv
+        best_iteration_mdl_params = mdl_current;
+        error_best_mdl_on_cv = error_mdl_new_on_cv;
+    end   
+end
+best_iteration_mdl = HBF1(best_iteration_mdl_params);
+train_error_HBF1 = compute_Hf_sq_error(X_train,y_train, best_iteration_mdl, best_iteration_mdl.lambda );
+test_error_HBF1 = compute_Hf_sq_error(X_test,y_test, best_iteration_mdl, best_iteration_mdl.lambda );
 %% RBF
-rbf_mdl_params = learn_RBF_linear_algebra( X_train, y_train, best_mdl_train )
+rbf_mdl_params = learn_RBF_linear_algebra( X_train, y_train, best_iteration_mdl_params )
 test_error_RBF = compute_Hf_sq_error(X_test,y_test, rbf_mdl_params, rbf_mdl_params.lambda );
 train_error_RBF = compute_Hf_sq_error(X_train,y_train, rbf_mdl_params, rbf_mdl_params.lambda );
 %% write results to file
 result_file_name = sprintf('results_om_id%d.m',task_id);
 path_file = sprintf('%s%s',results_path,result_file_name);
 fileID = fopen(path_file, 'w')
-%fprintf(fileID, 'center=%d;\ntest_error=%d;\ntrain_error=%d;', center,test_error_HBF1,train_error_HBF1);
 fprintf(fileID, 'task_id=%d;\ncenter=%d;\ntest_error_HBF1=%d;\ntrain_error_HBF1=%d;\ntest_error_RBF=%d;\ntrain_error_RBF=%d;', task_id,center,test_error_HBF1,train_error_HBF1,test_error_RBF,train_error_RBF);
 time_passed = toc;
 %
