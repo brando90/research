@@ -8,4 +8,4 @@
 #SBATCH --mail-user=brandojazz@gmail.com
 
 SLURM_ARRAY_TASK_ID=${SLURM_ARRAY_TASK_ID:-1}
-matlab -nodesktop -nosplash -nojvm -r "get_best_trained_hbf1_model( $SLURM_ARRAY_TASK_ID, sprintf('./changing_params/cp_j3/cp_j3_%d.m', $SLURM_ARRAY_TASK_ID) , './fixed_params.m','./results/r_j3/');exit"
+matlab -nodesktop -nosplash -nojvm -r "get_best_trained_hbf1_model( $SLURM_JOBID, $SLURM_ARRAY_TASK_ID);exit"

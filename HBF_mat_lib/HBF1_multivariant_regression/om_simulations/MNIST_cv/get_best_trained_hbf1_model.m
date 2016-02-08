@@ -1,21 +1,19 @@
-function [] = get_best_trained_hbf1_model(task_id, changing_params_config, fixed_params_config, results_path)
+function [] = get_best_trained_hbf1_model(slurm_job_id, task_id)
 % gets the best HBF1 model with k centers from the number of initilizations
 %% Load paths
 restoredefaultpath
-disp(task_id);
-disp(changing_params_config);
-disp(fixed_params_config);
-disp(results_path);
-%path
+slurm_job_id
+task_id
 run('load_paths.m');
 %path;
 help HBF1
 %% load configs
-run(changing_params_config);
-fixed_params_config
-run(fixed_params_config);
+run('./simulation_config.m');
+current_simulation_config = sprintf( './changing_params/%s%s', cp_folder, 'simulation_config.m' );
+run(current_simulation_config);
+changing_params_for_current_task = sprintf( sprintf('./changing_params/%s%s',cp_folder,cp_param_files_names), task_id );
+run(changing_params_for_current_task);
 %%
-data_set_path = '../../../common/data/data_MNIST_data4CV_1000.mat';
 load(data_set_path); % data4cv
 data4cv.normalize_data();
 [ X_train,X_cv,X_test, y_train,y_cv,y_test ] = data4cv.get_data_for_hold_out_cross_validation();
@@ -39,7 +37,7 @@ tic;
 % best_iteration_mdl_params = learn_HBF1_SGD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test);
 % best_iteration_mdl = HBF1(best_iteration_mdl_params)
 %%
-visualize = 1
+%visualize = 1
 error_best_mdl_on_cv = inf;
 best_iteration_mdl_params = -1;
 for initialization_index=1:num_inits
@@ -47,7 +45,7 @@ for initialization_index=1:num_inits
     c = normc(rand(K,D_out)); % (N x D)
     t = datasample(X_train', K, 'Replace', false)'; % (D x N)
     mdl_params = HBF1_parameters(c,t,gau_precision,lambda);
-    mdl_current = HBF1( learn_HBF1_SGD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test) );
+    mdl_current = HBF1( learn_HBF1_SGD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c,eta_t) );
     error_mdl_new_on_cv = compute_Hf_sq_error(X_cv,y_cv, mdl_current, mdl_current.lambda );
     if error_mdl_new_on_cv < error_best_mdl_on_cv
         best_iteration_mdl_params = mdl_current;

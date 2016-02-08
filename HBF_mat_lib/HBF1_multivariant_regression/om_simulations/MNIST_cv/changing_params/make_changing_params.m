@@ -1,8 +1,6 @@
 %dtm = datetime('now','TimeZone','local','Format','d-MMM-y HH:mm:ss Z');
 %path = sprintf('./%d-%d-%d_%d:%d:%d',dtm.Day,dtm.Month,dtm.Year, dtm.Hour,dtm.Minute,dtm.Second);
-cp_folder = 'cp_jhbf1_debug/' %CHANGE
-cp_param_files_names = 'cp_jhbf1_debug_%d.m' %CHANGE
-results_path = '../results/r_jhbf1_debug/' %CHANGE
+run('../simulation_config.m')
 job_exists = exist(cp_folder,'dir');
 if job_exists == 7
     error('DIR/JOB ALREADY EXISTS');
@@ -13,14 +11,10 @@ if job_exists == 7
 end
 mkdir(results_path)
 mkdir(cp_folder)
-source = '../fixed_params.m';
+source = '../simulation_config.m';
 destination = sprintf('./%s', cp_folder);
 copyfile(source, destination);
 %% number of jobs
-jobs = 40 %CHANGE
-%% number of centers
-start_centers = 1 %CHANGE
-end_centers = 750 %CHANGE
 num_centers = jobs
 centers = floor(linspace(start_centers, end_centers, num_centers));
 %% create param files

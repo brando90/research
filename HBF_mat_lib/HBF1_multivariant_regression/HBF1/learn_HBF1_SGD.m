@@ -1,4 +1,4 @@
-function [ mdl_params ] = learn_HBF1_SGD(X_train,Y_train, mdl_params, iterations,visualize, X_test,Y_test)
+function [ mdl_params ] = learn_HBF1_SGD(X_train,Y_train, mdl_params, iterations,visualize, X_test,Y_test, eta_c, eta_t)
 %learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
 %   Inputs:
 %       X = data matrix (D x N)
@@ -24,8 +24,6 @@ if visualize
 %     changes_t = zeros(K, iterations);
 %     dHf_dt_mu_t_iter = zeros(K, iterations);
 end
-eta_c = 0.05;
-eta_t = 0.05;
 G_c = ones(K, D_out);
 G_t = ones(D, K);
 for i=1:iterations
@@ -55,7 +53,8 @@ for i=1:iterations
     mdl_params.c = c_new;
     mdl_params.t = t_new;
     %% Calculate current errors
-    if visualize
+    if 1
+    %if visualize
         mdl_new = HBF1(mdl_params);
         current_train_error = compute_Hf_sq_error(X_train,Y_train, mdl_new, mdl_params.lambda);
         current_error_test = compute_Hf_sq_error(X_test,Y_test, mdl_new, mdl_params.lambda);
