@@ -25,4 +25,3 @@ for job=1:jobs;
     center = centers(job);
     fprintf(fileID, 'center=%d;', center);
 end
-

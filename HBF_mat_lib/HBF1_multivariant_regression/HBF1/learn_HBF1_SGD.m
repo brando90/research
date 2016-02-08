@@ -1,4 +1,4 @@
-function [ mdl_params ] = learn_HBF1_SGD(X_train,Y_train, mdl_params, iterations,visualize, X_test,Y_test, eta_c, eta_t)
+function [ mdl_params, errors_train, errors_test ] = learn_HBF1_SGD(X_train,Y_train, mdl_params, iterations,visualize, X_test,Y_test, eta_c, eta_t)
 %learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
 %   Inputs:
 %       X = data matrix (D x N)

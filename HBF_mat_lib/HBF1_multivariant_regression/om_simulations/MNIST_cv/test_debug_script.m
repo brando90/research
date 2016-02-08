@@ -1,3 +1,4 @@
+%% RUN DEBUG TEST
 clear;restoredefaultpath;clear;
 task_id = 4;
 slurm_job_id = -1;

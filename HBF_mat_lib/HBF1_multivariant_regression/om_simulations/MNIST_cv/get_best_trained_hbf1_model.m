@@ -39,31 +39,44 @@ tic;
 %%
 %visualize = 1
 error_best_mdl_on_cv = inf;
+%best_train = zeros(iterations,1);
+%best_test = zeros(iterations,1);
 best_iteration_mdl_params = -1;
 for initialization_index=1:num_inits
     K = center;
-    c = normc(rand(K,D_out)); % (N x D)
-    t = datasample(X_train', K, 'Replace', false)'; % (D x N)
-    mdl_params = HBF1_parameters(c,t,gau_precision,lambda);
-    mdl_current = HBF1( learn_HBF1_SGD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c,eta_t) );
+    c_init = normc(rand(K,D_out)); % (N x D)
+    t_init = datasample(X_train', K, 'Replace', false)'; % (D x N)
+    mdl_params = HBF1_parameters(c_init,t_init,gau_precision,lambda);
+    [ mdl_params, errors_train, errors_test ] = learn_HBF1_SGD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c,eta_t);
+    mdl_current = HBF1( mdl_params );
     error_mdl_new_on_cv = compute_Hf_sq_error(X_cv,y_cv, mdl_current, mdl_current.lambda );
     if error_mdl_new_on_cv < error_best_mdl_on_cv
         best_iteration_mdl_params = mdl_current;
         error_best_mdl_on_cv = error_mdl_new_on_cv;
+        best_train = errors_train;
+        best_test = errors_test;
+        c_best = c_init;
+        t_best = t_init;
     end   
 end
 best_iteration_mdl = HBF1(best_iteration_mdl_params);
 train_error_HBF1 = compute_Hf_sq_error(X_train,y_train, best_iteration_mdl, best_iteration_mdl.lambda )
 test_error_HBF1 = compute_Hf_sq_error(X_test,y_test, best_iteration_mdl, best_iteration_mdl.lambda )
+%% write errors during iterations
+vname=@(x) inputname(1);
+error_iterations_file_name = sprintf('test_error_vs_iterations%d',task_id);
+path_error_iterations = sprintf('%s%s',results_path,error_iterations_file_name)
+save(path_error_iterations, vname(best_train),vname(best_test), vname(center), vname(iterations), vname(eta_c), vname(eta_t) );
 %% RBF
-rbf_mdl_params = learn_RBF_linear_algebra( X_train, y_train, best_iteration_mdl_params );
+rbf_params = RBF_parameters(c_best,t_best,gau_precision,best_iteration_mdl.lambda);
+rbf_mdl_params = learn_RBF_linear_algebra( X_train, y_train, rbf_params);
 test_error_RBF = compute_Hf_sq_error(X_test,y_test, rbf_mdl_params, rbf_mdl_params.lambda )
 train_error_RBF = compute_Hf_sq_error(X_train,y_train, rbf_mdl_params, rbf_mdl_params.lambda )
 %% write results to file
 result_file_name = sprintf('results_om_id%d.m',task_id);
 results_path
-path_file = sprintf('%s%s',results_path,result_file_name)
-[fileID,errmsg] = fopen(path_file, 'w')
+result_path_file = sprintf('%s%s',results_path,result_file_name)
+[fileID,~] = fopen(result_path_file, 'w')
 fprintf(fileID, 'task_id=%d;\ncenter=%d;\ntest_error_HBF1=%d;\ntrain_error_HBF1=%d;\ntest_error_RBF=%d;\ntrain_error_RBF=%d;', task_id,center,test_error_HBF1,train_error_HBF1,test_error_RBF,train_error_RBF);
 time_passed = toc;
 %
