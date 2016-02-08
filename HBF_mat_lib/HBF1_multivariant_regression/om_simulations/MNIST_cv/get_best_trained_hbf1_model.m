@@ -53,16 +53,17 @@ for initialization_index=1:num_inits
     end   
 end
 best_iteration_mdl = HBF1(best_iteration_mdl_params);
-train_error_HBF1 = compute_Hf_sq_error(X_train,y_train, best_iteration_mdl, best_iteration_mdl.lambda );
-test_error_HBF1 = compute_Hf_sq_error(X_test,y_test, best_iteration_mdl, best_iteration_mdl.lambda );
+train_error_HBF1 = compute_Hf_sq_error(X_train,y_train, best_iteration_mdl, best_iteration_mdl.lambda )
+test_error_HBF1 = compute_Hf_sq_error(X_test,y_test, best_iteration_mdl, best_iteration_mdl.lambda )
 %% RBF
 rbf_mdl_params = learn_RBF_linear_algebra( X_train, y_train, best_iteration_mdl_params );
 test_error_RBF = compute_Hf_sq_error(X_test,y_test, rbf_mdl_params, rbf_mdl_params.lambda )
 train_error_RBF = compute_Hf_sq_error(X_train,y_train, rbf_mdl_params, rbf_mdl_params.lambda )
 %% write results to file
 result_file_name = sprintf('results_om_id%d.m',task_id);
-path_file = sprintf('%s%s',results_path,result_file_name);
-fileID = fopen(path_file, 'w')
+results_path
+path_file = sprintf('%s%s',results_path,result_file_name)
+[fileID,errmsg] = fopen(path_file, 'w')
 fprintf(fileID, 'task_id=%d;\ncenter=%d;\ntest_error_HBF1=%d;\ntrain_error_HBF1=%d;\ntest_error_RBF=%d;\ntrain_error_RBF=%d;', task_id,center,test_error_HBF1,train_error_HBF1,test_error_RBF,train_error_RBF);
 time_passed = toc;
 %

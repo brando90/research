@@ -12,7 +12,7 @@ end
 mkdir(results_path)
 mkdir(cp_folder)
 source = '../simulation_config.m';
-destination = sprintf('./%s', cp_folder);
+destination = sprintf('./%s', cp_folder)
 copyfile(source, destination);
 %% number of jobs
 num_centers = jobs

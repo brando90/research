@@ -53,8 +53,7 @@ for i=1:iterations
     mdl_params.c = c_new;
     mdl_params.t = t_new;
     %% Calculate current errors
-    if 1
-    %if visualize
+    if visualize
         mdl_new = HBF1(mdl_params);
         current_train_error = compute_Hf_sq_error(X_train,Y_train, mdl_new, mdl_params.lambda);
         current_error_test = compute_Hf_sq_error(X_test,Y_test, mdl_new, mdl_params.lambda);
