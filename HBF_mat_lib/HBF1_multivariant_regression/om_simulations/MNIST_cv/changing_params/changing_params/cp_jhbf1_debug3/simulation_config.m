@@ -8,7 +8,7 @@ eta_c = 0.01;
 eta_t = 0.01;
 visualize = 1
 %% locations
-cp_folder = 'cp_jhbf1_debug3/'
+cp_folder = './changing_params/cp_jhbf1_debug3/'
 cp_param_files_names = 'cp_jhbf1_debug3_%d.m'
 results_path = './results/r_jhbf1_debug3/'
 %% jobs

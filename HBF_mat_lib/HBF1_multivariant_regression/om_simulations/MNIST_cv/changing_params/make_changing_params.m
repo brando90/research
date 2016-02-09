@@ -3,13 +3,16 @@
 run('../simulation_config.m')
 job_exists = exist(cp_folder,'dir');
 if job_exists == 7
+    disp('error')
+    disp(cp_folder)
     error('DIR/JOB ALREADY EXISTS');
 end
-results_exists = exist(results_path,'dir');
+results_path_to_make = sprintf('.%s',results_path)
+results_exists = exist(results_path_to_make,'dir');
 if job_exists == 7
     error('DIR/JOB ALREADY EXISTS');
 end
-mkdir(results_path)
+mkdir(results_path_to_make)
 mkdir(cp_folder)
 source = '../simulation_config.m';
 destination = sprintf('./%s', cp_folder)
