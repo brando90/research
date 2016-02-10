@@ -16,6 +16,8 @@ function [ mdl_params, errors_train, errors_test ] = learn_HBF1_SGD(X_train,Y_tr
 [~, K] = size(mdl_params.t);
 [D, N] = size(X_train);
 [D_out, ~] = size(Y_train);
+errors_train = zeros(iterations,1);
+errors_test = zeros(iterations,1);
 if visualize
     errors_train = zeros(iterations,1);
     errors_test = zeros(iterations,1);
