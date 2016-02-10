@@ -70,8 +70,9 @@ save(path_error_iterations, vname(best_train),vname(best_test), vname(center), v
 %% RBF
 rbf_params = RBF_parameters(c_best,t_best,gau_precision,best_iteration_mdl.lambda);
 rbf_mdl_params = learn_RBF_linear_algebra( X_train, y_train, rbf_params);
-test_error_RBF = compute_Hf_sq_error(X_test,y_test, rbf_mdl_params, rbf_mdl_params.lambda )
-train_error_RBF = compute_Hf_sq_error(X_train,y_train, rbf_mdl_params, rbf_mdl_params.lambda )
+rbf_mdl = RBF(rbf_mdl_params);
+test_error_RBF = compute_Hf_sq_error(X_test,y_test, rbf_mdl, rbf_mdl.lambda )
+train_error_RBF = compute_Hf_sq_error(X_train,y_train, rbf_mdl, rbf_mdl.lambda )
 %% write results to file
 result_file_name = sprintf('results_om_id%d.m',task_id);
 results_path
