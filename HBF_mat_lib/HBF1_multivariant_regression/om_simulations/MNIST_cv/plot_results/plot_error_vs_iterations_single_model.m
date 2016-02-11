@@ -6,5 +6,5 @@ plot(iteration_axis,errors_train,'-ro',iteration_axis, errors_test,'-b*');
 legend('Training risk','Test risk');
 xlabel('SGD iterations') % x-axis label
 ylabel('(Squared) Error') % y-axis label
-title(sprintf('Train and Test risk over iteration, centers %s-- (eta_c , e_t) = ( %d , %d )', center, eta_c, eta_t) );
+title(sprintf('Train and Test risk over iteration, centers %d-- (eta_c , e_t) = ( %d , %d )', center, eta_c, eta_t) );
 end
