@@ -11,7 +11,7 @@ current_simulation_config = sprintf( './changing_params/%s%s', cp_folder, 'simul
 run(current_simulation_config);
 changing_params_for_current_task = sprintf( sprintf('./changing_params/%s%s',cp_folder,cp_param_files_names), task_id )
 run(changing_params_for_current_task);
-%%
+%% load data set
 load(data_set_path); % data4cv
 if data_normalized
     data4cv.normalize_data();
