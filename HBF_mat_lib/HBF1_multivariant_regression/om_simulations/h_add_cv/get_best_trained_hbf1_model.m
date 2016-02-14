@@ -28,6 +28,7 @@ tic;
 error_best_mdl_on_cv = inf;
 best_iteration_mdl = -1;
 for initialization_index=1:num_inits
+    fprintf('initialization_index = %s', initialization_index);
     K = center;
     c_init = normc(rand(K,D_out)); % (N x D)
     t_init = datasample(X_train', K, 'Replace', false)'; % (D x N)
@@ -35,9 +36,11 @@ for initialization_index=1:num_inits
     if strcmp( train_func_name, 'learn_HBF1_SGD')
         mdl_params = HBF1_parameters(c_init,t_init,gau_precision,lambda);
         [ mdl_params, errors_train, errors_test ] = train_func( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c,eta_t);
-    else %if strcmp( train_func_name, 'learn_HBF_batch_GD')
+    elseif strcmp( train_func_name, 'learn_RBF_SGD')
         mdl_params = RBF_parameters(c_init,t_init,gau_precision,lambda);
         [ mdl_params, errors_train, errors_test ] = train_func( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c); 
+    else
+        error(sptrintf('The train function you gave: %s does not exist', train_func_name));
     end
     mdl_current = mdl_func( mdl_params );
     error_mdl_new_on_cv = compute_Hf_sq_error(X_cv,y_cv, mdl_current, mdl_current.lambda );
@@ -75,6 +78,6 @@ time_passed = toc;
 time_file_name = sprintf('time_duration_om_id%d.m',task_id);
 path_file = sprintf('%s%s',results_path,time_file_name);
 fileID = fopen(path_file, 'w')
-fprintf(fileID, 'task_id=%d;\nsecs=%d;\nminutes=%d;\nhours=%d;\niterations=%d;\ncenter=%d;\ndata_set=%s;', task_id,secs,minutes,hours,iterations,center,data_set_path);
+fprintf(fileID, 'task_id=%d;\nsecs=%d;\nminutes=%d;\nhours=%d;\niterations=%d;\ncenter=%d;\ndata_set= ''%s'' ;', task_id,secs,minutes,hours,iterations,center,data_set_path);
 disp('DONE');
 end
