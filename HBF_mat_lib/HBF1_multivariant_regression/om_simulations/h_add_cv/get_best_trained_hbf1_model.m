@@ -35,10 +35,10 @@ for initialization_index=1:num_inits
     train_func_name = func2str(train_func)
     if strcmp( train_func_name, 'learn_HBF1_SGD')
         mdl_params = HBF1_parameters(c_init,t_init,gau_precision,lambda);
-        [ mdl_params, errors_train, errors_test ] = train_func( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c,eta_t);
+        [ mdl_params, errors_train, errors_test ] = train_func( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c,eta_t, sgd_errors);
     elseif strcmp( train_func_name, 'learn_RBF_SGD')
         mdl_params = RBF_parameters(c_init,t_init,gau_precision,lambda);
-        [ mdl_params, errors_train, errors_test ] = train_func( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c); 
+        [ mdl_params, errors_train, errors_test ] = train_func( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c, sgd_errors); 
     else
         error(sptrintf('The train function you gave: %s does not exist', train_func_name));
     end
