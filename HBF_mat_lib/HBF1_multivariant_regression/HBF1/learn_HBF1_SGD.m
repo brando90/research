@@ -13,6 +13,8 @@ function [ mdl_params, errors_train, errors_test ] = learn_HBF1_SGD(X_train,Y_tr
 %   Outputs:
 %       c_new = learned weights (K x 1)
 %       t_new = learned centers (D x K)
+fprintf('sgd_errors = %d',sgd_errors);
+fprintf('visualize = %d',visualize);
 [~, K] = size(mdl_params.t);
 [D, N] = size(X_train);
 [D_out, ~] = size(Y_train);
