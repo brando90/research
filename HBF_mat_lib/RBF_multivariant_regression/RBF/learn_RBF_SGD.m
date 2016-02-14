@@ -13,7 +13,7 @@ if visualize
 end
 G_c = ones(K, D_out);
 for i=1:iterations
-    if rem(i,100) == 0
+    if rem(i,500) == 0
         fprintf('sgd iteration = %d\n',i);
     end
     %% choose random data point x,y

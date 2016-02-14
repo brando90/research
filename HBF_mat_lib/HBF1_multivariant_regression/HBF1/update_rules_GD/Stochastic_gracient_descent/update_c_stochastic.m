@@ -1,4 +1,4 @@
-function [ c_new, dJ_dc,G_c_new, mu_c ] = update_c_stochastic(f_x,a, x,y, mdl_params, G_c,eta_c)
+function [ c_new, dJ_dc,G_c_new, mu_c] = update_c_stochastic(f_x,a, x,y, mdl_params, G_c,eta_c)
 %(f_x,y,a, mdl_params)
 %update_c_batch
 %   Updates c according to:

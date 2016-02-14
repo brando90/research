@@ -71,12 +71,10 @@ classdef cross_validation_data < handle
     end
     methods (Static)
         function [X_new, y_new] = shuffle_data(X,y)
-            [~, N_x] = size(X);
-            [~, N_y] = size(y);
-            ordering_x = randperm(N_x);
-            ordering_y = randperm(N_y);
-            X_new = X(:, ordering_x);
-            y_new = y(:, ordering_y);
+            [~, N] = size(X);
+            permute_ordering = randperm(N);
+            X_new = X(:, permute_ordering);
+            y_new = y(:,permute_ordering);
         end
     end
    

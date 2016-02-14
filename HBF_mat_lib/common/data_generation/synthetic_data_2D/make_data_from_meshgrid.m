@@ -5,7 +5,7 @@ function [ X_data,Y_data] = make_data_from_meshgrid( X,Y,Z )
 [dim_x, dim_y] = size(X);
 N = dim_x * dim_y;
 X_data = zeros(2,N);
-Y_data = zeros(N,1);
+Y_data = zeros(1,N);
 i = 1;
 for dx = 1:dim_x
     for dy = 1:dim_y
@@ -14,7 +14,7 @@ for dx = 1:dim_x
         x_data = [x;y];
         y_data = Z(dx, dy);
         X_data(:,i) = x_data;
-        Y_data(i) = y_data; %dont do y(:,i)
+        Y_data(:,i) = y_data; %dont do y(:,i)
         i=i+1;
     end
 end

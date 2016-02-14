@@ -29,15 +29,15 @@ end
 G_c = ones(K, D_out);
 G_t = ones(D, K);
 for i=1:iterations
-    if rem(i,100) == 0
-        fprintf('sgd iteration = %d',i);
+    if rem(i,500) == 0
+        fprintf('sgd iteration = %d\n',i);
     end
     %% choose random data point x,y
     i_rand = randi(N);
     x = X_train(:,i_rand);
     y = Y_train(:,i_rand);
     %% get new parameters
-    current_mdl = HBF1(mdl_params);
+    current_mdl = RBF(mdl_params);
     [ f_x, ~, a ] = current_mdl.f(x);
     [c_new, dV_dc,G_c, mu_c] = update_c_stochastic(f_x,a, x,y, mdl_params, G_c,eta_c);
     [t_new, dV_dt,G_t, mu_t] = update_t_stochastic(f_x,a, x,y, mdl_params, G_t,eta_t);
@@ -55,7 +55,7 @@ for i=1:iterations
     mdl_params.c = c_new;
     mdl_params.t = t_new;
     %% Calculate current errors
-    if visualize | sgd_errors
+    if visualize || sgd_errors
         mdl_new = HBF1(mdl_params);
         current_train_error = compute_Hf_sq_error(X_train,Y_train, mdl_new, mdl_params.lambda);
         current_error_test = compute_Hf_sq_error(X_test,Y_test, mdl_new, mdl_params.lambda);
