@@ -4,11 +4,9 @@ function [] = get_best_trained_hbf1_model(slurm_job_id, task_id)
 restoredefaultpath
 slurm_job_id
 task_id
-run('load_paths.m');
-%path;
-help HBF1
-%% load configs
 run('./simulation_config.m');
+run('load_paths.m');
+%% load configs
 current_simulation_config = sprintf( './changing_params/%s%s', cp_folder, 'simulation_config.m' )
 run(current_simulation_config);
 changing_params_for_current_task = sprintf( sprintf('./changing_params/%s%s',cp_folder,cp_param_files_names), task_id )
@@ -27,12 +25,12 @@ center
 tic;
 error_best_mdl_on_cv = inf;
 best_iteration_mdl = -1;
+train_func_name = func2str(train_func)
 for initialization_index=1:num_inits
-    fprintf('initialization_index = %s', initialization_index);
+    fprintf('initialization_index = %d', initialization_index);
     K = center;
     c_init = normc(rand(K,D_out)); % (N x D)
     t_init = datasample(X_train', K, 'Replace', false)'; % (D x N)
-    train_func_name = func2str(train_func)
     if strcmp( train_func_name, 'learn_HBF1_SGD')
         mdl_params = HBF1_parameters(c_init,t_init,gau_precision,lambda);
         [ mdl_params, errors_train, errors_test ] = train_func( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c,eta_t, sgd_errors);
