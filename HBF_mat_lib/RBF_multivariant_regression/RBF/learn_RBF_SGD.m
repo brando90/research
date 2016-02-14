@@ -51,7 +51,7 @@ if visualize
     legend('Training risk','Test risk');
     xlabel('SGD iterations') % x-axis label
     ylabel('(Squared) Error') % y-axis label
-    title(sprintf('Train and Test risk over iteration -- (eta_c , e_t) = ( %d , %d )', eta_c, eta_t) );
+    title(sprintf('Train and Test risk over iteration -- (eta_c ) = ( %d )', eta_c) );
     %% plot changes in param c
 %     D = min(D,50);
 %     for l=1:D
