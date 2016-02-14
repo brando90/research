@@ -3,17 +3,6 @@ function [ c_new, dJ_dc,G_c_new, mu_c] = update_c_stochastic(f_x,a, x,y, mdl_par
 %update_c_batch
 %   Updates c according to:
 %       c := c - mu_c * dJ/dc
-%   Input:
-%       X = data (D, N)
-%       y = label (N x 1)
-%       c = weights (K x L)
-%       t = centers (D x K)
-%       beta = precision (1 x 1)
-%       mu_c = step size (1 x 1)
-%       lambda = reg param (1 x 1)
-%   Output:w
-%       c = updated weights (K x L)
-%       dHf_dc = derivative (K x L)
 %dJ_dc = compute_dJ_dc(f_x,y,a); %((K x L)
 dJ_dc = compute_dV_dc_vec( f_x,a, y); % f,a, y
 [mu_c, G_c_new] = choose_step_size_c_adagrad(eta_c, dJ_dc, G_c);

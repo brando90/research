@@ -33,6 +33,7 @@ for initialization_index=1:num_inits
     t_init = datasample(X_train', K, 'Replace', false)'; % (D x N)
     if strcmp( train_func_name, 'learn_HBF1_SGD')
         mdl_params = HBF1_parameters(c_init,t_init,gau_precision,lambda);
+        path
         [ mdl_params, errors_train, errors_test ] = train_func( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c,eta_t, sgd_errors);
     elseif strcmp( train_func_name, 'learn_RBF_SGD')
         mdl_params = RBF_parameters(c_init,t_init,gau_precision,lambda);
@@ -57,7 +58,7 @@ test_error_HBF1 = compute_Hf_sq_error(X_test,y_test, best_iteration_mdl, best_it
 vname=@(x) inputname(1);
 error_iterations_file_name = sprintf('test_error_vs_iterations%d',task_id);
 path_error_iterations = sprintf('%s%s',results_path,error_iterations_file_name)
-%% RBF
+%% RBF with linear algebra (LA)
 rbf_params = RBF_parameters(c_best,t_best,gau_precision,best_iteration_mdl.lambda);
 rbf_mdl = RBF(rbf_params);
 rbf_mdl_params = learn_RBF_linear_algebra( X_train, y_train, rbf_params);
@@ -71,11 +72,12 @@ result_path_file = sprintf('%s%s',results_path,result_file_name)
 [fileID,~] = fopen(result_path_file, 'w')
 fprintf(fileID, 'task_id=%d;\ncenter=%d;\ntest_error_HBF1=%d;\ntrain_error_HBF1=%d;\ntest_error_RBF=%d;\ntrain_error_RBF=%d;', task_id,center,test_error_HBF1,train_error_HBF1,test_error_RBF,train_error_RBF);
 time_passed = toc;
-%
+% write time elapsed to file
 [secs, minutes, hours, ~] = time_elapsed(iterations, time_passed )
 time_file_name = sprintf('time_duration_om_id%d.m',task_id);
 path_file = sprintf('%s%s',results_path,time_file_name);
 fileID = fopen(path_file, 'w')
 fprintf(fileID, 'task_id=%d;\nsecs=%d;\nminutes=%d;\nhours=%d;\niterations=%d;\ncenter=%d;\ndata_set= ''%s'' ;', task_id,secs,minutes,hours,iterations,center,data_set_path);
 disp('DONE');
+disp('DONE training model')
 end
