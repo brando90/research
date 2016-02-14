@@ -1,5 +1,7 @@
 function [ mdl_params, errors_train, errors_test ] = learn_RBF_SGD(X_train,Y_train, mdl_params, iterations,visualize, X_test,Y_test, eta_c, sgd_errors)
 %
+fprintf('sgd_errors = %d',sgd_errors);
+fprintf('visualize = %d',visualize);
 [~, K] = size(mdl_params.t);
 [D, N] = size(X_train);
 [D_out, ~] = size(Y_train);
@@ -32,7 +34,7 @@ for i=1:iterations
     %% update HBF1 model
     mdl_params.c = c_new;
     %% Calculate current errors
-    if visualize | sgd_errors
+    if visualize || sgd_errors
         mdl_new = RBF(mdl_params);
         current_train_error = compute_Hf_sq_error(X_train,Y_train, mdl_new, mdl_params.lambda);
         current_error_test = compute_Hf_sq_error(X_test,Y_test, mdl_new, mdl_params.lambda);
