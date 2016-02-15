@@ -1,6 +1,4 @@
-%restoredefaultpath
-%clear
-train_func_name = func2str(train_func)
+disp(train_func_name)
 if strcmp( train_func_name, 'learn_HBF1_SGD')
     addpath('../../HBF1/model_functions');
     addpath('../../HBF1/update_rules_GD/batch_gradient_descent');
