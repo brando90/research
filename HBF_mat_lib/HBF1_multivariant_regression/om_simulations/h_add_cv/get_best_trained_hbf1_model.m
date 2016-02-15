@@ -25,9 +25,10 @@ center
 tic;
 error_best_mdl_on_cv = inf;
 best_iteration_mdl = -1;
-train_func_name = func2str(train_func)
+train_func = str2func(train_func_name)
+mdl_fun = str2func(mdl_func_name)
 for initialization_index=1:num_inits
-    fprintf('initialization_index = %d', initialization_index);
+    fprintf('initialization_index = %d\n', initialization_index);
     K = center;
     c_init = normc(rand(K,D_out)); % (N x D)
     t_init = datasample(X_train', K, 'Replace', false)'; % (D x N)
@@ -39,7 +40,7 @@ for initialization_index=1:num_inits
         mdl_params = RBF_parameters(c_init,t_init,gau_precision,lambda);
         [ mdl_params, errors_train, errors_test ] = train_func( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c, sgd_errors); 
     else
-        error(sptrintf('The train function you gave: %s does not exist', train_func_name));
+        error('The train function you gave: %s does not exist', train_func);
     end
     mdl_current = mdl_func( mdl_params );
     error_mdl_new_on_cv = compute_Hf_sq_error(X_cv,y_cv, mdl_current, mdl_current.lambda );
