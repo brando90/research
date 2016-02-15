@@ -1,4 +1,4 @@
-errors_location = '../results/r_13feb_j2/test_error_vs_iterations2';
+errors_location = '../results/r_14feb_j1/test_error_vs_iterations4';
 load(errors_location);
 errors_train = best_train;
 errors_test = best_test;
