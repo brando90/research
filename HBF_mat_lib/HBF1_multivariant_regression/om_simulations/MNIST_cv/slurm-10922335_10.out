@@ -1,0 +1,291 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2015 The MathWorks, Inc.
+                   R2015a (8.5.0.197613) 64-bit (glnxa64)
+                             February 12, 2015
+
+ 
+For online documentation, see http://www.mathworks.com/support
+For product information, visit www.mathworks.com.
+ 
+
+	Academic License
+
+
+slurm_job_id =
+
+    10922335
+
+
+task_id =
+
+    10
+
+Contents of RBF:
+
+RBF                            - class
+learn_RBF_batch_GD             - learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
+
+
+RBF is both a directory and a function.
+
+ RBF class
+    class that holds a 1 layered RBF
+
+
+gau_precision =
+
+    0.5000
+
+
+num_inits =
+
+    10
+
+
+iterations =
+
+        3000
+
+
+eta_c =
+
+    0.0100
+
+
+visualize =
+
+     0
+
+
+sgd_errors =
+
+     1
+
+
+cp_folder =
+
+cp_11feb_j1/
+
+
+cp_param_files_names =
+
+cp_11feb_j1_%d.m
+
+
+results_path =
+
+./results/r_11feb_j1/
+
+
+jobs =
+
+    10
+
+
+start_centers =
+
+     1
+
+
+end_centers =
+
+    40
+
+
+data_set_path =
+
+../../../common/data/data_MNIST_data4CV_1000.mat
+
+
+gau_precision =
+
+    0.5000
+
+
+num_inits =
+
+    10
+
+
+iterations =
+
+        3000
+
+
+eta_c =
+
+    0.0100
+
+
+visualize =
+
+     0
+
+
+sgd_errors =
+
+     1
+
+
+cp_folder =
+
+cp_11feb_j1/
+
+
+cp_param_files_names =
+
+cp_11feb_j1_%d.m
+
+
+results_path =
+
+./results/r_11feb_j1/
+
+
+jobs =
+
+    10
+
+
+start_centers =
+
+     1
+
+
+end_centers =
+
+    40
+
+
+data_set_path =
+
+../../../common/data/data_MNIST_data4CV_1000.mat
+
+
+center =
+
+    40
+
+sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+
+train_error_HBF1 =
+
+    1.1786
+
+
+test_error_HBF1 =
+
+    1.1246
+
+
+path_error_iterations =
+
+./results/r_11feb_j1/test_error_vs_iterations10
+
+
+test_error_RBF =
+
+    0.1935
+
+
+train_error_RBF =
+
+    0.1800
+
+
+results_path =
+
+./results/r_11feb_j1/
+
+
+result_path_file =
+
+./results/r_11feb_j1/results_om_id10.m
+
+
+fileID =
+
+     3
+
+        3000
+
+
+secs =
+
+   3.0082e+03
+
+
+minutes =
+
+   50.1361
+
+
+hours =
+
+    0.8356
+
+
+fileID =
+
+     4
+

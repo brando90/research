@@ -15,7 +15,9 @@ changing_params_for_current_task = sprintf( sprintf('./changing_params/%s%s',cp_
 run(changing_params_for_current_task);
 %%
 load(data_set_path); % data4cv
-data4cv.normalize_data();
+if data_normalized
+    data4cv.normalize_data();
+end
 [ X_train,X_cv,X_test, y_train,y_cv,y_test ] = data4cv.get_data_for_hold_out_cross_validation();
 [D, ~] = size(X_train);
 %% preparing models to train/test for mdl_iterator
@@ -44,10 +46,11 @@ error_best_mdl_on_cv = inf;
 best_iteration_mdl_params = -1;
 for initialization_index=1:num_inits
     K = center;
-    c_init = normc(rand(K,D_out)); % (N x D)
+    %c_init = normc(rand(K,D_out)); % (N x D)
+    c_init = rand(K,D_out);
     t_init = datasample(X_train', K, 'Replace', false)'; % (D x N)
     mdl_params = HBF1_parameters(c_init,t_init,gau_precision,lambda);
-    [ mdl_params, errors_train, errors_test ] = learn_HBF1_SGD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c,eta_t);
+    [ mdl_params, errors_train, errors_test ] = learn_HBF1_SGD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c,eta_t, sgd_errors);
     mdl_current = HBF1( mdl_params );
     error_mdl_new_on_cv = compute_Hf_sq_error(X_cv,y_cv, mdl_current, mdl_current.lambda );
     if error_mdl_new_on_cv < error_best_mdl_on_cv

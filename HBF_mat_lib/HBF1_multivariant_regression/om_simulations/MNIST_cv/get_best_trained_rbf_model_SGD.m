@@ -51,7 +51,7 @@ test_error_HBF1 = compute_Hf_sq_error(X_test,y_test, best_iteration_mdl, best_it
 vname=@(x) inputname(1);
 error_iterations_file_name = sprintf('test_error_vs_iterations%d',task_id);
 path_error_iterations = sprintf('%s%s',results_path,error_iterations_file_name)
-save(path_error_iterations, vname(best_train),vname(best_test), vname(center), vname(iterations), vname(eta_c), vname(eta_t) );
+save(path_error_iterations, vname(best_train),vname(best_test), vname(center), vname(iterations), vname(eta_c) );
 %% RBF
 rbf_params = RBF_parameters(c_best,t_best,gau_precision,best_iteration_mdl.lambda);
 rbf_mdl_params = learn_RBF_linear_algebra( X_train, y_train, rbf_params);
