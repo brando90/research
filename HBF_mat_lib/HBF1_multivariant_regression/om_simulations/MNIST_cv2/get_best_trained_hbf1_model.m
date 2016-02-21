@@ -31,8 +31,11 @@ mdl_func = str2func(mdl_func_name)
 for initialization_index=1:num_inits
     fprintf('initialization_index = %d\n\n', initialization_index);
     K = center;
-    %c_init = normc(rand(K,D_out)); % (N x D)
-    c_init = (6 + 6)*rand(K,D_out) - 6;
+    if c_init_normalized
+        c_init = normc(rand(K,D_out)); % (N x D)
+    else
+        c_init = rand(K,D_out); % (N x D)
+    end
     t_init = datasample(X_train', K, 'Replace', false)'; % (D x N)
     if strcmp( train_func_name, 'learn_HBF1_SGD')
         mdl_params = HBF1_parameters(c_init,t_init,gau_precision,lambda);
