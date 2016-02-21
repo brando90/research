@@ -8,7 +8,12 @@ tic;
 vname=@(x) inputname(1);
 lambda = 0
 D_out = 1
-c_init = (6 + 6)*rand(N,D_out) - 6;
+c_init_normalized = 0
+if c_init_normalized
+    c_init = normc(rand(K,D_out)); % (N x D)
+else
+    c_init = rand(K,D_out); % (N x D)
+end
 t_init = X_train;
 rbf_real_mdl_params = RBF_parameters(c_init,t_init,gau_precision, lambda);
 rbf_real_mdl_params = learn_RBF_linear_algebra( X_train, y_train, rbf_real_mdl_params);
