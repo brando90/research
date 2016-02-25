@@ -1,1 +1,1 @@
-center=10;
+center=30;
