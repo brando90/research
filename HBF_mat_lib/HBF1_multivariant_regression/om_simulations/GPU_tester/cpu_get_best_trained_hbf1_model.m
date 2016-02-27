@@ -26,20 +26,12 @@ tic;
 error_best_mdl_on_cv = inf;
 best_iteration_mdl = -1;
 mdl_func = str2func(mdl_func_name)
-
-X_train = gpuArray(X_train);
-y_train = gpuArray(y_train);
-X_test = gpuArray(X_test);
-y_test = gpuArray(y_test);
-
 for initialization_index=1:num_inits
     fprintf('initialization_index = %d\n\n', initialization_index);
     K = center;
     %c_init = normc(rand(K,D_out)); % (N x D)
     c_init = (6 + 6)*rand(K,D_out) - 6;
     t_init = datasample(X_train', K, 'Replace', false)'; % (D x N)
-    c_init = gpuArray(c_init)
-    t_init = gpuArray(t_init)
     if strcmp( train_func_name, 'learn_HBF1_SGD')
         mdl_params = HBF1_parameters(c_init,t_init,gau_precision,lambda);
         [ mdl_params, errors_train, errors_test ] = learn_HBF1_SGD( X_train, y_train, mdl_params, iterations,visualize, X_test,y_test, eta_c,eta_t, sgd_errors);
@@ -62,7 +54,7 @@ for initialization_index=1:num_inits
 end
 train_error_HBF1 = compute_Hf_sq_error(X_train,y_train, best_iteration_mdl, best_iteration_mdl.lambda )
 test_error_HBF1 = compute_Hf_sq_error(X_test,y_test, best_iteration_mdl, best_iteration_mdl.lambda )
-disp('GPU TIME: ')
+disp('CPU TIME: ')
 time_passed = toc
 %% write errors during iterations
 vname=@(x) inputname(1);
