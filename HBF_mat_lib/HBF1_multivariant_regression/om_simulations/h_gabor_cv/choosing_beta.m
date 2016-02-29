@@ -46,4 +46,4 @@ time_passed = toc;
 [min_cv_error, index] = min(rbf_cv_errors)
 smallest = betas(index)
 plot(betas, rbf_cv_errors)
-save( sprintf('./betas/beta_start_%d_end_%d_num_betas_%d', beta_start, beta_end, num_betas) )
+save( sprintf('./betas/beta_start_%d_end_%d_num_betas_%d_center_%d', beta_start, beta_end, num_betas, center) )
