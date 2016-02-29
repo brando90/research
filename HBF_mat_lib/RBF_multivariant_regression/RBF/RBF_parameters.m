@@ -15,6 +15,12 @@ classdef RBF_parameters < handle
             obj.beta = beta;
             obj.lambda = lambda;
         end
+        function [] = gather(obj)
+            obj.c = gather(obj.c);
+            obj.t = gather(obj.t);
+            obj.beta = gather(obj.beta);
+            obj.lambda = gather(obj.lambda);
+        end
     end
     
 end

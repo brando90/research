@@ -38,6 +38,13 @@ classdef HBF1
             f = Kern * obj.c; % (N x D)
             f = f'; % (D x N)
         end
+        function [mdl_params] = gather(obj)
+            mdl_params = HBF1_parameters(-1,-1,-1,-1);
+            mdl_params.c = gather(obj.c);
+            mdl_params.t = gather(obj.t);
+            mdl_params.beta = gather(obj.beta);
+            mdl_params.lambda = gather(obj.lambda);
+        end
     end
     
 end
