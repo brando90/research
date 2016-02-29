@@ -10,7 +10,7 @@ end
 [D, ~] = size(X_train);
 [D_out, ~] = size(y_train);
 %%
-num_betas = 40000
+num_betas = 4
 beta_start = 0.1
 beta_end = 20
 betas = linspace(beta_start, beta_end, num_betas);
@@ -45,4 +45,5 @@ time_passed = toc;
 %%
 [min_cv_error, index] = min(rbf_cv_errors)
 smallest = betas(index)
-plot(betas, rbf_cv_errors)
+%plot(betas, rbf_cv_errors)
+save( sprintf('./betas/beta_start_%d_end_%d_num_betas_%d', num_betas) )
