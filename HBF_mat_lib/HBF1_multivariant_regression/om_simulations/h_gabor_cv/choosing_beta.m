@@ -1,4 +1,5 @@
 %%get a better STD
+clear;
 run('./beta_config.m');
 run('load_paths.m');
 %% load data set
@@ -18,7 +19,11 @@ for i=1:num_betas
     b = betas(i);
     %% init
     K = center;
-    c_init = (1 + 1)*rand(K,D_out) - 1;
+    if c_init_normalized
+        c_init = (1 + 1)*rand(K,D_out) - 1;
+    else
+        c_init = rand(K,D_out); % (N x D)
+    end
     t_init = datasample(X_train', K, 'Replace', false)'; % (D x N)
     if gpu_on
         c_init = gpuArray(c_init);
@@ -45,4 +50,5 @@ smallest = betas(index)
 if visualize
     plot(betas, rbf_cv_errors)
 end
-save( sprintf('./betas/beta_start_%d_end_%d_num_betas_%d_center_%d', beta_start, beta_end, num_betas, center) )
+beta_workspace_name = sprintf(betas_files_names, beta_start, beta_end, num_betas, center)
+save( sprintf('./%s/%s/%s', parent_beta_dir, beta_simulation_dir_name, beta_workspace_name) )

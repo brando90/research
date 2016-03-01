@@ -15,7 +15,7 @@ visualize = 0
 %% locations
 parent_beta_dir = 'betas'
 beta_simulation_dir_name = 'betas_29feb_t1'
-betas_files_names = 'beta_start_%d_end_%d_num_betas_%d_center_%d.mat'
+betas_files_names = 'beta_start_%d_end_%d_num_betas_%d_center_%d.m'
 %% jobs
 num_betas = 5
 beta_start = 1
