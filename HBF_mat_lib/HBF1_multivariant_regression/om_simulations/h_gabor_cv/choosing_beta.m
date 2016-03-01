@@ -10,9 +10,6 @@ end
 [D, ~] = size(X_train);
 [D_out, ~] = size(y_train);
 %%
-num_betas = 10
-beta_start = 0
-beta_end = 20
 betas = linspace(beta_start, beta_end, num_betas);
 rbf_train_errors = zeros(1, num_betas);
 rbf_cv_errors = zeros(1, num_betas);
