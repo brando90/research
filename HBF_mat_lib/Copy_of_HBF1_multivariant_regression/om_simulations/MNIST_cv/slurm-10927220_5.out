@@ -1,0 +1,362 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2015 The MathWorks, Inc.
+                   R2015a (8.5.0.197613) 64-bit (glnxa64)
+                             February 12, 2015
+
+ 
+For online documentation, see http://www.mathworks.com/support
+For product information, visit www.mathworks.com.
+ 
+
+	Academic License
+
+
+slurm_job_id =
+
+    10927220
+
+
+task_id =
+
+     5
+
+Contents of HBF1:
+
+HBF1                           - class
+compute_dJ_dc_loops            - Computes dJ_dc
+learn_HBF1_SGD                 - learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
+learn_HBF1_alternating_minimization - learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
+learn_HBF1_batch_GD            - learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
+
+
+HBF1 is both a directory and a function.
+
+ HBF1 class
+    class that holds a 1 layered HBF
+
+
+gau_precision =
+
+    0.5000
+
+
+num_inits =
+
+     2
+
+
+iterations =
+
+       25000
+
+
+eta_c =
+
+    0.1000
+
+
+eta_t =
+
+    0.0100
+
+
+visualize =
+
+     0
+
+
+sgd_errors =
+
+     1
+
+
+cp_folder =
+
+cp_11feb_j5/
+
+
+cp_param_files_names =
+
+cp_11feb_j5_%d.m
+
+
+results_path =
+
+./results/r_11feb_j5/
+
+
+jobs =
+
+     5
+
+
+start_centers =
+
+     1
+
+
+end_centers =
+
+    20
+
+
+data_set_path =
+
+../../../common/data/data_MNIST_data4CV_5000.mat
+
+
+gau_precision =
+
+    0.5000
+
+
+num_inits =
+
+     2
+
+
+iterations =
+
+       25000
+
+
+eta_c =
+
+    0.1000
+
+
+eta_t =
+
+    0.0100
+
+
+visualize =
+
+     0
+
+
+sgd_errors =
+
+     1
+
+
+cp_folder =
+
+cp_11feb_j5/
+
+
+cp_param_files_names =
+
+cp_11feb_j5_%d.m
+
+
+results_path =
+
+./results/r_11feb_j5/
+
+
+jobs =
+
+     5
+
+
+start_centers =
+
+     1
+
+
+end_centers =
+
+    20
+
+
+data_set_path =
+
+../../../common/data/data_MNIST_data4CV_5000.mat
+
+
+center =
+
+    20
+
+sgd iteration = 100
+sgd iteration = 200
+sgd iteration = 300
+sgd iteration = 400
+sgd iteration = 500
+sgd iteration = 600
+sgd iteration = 700
+sgd iteration = 800
+sgd iteration = 900
+sgd iteration = 1000
+sgd iteration = 1100
+sgd iteration = 1200
+sgd iteration = 1300
+sgd iteration = 1400
+sgd iteration = 1500
+sgd iteration = 1600
+sgd iteration = 1700
+sgd iteration = 1800
+sgd iteration = 1900
+sgd iteration = 2000
+sgd iteration = 2100
+sgd iteration = 2200
+sgd iteration = 2300
+sgd iteration = 2400
+sgd iteration = 2500
+sgd iteration = 2600
+sgd iteration = 2700
+sgd iteration = 2800
+sgd iteration = 2900
+sgd iteration = 3000
+sgd iteration = 3100
+sgd iteration = 3200
+sgd iteration = 3300
+sgd iteration = 3400
+sgd iteration = 3500
+sgd iteration = 3600
+sgd iteration = 3700
+sgd iteration = 3800
+sgd iteration = 3900
+sgd iteration = 4000
+sgd iteration = 4100
+sgd iteration = 4200
+sgd iteration = 4300
+sgd iteration = 4400
+sgd iteration = 4500
+sgd iteration = 4600
+sgd iteration = 4700
+sgd iteration = 4800
+sgd iteration = 4900
+sgd iteration = 5000
+sgd iteration = 5100
+sgd iteration = 5200
+sgd iteration = 5300
+sgd iteration = 5400
+sgd iteration = 5500
+sgd iteration = 5600
+sgd iteration = 5700
+sgd iteration = 5800
+sgd iteration = 5900
+sgd iteration = 6000
+sgd iteration = 6100
+sgd iteration = 6200
+sgd iteration = 6300
+sgd iteration = 6400
+sgd iteration = 6500
+sgd iteration = 6600
+sgd iteration = 6700
+sgd iteration = 6800
+sgd iteration = 6900
+sgd iteration = 7000
+sgd iteration = 7100
+sgd iteration = 7200
+sgd iteration = 7300
+sgd iteration = 7400
+sgd iteration = 7500
+sgd iteration = 7600
+sgd iteration = 7700
+sgd iteration = 7800
+sgd iteration = 7900
+sgd iteration = 8000
+sgd iteration = 8100
+sgd iteration = 8200
+sgd iteration = 8300
+sgd iteration = 8400
+sgd iteration = 8500
+sgd iteration = 8600
+sgd iteration = 8700
+sgd iteration = 8800
+sgd iteration = 8900
+sgd iteration = 9000
+sgd iteration = 9100
+sgd iteration = 9200
+sgd iteration = 9300
+sgd iteration = 9400
+sgd iteration = 9500
+sgd iteration = 9600
+sgd iteration = 9700
+sgd iteration = 9800
+sgd iteration = 9900
+sgd iteration = 10000
+sgd iteration = 10100
+sgd iteration = 10200
+sgd iteration = 10300
+sgd iteration = 10400
+sgd iteration = 10500
+sgd iteration = 10600
+sgd iteration = 10700
+sgd iteration = 10800
+sgd iteration = 10900
+sgd iteration = 11000
+sgd iteration = 11100
+sgd iteration = 11200
+sgd iteration = 11300
+sgd iteration = 11400
+sgd iteration = 11500
+sgd iteration = 11600
+sgd iteration = 11700
+sgd iteration = 11800
+sgd iteration = 11900
+sgd iteration = 12000
+sgd iteration = 12100
+sgd iteration = 12200
+sgd iteration = 12300
+sgd iteration = 12400
+sgd iteration = 12500
+sgd iteration = 12600
+sgd iteration = 12700
+sgd iteration = 12800
+sgd iteration = 12900
+sgd iteration = 13000
+sgd iteration = 13100
+sgd iteration = 13200
+sgd iteration = 13300
+sgd iteration = 13400
+sgd iteration = 13500
+sgd iteration = 13600
+sgd iteration = 13700
+sgd iteration = 13800
+sgd iteration = 13900
+sgd iteration = 14000
+sgd iteration = 14100
+sgd iteration = 14200
+sgd iteration = 14300
+sgd iteration = 14400
+sgd iteration = 14500
+sgd iteration = 14600
+sgd iteration = 14700
+sgd iteration = 14800
+sgd iteration = 14900
+sgd iteration = 15000
+sgd iteration = 15100
+sgd iteration = 15200
+sgd iteration = 15300
+sgd iteration = 15400
+sgd iteration = 15500
+sgd iteration = 15600
+sgd iteration = 15700
+sgd iteration = 15800
+sgd iteration = 15900
+sgd iteration = 16000
+sgd iteration = 16100
+sgd iteration = 16200
+sgd iteration = 16300
+sgd iteration = 16400
+sgd iteration = 16500
+sgd iteration = 16600
+sgd iteration = 16700
+sgd iteration = 16800
+sgd iteration = 16900
+sgd iteration = 17000
+sgd iteration = 17100
+sgd iteration = 17200
+sgd iteration = 17300
+sgd iteration = 17400
+sgd iteration = 17500
+sgd iteration = 17600
+sgd iteration = 17700
+sgd iteration = 17800
+sgd iteration = 17900
+slurmstepd: *** JOB 10927220 CANCELLED AT 2016-02-12T16:31:28 *** on node006

@@ -1,0 +1,719 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2015 The MathWorks, Inc.
+                   R2015a (8.5.0.197613) 64-bit (glnxa64)
+                             February 12, 2015
+
+ 
+For online documentation, see http://www.mathworks.com/support
+For product information, visit www.mathworks.com.
+ 
+
+	Academic License
+
+
+slurm_job_id =
+
+      280731
+
+
+task_id =
+
+    16
+
+
+gau_precision =
+
+    0.5000
+
+
+num_inits =
+
+     5
+
+
+iterations =
+
+                42000
+
+
+train_func_name =
+
+learn_HBF1_SGD
+
+
+mdl_func_name =
+
+HBF1
+
+
+lambda =
+
+     0
+
+
+eta_c =
+
+    0.9200
+
+
+eta_t =
+
+    0.9200
+
+
+visualize =
+
+     0
+
+
+sgd_errors =
+
+     1
+
+
+cp_folder =
+
+cp_26feb_GPU1_t1/
+
+
+cp_param_files_names =
+
+cp_26feb_GPU1_t1%d.m
+
+
+results_path =
+
+./results/r_26feb_GPU1_t1/
+
+
+jobs =
+
+    20
+
+
+start_centers =
+
+     1
+
+
+end_centers =
+
+   180
+
+
+data_set_path =
+
+../../../common/data/data_h_add_0.7_0.15_0.15_28000_6000_6000.mat
+
+
+data_normalized =
+
+     0
+
+learn_HBF1_SGD
+
+current_simulation_config =
+
+./changing_params/cp_26feb_GPU1_t1/simulation_config.m
+
+
+gau_precision =
+
+    0.5000
+
+
+num_inits =
+
+     5
+
+
+iterations =
+
+                42000
+
+
+train_func_name =
+
+learn_HBF1_SGD
+
+
+mdl_func_name =
+
+HBF1
+
+
+lambda =
+
+     0
+
+
+eta_c =
+
+    0.9200
+
+
+eta_t =
+
+    0.9200
+
+
+visualize =
+
+     0
+
+
+sgd_errors =
+
+     1
+
+
+cp_folder =
+
+cp_26feb_GPU1_t1/
+
+
+cp_param_files_names =
+
+cp_26feb_GPU1_t1%d.m
+
+
+results_path =
+
+./results/r_26feb_GPU1_t1/
+
+
+jobs =
+
+    20
+
+
+start_centers =
+
+     1
+
+
+end_centers =
+
+   180
+
+
+data_set_path =
+
+../../../common/data/data_h_add_0.7_0.15_0.15_28000_6000_6000.mat
+
+
+data_normalized =
+
+     0
+
+
+changing_params_for_current_task =
+
+./changing_params/cp_26feb_GPU1_t1/cp_26feb_GPU1_t116.m
+
+
+center =
+
+   142
+
+
+mdl_func = 
+
+    @HBF1
+
+initialization_index = 1
+
+sgd_errors = 1visualize = 0sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 3500
+sgd iteration = 4000
+sgd iteration = 4500
+sgd iteration = 5000
+sgd iteration = 5500
+sgd iteration = 6000
+sgd iteration = 6500
+sgd iteration = 7000
+sgd iteration = 7500
+sgd iteration = 8000
+sgd iteration = 8500
+sgd iteration = 9000
+sgd iteration = 9500
+sgd iteration = 10000
+sgd iteration = 10500
+sgd iteration = 11000
+sgd iteration = 11500
+sgd iteration = 12000
+sgd iteration = 12500
+sgd iteration = 13000
+sgd iteration = 13500
+sgd iteration = 14000
+sgd iteration = 14500
+sgd iteration = 15000
+sgd iteration = 15500
+sgd iteration = 16000
+sgd iteration = 16500
+sgd iteration = 17000
+sgd iteration = 17500
+sgd iteration = 18000
+sgd iteration = 18500
+sgd iteration = 19000
+sgd iteration = 19500
+sgd iteration = 20000
+sgd iteration = 20500
+sgd iteration = 21000
+sgd iteration = 21500
+sgd iteration = 22000
+sgd iteration = 22500
+sgd iteration = 23000
+sgd iteration = 23500
+sgd iteration = 24000
+sgd iteration = 24500
+sgd iteration = 25000
+sgd iteration = 25500
+sgd iteration = 26000
+sgd iteration = 26500
+sgd iteration = 27000
+sgd iteration = 27500
+sgd iteration = 28000
+sgd iteration = 28500
+sgd iteration = 29000
+sgd iteration = 29500
+sgd iteration = 30000
+sgd iteration = 30500
+sgd iteration = 31000
+sgd iteration = 31500
+sgd iteration = 32000
+sgd iteration = 32500
+sgd iteration = 33000
+sgd iteration = 33500
+sgd iteration = 34000
+sgd iteration = 34500
+sgd iteration = 35000
+sgd iteration = 35500
+sgd iteration = 36000
+sgd iteration = 36500
+sgd iteration = 37000
+sgd iteration = 37500
+sgd iteration = 38000
+sgd iteration = 38500
+sgd iteration = 39000
+sgd iteration = 39500
+sgd iteration = 40000
+sgd iteration = 40500
+sgd iteration = 41000
+sgd iteration = 41500
+sgd iteration = 42000
+initialization_index = 2
+
+sgd_errors = 1visualize = 0sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 3500
+sgd iteration = 4000
+sgd iteration = 4500
+sgd iteration = 5000
+sgd iteration = 5500
+sgd iteration = 6000
+sgd iteration = 6500
+sgd iteration = 7000
+sgd iteration = 7500
+sgd iteration = 8000
+sgd iteration = 8500
+sgd iteration = 9000
+sgd iteration = 9500
+sgd iteration = 10000
+sgd iteration = 10500
+sgd iteration = 11000
+sgd iteration = 11500
+sgd iteration = 12000
+sgd iteration = 12500
+sgd iteration = 13000
+sgd iteration = 13500
+sgd iteration = 14000
+sgd iteration = 14500
+sgd iteration = 15000
+sgd iteration = 15500
+sgd iteration = 16000
+sgd iteration = 16500
+sgd iteration = 17000
+sgd iteration = 17500
+sgd iteration = 18000
+sgd iteration = 18500
+sgd iteration = 19000
+sgd iteration = 19500
+sgd iteration = 20000
+sgd iteration = 20500
+sgd iteration = 21000
+sgd iteration = 21500
+sgd iteration = 22000
+sgd iteration = 22500
+sgd iteration = 23000
+sgd iteration = 23500
+sgd iteration = 24000
+sgd iteration = 24500
+sgd iteration = 25000
+sgd iteration = 25500
+sgd iteration = 26000
+sgd iteration = 26500
+sgd iteration = 27000
+sgd iteration = 27500
+sgd iteration = 28000
+sgd iteration = 28500
+sgd iteration = 29000
+sgd iteration = 29500
+sgd iteration = 30000
+sgd iteration = 30500
+sgd iteration = 31000
+sgd iteration = 31500
+sgd iteration = 32000
+sgd iteration = 32500
+sgd iteration = 33000
+sgd iteration = 33500
+sgd iteration = 34000
+sgd iteration = 34500
+sgd iteration = 35000
+sgd iteration = 35500
+sgd iteration = 36000
+sgd iteration = 36500
+sgd iteration = 37000
+sgd iteration = 37500
+sgd iteration = 38000
+sgd iteration = 38500
+sgd iteration = 39000
+sgd iteration = 39500
+sgd iteration = 40000
+sgd iteration = 40500
+sgd iteration = 41000
+sgd iteration = 41500
+sgd iteration = 42000
+initialization_index = 3
+
+sgd_errors = 1visualize = 0sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 3500
+sgd iteration = 4000
+sgd iteration = 4500
+sgd iteration = 5000
+sgd iteration = 5500
+sgd iteration = 6000
+sgd iteration = 6500
+sgd iteration = 7000
+sgd iteration = 7500
+sgd iteration = 8000
+sgd iteration = 8500
+sgd iteration = 9000
+sgd iteration = 9500
+sgd iteration = 10000
+sgd iteration = 10500
+sgd iteration = 11000
+sgd iteration = 11500
+sgd iteration = 12000
+sgd iteration = 12500
+sgd iteration = 13000
+sgd iteration = 13500
+sgd iteration = 14000
+sgd iteration = 14500
+sgd iteration = 15000
+sgd iteration = 15500
+sgd iteration = 16000
+sgd iteration = 16500
+sgd iteration = 17000
+sgd iteration = 17500
+sgd iteration = 18000
+sgd iteration = 18500
+sgd iteration = 19000
+sgd iteration = 19500
+sgd iteration = 20000
+sgd iteration = 20500
+sgd iteration = 21000
+sgd iteration = 21500
+sgd iteration = 22000
+sgd iteration = 22500
+sgd iteration = 23000
+sgd iteration = 23500
+sgd iteration = 24000
+sgd iteration = 24500
+sgd iteration = 25000
+sgd iteration = 25500
+sgd iteration = 26000
+sgd iteration = 26500
+sgd iteration = 27000
+sgd iteration = 27500
+sgd iteration = 28000
+sgd iteration = 28500
+sgd iteration = 29000
+sgd iteration = 29500
+sgd iteration = 30000
+sgd iteration = 30500
+sgd iteration = 31000
+sgd iteration = 31500
+sgd iteration = 32000
+sgd iteration = 32500
+sgd iteration = 33000
+sgd iteration = 33500
+sgd iteration = 34000
+sgd iteration = 34500
+sgd iteration = 35000
+sgd iteration = 35500
+sgd iteration = 36000
+sgd iteration = 36500
+sgd iteration = 37000
+sgd iteration = 37500
+sgd iteration = 38000
+sgd iteration = 38500
+sgd iteration = 39000
+sgd iteration = 39500
+sgd iteration = 40000
+sgd iteration = 40500
+sgd iteration = 41000
+sgd iteration = 41500
+sgd iteration = 42000
+initialization_index = 4
+
+sgd_errors = 1visualize = 0sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 3500
+sgd iteration = 4000
+sgd iteration = 4500
+sgd iteration = 5000
+sgd iteration = 5500
+sgd iteration = 6000
+sgd iteration = 6500
+sgd iteration = 7000
+sgd iteration = 7500
+sgd iteration = 8000
+sgd iteration = 8500
+sgd iteration = 9000
+sgd iteration = 9500
+sgd iteration = 10000
+sgd iteration = 10500
+sgd iteration = 11000
+sgd iteration = 11500
+sgd iteration = 12000
+sgd iteration = 12500
+sgd iteration = 13000
+sgd iteration = 13500
+sgd iteration = 14000
+sgd iteration = 14500
+sgd iteration = 15000
+sgd iteration = 15500
+sgd iteration = 16000
+sgd iteration = 16500
+sgd iteration = 17000
+sgd iteration = 17500
+sgd iteration = 18000
+sgd iteration = 18500
+sgd iteration = 19000
+sgd iteration = 19500
+sgd iteration = 20000
+sgd iteration = 20500
+sgd iteration = 21000
+sgd iteration = 21500
+sgd iteration = 22000
+sgd iteration = 22500
+sgd iteration = 23000
+sgd iteration = 23500
+sgd iteration = 24000
+sgd iteration = 24500
+sgd iteration = 25000
+sgd iteration = 25500
+sgd iteration = 26000
+sgd iteration = 26500
+sgd iteration = 27000
+sgd iteration = 27500
+sgd iteration = 28000
+sgd iteration = 28500
+sgd iteration = 29000
+sgd iteration = 29500
+sgd iteration = 30000
+sgd iteration = 30500
+sgd iteration = 31000
+sgd iteration = 31500
+sgd iteration = 32000
+sgd iteration = 32500
+sgd iteration = 33000
+sgd iteration = 33500
+sgd iteration = 34000
+sgd iteration = 34500
+sgd iteration = 35000
+sgd iteration = 35500
+sgd iteration = 36000
+sgd iteration = 36500
+sgd iteration = 37000
+sgd iteration = 37500
+sgd iteration = 38000
+sgd iteration = 38500
+sgd iteration = 39000
+sgd iteration = 39500
+sgd iteration = 40000
+sgd iteration = 40500
+sgd iteration = 41000
+sgd iteration = 41500
+sgd iteration = 42000
+initialization_index = 5
+
+sgd_errors = 1visualize = 0sgd iteration = 500
+sgd iteration = 1000
+sgd iteration = 1500
+sgd iteration = 2000
+sgd iteration = 2500
+sgd iteration = 3000
+sgd iteration = 3500
+sgd iteration = 4000
+sgd iteration = 4500
+sgd iteration = 5000
+sgd iteration = 5500
+sgd iteration = 6000
+sgd iteration = 6500
+sgd iteration = 7000
+sgd iteration = 7500
+sgd iteration = 8000
+sgd iteration = 8500
+sgd iteration = 9000
+sgd iteration = 9500
+sgd iteration = 10000
+sgd iteration = 10500
+sgd iteration = 11000
+sgd iteration = 11500
+sgd iteration = 12000
+sgd iteration = 12500
+sgd iteration = 13000
+sgd iteration = 13500
+sgd iteration = 14000
+sgd iteration = 14500
+sgd iteration = 15000
+sgd iteration = 15500
+sgd iteration = 16000
+sgd iteration = 16500
+sgd iteration = 17000
+sgd iteration = 17500
+sgd iteration = 18000
+sgd iteration = 18500
+sgd iteration = 19000
+sgd iteration = 19500
+sgd iteration = 20000
+sgd iteration = 20500
+sgd iteration = 21000
+sgd iteration = 21500
+sgd iteration = 22000
+sgd iteration = 22500
+sgd iteration = 23000
+sgd iteration = 23500
+sgd iteration = 24000
+sgd iteration = 24500
+sgd iteration = 25000
+sgd iteration = 25500
+sgd iteration = 26000
+sgd iteration = 26500
+sgd iteration = 27000
+sgd iteration = 27500
+sgd iteration = 28000
+sgd iteration = 28500
+sgd iteration = 29000
+sgd iteration = 29500
+sgd iteration = 30000
+sgd iteration = 30500
+sgd iteration = 31000
+sgd iteration = 31500
+sgd iteration = 32000
+sgd iteration = 32500
+sgd iteration = 33000
+sgd iteration = 33500
+sgd iteration = 34000
+sgd iteration = 34500
+sgd iteration = 35000
+sgd iteration = 35500
+sgd iteration = 36000
+sgd iteration = 36500
+sgd iteration = 37000
+sgd iteration = 37500
+sgd iteration = 38000
+sgd iteration = 38500
+sgd iteration = 39000
+sgd iteration = 39500
+sgd iteration = 40000
+sgd iteration = 40500
+sgd iteration = 41000
+sgd iteration = 41500
+sgd iteration = 42000
+
+train_error_HBF1 =
+
+   13.2817
+
+
+test_error_HBF1 =
+
+   13.1215
+
+GPU TIME: 
+
+time_passed =
+
+   5.1959e+03
+
+
+path_error_iterations =
+
+./results/r_26feb_GPU1_t1/test_error_vs_iterations16
+
+
+test_error_RBF =
+
+   43.8365
+
+
+train_error_RBF =
+
+   43.1547
+
+
+results_path =
+
+./results/r_26feb_GPU1_t1/
+
+
+result_path_file =
+
+./results/r_26feb_GPU1_t1/results_om_id16.m
+
+
+fileID =
+
+     3
+
+                42000
+
+
+secs =
+
+   5.1959e+03
+
+
+minutes =
+
+   86.5977
+
+
+hours =
+
+    1.4433
+
+DONE
+DONE training model
