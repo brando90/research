@@ -1,21 +1,8 @@
-function [ mdl_params, errors_train, errors_test ] = learn_HBF1_SGD(X_train,Y_train, mdl_params, iterations,visualize, X_test,Y_test, eta_c, eta_t, sgd_errors)
+function [ mdl, errors_train, errors_test ] = learn_HBF1_SGD(X_train,Y_train, mdl, iterations,visualize, X_test,Y_test, eta_c, eta_t, sgd_errors)
 %learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
-%   Inputs:
-%       X = data matrix (D x N)
-%       Y = labels (N x 1)
-%       c = weights (K x L)
-%       t = centers (D x K)
-%       lambda = regularization param (1 x 1)
-%       mu_c = (1 x 1)
-%       mu_t = (1 x 1)
-%       iterations = run gradient descent for a certain number of iterations
-%       visualize = whether to plot the error or not.
-%   Outputs:
-%       c_new = learned weights (K x 1)
-%       t_new = learned centers (D x K)
 fprintf('sgd_errors = %d',sgd_errors);
 fprintf('visualize = %d',visualize);
-[~, K] = size(mdl_params.t);
+[~, K] = size(mdl.t);
 [D, N] = size(X_train);
 [D_out, ~] = size(Y_train);
 errors_train = zeros(iterations,1);
@@ -39,10 +26,9 @@ for i=1:iterations
     x = X_train(:,i_rand);
     y = Y_train(:,i_rand);
     %% get new parameters
-    current_mdl = RBF(mdl_params);
-    [ f_x, ~, a ] = current_mdl.f(x);
-    [c_new, dV_dc,G_c, mu_c] = update_c_stochastic(f_x,a, x,y, mdl_params, G_c,eta_c);
-    [t_new, dV_dt,G_t, mu_t] = update_t_stochastic(f_x,a, x,y, mdl_params, G_t,eta_t);
+    [ f_x, ~, a ] = mdl.f(x);
+    [c_new, dV_dc,G_c, mu_c] = update_c_stochastic(f_x,a, x,y, mdl, G_c,eta_c);
+    [t_new, dV_dt,G_t, mu_t] = update_t_stochastic(f_x,a, x,y, mdl, G_t,eta_t);
 %     %% get changes for c/iter.
 %     change_c_wrt_current_iteration = get_dc_diter(mdl_new.c, c_new); % (L x 1)
 %     changes_c(:,i) = change_c_wrt_current_iteration; % (L x 1)
@@ -53,17 +39,17 @@ for i=1:iterations
 %     changes_t(:, i) = change_t_wrt_iteration;
 %     dHf_diter_col_norms = get_norms_col_dHf_dt(dJ_dt);
 %     dHf_dt_mu_t_iter(:, i) = mu_t * dHf_diter_col_norms;
-    %% update HBF1 model
-    mdl_params.c = c_new;
-    mdl_params.t = t_new;
     %% Calculate current errors
     if visualize || sgd_errors
-        mdl_new = HBF1(mdl_params);
-        current_train_error = compute_Hf_sq_error(X_train,Y_train, mdl_new, mdl_params.lambda);
-        current_error_test = compute_Hf_sq_error(X_test,Y_test, mdl_new, mdl_params.lambda);
+        mdl_new = HBF1(c_new, t_new, mdl.beta, mdl.lambda);
+        current_train_error = compute_Hf_sq_error(X_train,Y_train, mdl_new, mdl.lambda);
+        current_error_test = compute_Hf_sq_error(X_test,Y_test, mdl_new, mdl.lambda);
         errors_train(i) = current_train_error;
         errors_test(i) = current_error_test;
     end
+    %% update HBF1 model
+    mdl.c = c_new;
+    mdl.t = t_new;
 end
 if visualize
     %% plot error progression

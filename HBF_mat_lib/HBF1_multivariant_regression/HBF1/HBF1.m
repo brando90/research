@@ -10,13 +10,11 @@ classdef HBF1
     end
     
     methods
-        function obj = HBF1(mdl_params)
-            %constructs HBF1
-            %addpath('model_functions');
-            obj.c = mdl_params.c;
-            obj.t = mdl_params.t;
-            obj.beta = mdl_params.beta;
-            obj.lambda = mdl_params.lambda;
+        function obj = HBF1(c,t,beta,lambda)
+            obj.c = c;
+            obj.t = t;
+            obj.beta = beta;
+            obj.lambda = lambda;
         end
         function f_x = predict(obj, x)
             %returns predicted/classification label
@@ -38,12 +36,8 @@ classdef HBF1
             f = Kern * obj.c; % (N x D)
             f = f'; % (D x N)
         end
-        function [mdl_params] = gather(obj)
-            mdl_params = HBF1_parameters(-1,-1,-1,-1);
-            mdl_params.c = gather(obj.c);
-            mdl_params.t = gather(obj.t);
-            mdl_params.beta = gather(obj.beta);
-            mdl_params.lambda = gather(obj.lambda);
+        function [mdl] = gather(obj)
+            mdl = HBF1(gather(obj.c), gather(obj.t), gather(obj.beta), gather(obj.lambda));
         end
     end
     
