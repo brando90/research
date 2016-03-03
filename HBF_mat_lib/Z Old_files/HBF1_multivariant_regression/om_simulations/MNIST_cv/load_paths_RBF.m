@@ -1,0 +1,13 @@
+%restoredefaultpath
+%clear
+addpath('../../../common/squared_error_risk');
+addpath('../../../common/visualize_centers')
+addpath('../../../common/cross_validation/standard_train_cv_test_validation')
+addpath('../../../common')
+addpath('../../../common/MNIST')
+addpath('../../../common/kernel_functions')
+addpath('../../../RBF_multivariant_regression/RBF');
+addpath('../../../RBF_multivariant_regression/RBF/derivatives_c');
+addpath('../../../RBF_multivariant_regression/RBF/model_functions');
+addpath('../../../RBF_multivariant_regression/RBF/update_rules_GD');
+addpath('../../../RBF_multivariant_regression/RBF/update_rules_GD/Stochastic_gracient_descent');
