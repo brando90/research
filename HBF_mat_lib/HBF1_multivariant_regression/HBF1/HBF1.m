@@ -29,8 +29,6 @@ classdef HBF1
         function [ f_x, z, a ] = f(obj,x)
             [ f_x, z, a ] = f(x,obj.c,obj.t,obj.beta);
         end
-%         function [] = train_HBF1(obj )
-%         end
         function [f] = predict_data_set(obj,X)
             Kern = produce_kernel_matrix( X, obj.t, obj.beta ); % (N x K)
             f = Kern * obj.c; % (N x D)
@@ -40,6 +38,5 @@ classdef HBF1
             mdl = HBF1(gather(obj.c), gather(obj.t), gather(obj.beta), gather(obj.lambda));
         end
     end
-    
+   
 end
-
