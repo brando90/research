@@ -1,4 +1,4 @@
-classdef RBF
+classdef RBF < handle
     %RBF class
     %   class that holds a 1 layered RBF
     
@@ -10,11 +10,12 @@ classdef RBF
     end
     
     methods
-        function obj = RBF(c,t,beta,lambda)
-            obj.c = c;
-            obj.t = t;
-            obj.beta = beta;
-            obj.lambda = lambda;
+        function obj = RBF(rbf_params)
+            %constructs RBF
+            obj.c = rbf_params.c;
+            obj.t = rbf_params.t;
+            obj.beta = rbf_params.beta;
+            obj.lambda = rbf_params.lambda; %TODO
         end
         function f_x = predict(obj, x)
             %returns predicted/classification label
@@ -34,8 +35,12 @@ classdef RBF
             f = Kern * obj.c; % (N x D)
             f = f';
         end
-       function [mdl] = gather(obj)
-            mdl = RBF(gather(obj.c), gather(obj.t), gather(obj.beta), gather(obj.lambda));
+        function [mdl_params] = gather(obj)
+            mdl_params = RBF_parameters(-1,-1,-1,-1);
+            mdl_params.c = gather(obj.c);
+            mdl_params.t = gather(obj.t);
+            mdl_params.beta = gather(obj.beta);
+            mdl_params.lambda = gather(obj.lambda);
         end
     end
 end

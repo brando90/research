@@ -1,6 +1,6 @@
-function [ mdl_params ] = learn_RBF_linear_algebra( X_training_data, Y_training_data, mdl_params )
+function [ mdl ] = learn_RBF_linear_algebra( X_training_data, Y_training_data, mdl )
 %
-Kern_matrix = produce_kernel_matrix(X_training_data, mdl_params.t, mdl_params.beta); % (N x K)
+Kern_matrix = produce_kernel_matrix(X_training_data, mdl.t, mdl.beta); % (N x K)
 C = Kern_matrix \ Y_training_data';  % (K x D) = (N x K)' x (N x D)
-mdl_params.c = C; % (K x D)
+mdl.c = C; % (K x D)
 end
