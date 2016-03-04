@@ -11,9 +11,9 @@ eta_t = 0.05
 visualize = 0
 sgd_errors = 1
 %% locations
-cp_folder = 'cp_1mar_j2/'
-cp_param_files_names = 'cp_1mar_j2_%d.m'
-results_path = './results/r_1mar_j2/'
+cp_folder = 'cp_3mar_j3/'
+cp_param_files_names = 'cp_3mar_j3_%d.m'
+results_path = './results/r_3mar_j3/'
 %% jobs
 jobs = 20
 start_centers = 1
@@ -24,5 +24,5 @@ data_normalized = 0
 %% GPU
 gpu_on = 1
 %% inits
-rbf_as_initilization = 0
-c_init_normalized = 1
+rbf_as_initilization = 1
+c_init_normalized = 0
