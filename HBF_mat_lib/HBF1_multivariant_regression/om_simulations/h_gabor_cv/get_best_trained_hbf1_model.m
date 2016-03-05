@@ -44,6 +44,8 @@ if rbf_as_initilization
     end
     rbf_mdl = RBF(c_init,t_init,gau_precision,lambda);
     rbf_mdl = learn_RBF_linear_algebra( X_train, y_train, rbf_mdl);
+    %test_error_RBF = compute_Hf_sq_error(X_test,y_test, rbf_mdl, rbf_mdl.lambda )
+    %train_error_RBF = compute_Hf_sq_error(X_train,y_train, rbf_mdl, rbf_mdl.lambda )
     %% train HBF1
     c_init = rbf_mdl.c;
     t_init = rbf_mdl.t;
