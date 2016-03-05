@@ -18,7 +18,7 @@ betas = linspace(beta_start, beta_end, num_betas);
 rbf_train_errors = zeros(1, num_betas);
 rbf_cv_errors = zeros(1, num_betas);
 tic;
-for i=1:num_betas
+parfor i=1:num_betas
     current_beta = betas(i);
     %% init
     K = center;
