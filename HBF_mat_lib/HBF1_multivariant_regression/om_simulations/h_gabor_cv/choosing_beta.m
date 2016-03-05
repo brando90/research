@@ -1,6 +1,9 @@
-%%get a better STD
+%% get a better STD
 clear;
-run('./beta_config.m');
+beta_config_name = 'beta_config';
+run(sprintf('./%s.m', beta_config_name) )
+beta_config_loc = sprintf('./%s/%s/%s.m', parent_beta_dir, beta_simulation_dir_name, beta_config_name)
+run( beta_config_loc );
 run('load_paths.m');
 %% load data set
 load(data_set_path); % data4cv
@@ -16,7 +19,7 @@ rbf_train_errors = zeros(1, num_betas);
 rbf_cv_errors = zeros(1, num_betas);
 tic;
 for i=1:num_betas
-    b = betas(i);
+    current_beta = betas(i);
     %% init
     K = center;
     if c_init_normalized
@@ -30,10 +33,9 @@ for i=1:num_betas
         t_init = gpuArray(t_init);
     end
     %% train RBF
-    rbf_mdl_params = learn_RBF_linear_algebra( X_train, y_train, RBF_parameters(c_init,t_init,gau_precision,0));
-    rbf_mdl = RBF(rbf_mdl_params);
-    test_error_RBF = compute_Hf_sq_error(X_test,y_test, rbf_mdl, 0 );
-    train_error_RBF = compute_Hf_sq_error(X_train,y_train, rbf_mdl, 0 );
+    rbf = learn_RBF_linear_algebra( X_train, y_train, RBF(c_init,t_init,current_beta,0));
+    test_error_RBF = compute_Hf_sq_error(X_test,y_test, rbf, 0 );
+    train_error_RBF = compute_Hf_sq_error(X_train,y_train, rbf, 0 );
     if gpu_on
         mdl_params = rbf_mdl.gather();
         rbf_mdl = RBF(mdl_params); 
@@ -44,11 +46,11 @@ end
 time_passed = toc;
 %% write time elapsed to file
 [secs, minutes, hours, ~] = time_elapsed(num_betas, time_passed )
-%%
 [min_cv_error, index] = min(rbf_cv_errors)
 smallest = betas(index)
 if visualize
     plot(betas, rbf_cv_errors)
 end
 beta_workspace_name = sprintf(betas_files_names, beta_start, beta_end, num_betas, center)
-save( sprintf('./%s/%s/%s', parent_beta_dir, beta_simulation_dir_name, beta_workspace_name) )
+loc = sprintf('./%s/%s/%s', parent_beta_dir, beta_simulation_dir_name, beta_workspace_name)
+save( loc )
