@@ -1,4 +1,4 @@
-function [] = plot_results( path_to_results, num_models )
+function [fig] = plot_results( path_to_results, num_models )
 % path_to_results = './results/results'
 files = dir( sprintf('%s%s', path_to_results, 'results*') ); %collect results
 centers = zeros(1,num_models); %TODO
@@ -29,7 +29,7 @@ list_test_errors_RBF = list_test_errors_RBF(1,1:num_models);
 % list_train_errors_real_RBF = list_train_errors_real_RBF(1,1:num_models);
 % list_test_errors_real_RBF = list_test_errors_real_RBF(1,1:num_models);
 %%
-figure
+fig = figure
 plot(centers, list_train_errors_HBF1, '-ro', centers, list_test_errors_HBF1, '-b*', centers, list_train_errors_RBF, '-go', centers, list_test_errors_RBF, '-c*');
 %plot(centers, list_train_errors_HBF1, '-ro', centers, list_test_errors_HBF1, '-b*', centers, list_train_errors_RBF, '-go', centers, list_test_errors_RBF, '-c*', centers, list_train_errors_real_RBF, '-m*', centers, list_test_errors_real_RBF, '-k*');
 %legend('HBF1 SGD mdl train errors','HBF1 SGD mdl test errors', 'RBF train errors', 'RBF test errors', 'list_test_errors_RBF', 'list_test_errors_real_RBF');

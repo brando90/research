@@ -5,11 +5,9 @@ fprintf('visualize = %d',visualize);
 [~, K] = size(mdl.t);
 [D, N] = size(X_train);
 [D_out, ~] = size(Y_train);
-errors_train = zeros(iterations,1);
-errors_test = zeros(iterations,1);
 if visualize
-    errors_train = zeros(iterations,1);
-    errors_test = zeros(iterations,1);
+    errors_train = zeros(iterations+1,1);
+    errors_test = zeros(iterations+1,1);
 %     changes_c = zeros(D, iterations);
 %     dHf_dc_mu_c_iterion = zeros(D, iterations);
 %     changes_t = zeros(K, iterations);
@@ -17,7 +15,13 @@ if visualize
 end
 G_c = ones(K, D_out);
 G_t = ones(D, K);
-for i=1:iterations
+if visualize || sgd_errors
+    current_train_error = compute_Hf_sq_error(X_train,Y_train, mdl, mdl.lambda);
+    current_error_test = compute_Hf_sq_error(X_test,Y_test, mdl, mdl.lambda);
+    errors_train(1) = current_train_error;
+    errors_test(1) = current_error_test;
+end
+for i=2:length(errors_test)
     if rem(i,500) == 0
         fprintf('sgd iteration = %d\n',i);
     end
@@ -29,6 +33,8 @@ for i=1:iterations
     [ f_x, ~, a ] = mdl.f(x);
     [c_new, dV_dc,G_c, mu_c] = update_c_stochastic(f_x,a, x,y, mdl, G_c,eta_c);
     [t_new, dV_dt,G_t, mu_t] = update_t_stochastic(f_x,a, x,y, mdl, G_t,eta_t);
+    %dV_dc
+    %dV_dt
 %     %% get changes for c/iter.
 %     change_c_wrt_current_iteration = get_dc_diter(mdl_new.c, c_new); % (L x 1)
 %     changes_c(:,i) = change_c_wrt_current_iteration; % (L x 1)
@@ -54,7 +60,10 @@ end
 if visualize
     %% plot error progression
     figure
-    iteration_axis = 1:iterations;
+    %iterations = length(errors_test);
+    iterations = length(errors_test);
+    iteration_axis = 0:iterations-1;
+    %iteration_axis = 0:iterations;
     plot(iteration_axis,errors_train,'-ro',iteration_axis, errors_test,'-b*');
     %plot(iteration_axis(4100:iterations) ,errors_Hfs(4100:iterations) ,'-ro',iteration_axis(4100:iterations) , errors_Test(4100:iterations) ,'-b*');
     legend('Training risk','Test risk');

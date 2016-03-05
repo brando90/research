@@ -5,7 +5,7 @@ elapsed_times_minutes = zeros(1,jobs);
 elapsed_times_hours = zeros(1,jobs);
 for job_num=1:jobs
     prefix_name = sprintf('time_duration_om_id%d.m', job_num);
-    times_locations = sprintf('../results/r_22feb_j2/%s', prefix_name);
+    times_locations = sprintf('../results/r_4mar_j1/%s', prefix_name);
     run(times_locations);
     centers(job_num) = center;
     elapsed_times_minutes(job_num) = minutes;
@@ -28,3 +28,5 @@ legend('times hours');
 title(sprintf('2nd subplot hours, iterations = %d', iterations))
 
 saveas(fig, sprintf('elapsed time task_id, center, iterations = %d, %d, %d', task_id, center, iterations));
+saveas(fig, sprintf('elapsed time task_id, center, iterations = %d, %d, %d.jpeg', task_id, center, iterations));
+beep;
