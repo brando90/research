@@ -37,8 +37,7 @@ for i=1:num_betas
     test_error_RBF = compute_Hf_sq_error(X_test,y_test, rbf, 0 );
     train_error_RBF = compute_Hf_sq_error(X_train,y_train, rbf, 0 );
     if gpu_on
-        mdl_params = rbf_mdl.gather();
-        rbf_mdl = RBF(mdl_params); 
+        rbf = rbf.gather(); 
     end
     rbf_train_errors(i) = test_error_RBF;
     rbf_cv_errors(i) = train_error_RBF;
@@ -54,3 +53,4 @@ end
 beta_workspace_name = sprintf(betas_files_names, beta_start, beta_end, num_betas, center)
 loc = sprintf('./%s/%s/%s', parent_beta_dir, beta_simulation_dir_name, beta_workspace_name)
 save( loc )
+beep;
