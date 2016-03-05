@@ -5,7 +5,7 @@ fprintf('visualize = %d',visualize);
 [~, K] = size(mdl.t);
 [D, N] = size(X_train);
 [D_out, ~] = size(Y_train);
-if visualize
+if visualize || sgd_errors
     errors_train = zeros(iterations+1,1);
     errors_test = zeros(iterations+1,1);
 %     changes_c = zeros(D, iterations);
