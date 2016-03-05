@@ -1,5 +1,7 @@
-name = 'betas/beta_start_0_end_20_num_betas_1000.mat'
-load(name)
+workspace_file_name = 'beta_start_1_end_20_num_betas_5_center_180'; % <- CHANGE
+job_name = 'betas_5mar_ht1'; % <- CHANGE
+path_to_name_workspace_file = sprintf('../betas/%s/%s.mat', job_name, workspace_file_name);
+load(path_to_name_workspace_file)
 %% smallest beta
 smallest
 num_betas
