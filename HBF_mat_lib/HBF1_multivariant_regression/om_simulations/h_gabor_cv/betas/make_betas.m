@@ -5,7 +5,7 @@ loc_name = sprintf('../%s/%s',parent_beta_dir,beta_simulation_dir_name)
 job_exists = exist(loc_name,'dir');
 if job_exists == 7
     disp('error')
-    disp(cp_folder)
+    disp(loc_name)
     error('DIR/BETA ALREADY EXISTS');
 end
 mkdir(loc_name)
