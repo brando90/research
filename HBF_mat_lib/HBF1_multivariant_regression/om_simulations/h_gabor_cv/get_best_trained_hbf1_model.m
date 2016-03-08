@@ -19,6 +19,9 @@ end
 %% preparing models to train/test for mdl_iterator
 [D_out, ~] = size(y_train);
 center
+%% rand seed
+rand_seed = get_rand_seed( slurm_job_id, task_id)
+rng(rand_seed); %rand_gen.Seed
 %% Run Hold Out Cross Validation
 tic;
 if gpu_on   
@@ -103,7 +106,7 @@ best_iteration_mdl = best_iteration_mdl.gather()
 vname=@(x) inputname(1);
 error_iterations_file_name = sprintf('test_error_vs_iterations%d',task_id);
 path_error_iterations = sprintf('%s%s',results_path,error_iterations_file_name)
-save(path_error_iterations, vname(best_train),vname(best_test), vname(center), vname(iterations), vname(eta_c), vname(eta_t), vname(best_iteration_mdl), vname(rbf_mdl) );
+save(path_error_iterations, vname(best_train),vname(best_test), vname(center), vname(iterations), vname(eta_c), vname(eta_t), vname(best_iteration_mdl), vname(rbf_mdl), vname(rand_seed) );
 %% write results to file
 result_file_name = sprintf('results_om_id%d.m',task_id);
 results_path
