@@ -1,5 +1,5 @@
 clear;
-task_id = 17
+task_id = 1
 %%
 run('./simulation_config.m');
 run('load_paths.m');
@@ -14,8 +14,8 @@ if data_normalized
 end
 [ X_train,X_cv,X_test, y_train,y_cv,y_test ] = data4cv.get_data_for_hold_out_cross_validation();
 %% get models
-results_dir = 'r_20feb_j3';
-mdl_location = sprintf('./results/%s/test_error_vs_iterations%d',results_dir,task_id);
+results_path = results_path(2:length(results_path)-1 )
+mdl_location = sprintf('.%s/test_error_vs_iterations%d',results_path,task_id);
 load(mdl_location)
 %% images
 mnist_image_train = X_train(:,1);

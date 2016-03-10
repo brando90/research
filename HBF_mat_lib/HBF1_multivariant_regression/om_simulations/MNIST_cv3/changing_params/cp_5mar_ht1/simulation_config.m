@@ -1,6 +1,6 @@
 gau_precision = 0.5
 num_inits = 1
-iterations = 5
+iterations = 200
 train_func_name = 'learn_HBF1_SGD'
 mdl_func_name = 'HBF1'
 %train_func_name = 'learn_RBF_SGD'
