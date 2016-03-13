@@ -1,5 +1,5 @@
 clear;
-task_id = 1
+task_id = 9
 %%
 run('./simulation_config.m');
 run('load_paths.m');
@@ -18,7 +18,7 @@ results_path = results_path(2:length(results_path)-1 )
 mdl_location = sprintf('.%s/test_error_vs_iterations%d',results_path,task_id);
 load(mdl_location)
 %% images
-mnist_image_train = X_train(:,1);
+mnist_image_train = X_train(:,3);
 reconstruction_HBF1 = best_iteration_mdl.predict( mnist_image_train );
 reconstruction_rbf = best_iteration_mdl.predict( mnist_image_train );
 %% original 
