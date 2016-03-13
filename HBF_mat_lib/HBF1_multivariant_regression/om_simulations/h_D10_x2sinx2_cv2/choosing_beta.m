@@ -54,3 +54,4 @@ beta_workspace_name = sprintf(betas_files_names, beta_start, beta_end, num_betas
 loc = sprintf('./%s/%s/%s', parent_beta_dir, beta_simulation_dir_name, beta_workspace_name)
 save( loc )
 beep;
+disp('DONE');
