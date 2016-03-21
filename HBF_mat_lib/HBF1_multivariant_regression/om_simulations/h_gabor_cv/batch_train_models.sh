@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=HBF1_model_train
 #SBATCH --nodes=1
-#SBATCH --mem=4500
+#SBATCH --mem=5500
 #SBATCH --time=6-23
-#SBATCH --array=1-4
+#SBATCH --array=1-20
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=rene_sax14@yahoo.com
 

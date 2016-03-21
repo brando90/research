@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=HBF1_MNIST
 #SBATCH --nodes=1
-#SBATCH --mem=6500
+#SBATCH --mem=5500
 #SBATCH --time=6-23
-#SBATCH --array=1-10
+#SBATCH --array=1-20
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=rene_sax14@yahoo.com
 #SBATCH --gres=gpu:1
