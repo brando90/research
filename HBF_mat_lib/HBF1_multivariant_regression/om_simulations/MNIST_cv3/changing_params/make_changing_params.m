@@ -1,6 +1,5 @@
-%dtm = datetime('now','TimeZone','local','Format','d-MMM-y HH:mm:ss Z');
-%path = sprintf('./%d-%d-%d_%d:%d:%d',dtm.Day,dtm.Month,dtm.Year, dtm.Hour,dtm.Minute,dtm.Second);
-run('../simulation_config.m')
+config_loc = 'simulation_config_pca.m' %<-- CHANGE
+run( sprintf('../%s', config_loc) ) 
 job_exists = exist(cp_folder,'dir');
 if job_exists == 7
     disp('error')
@@ -14,7 +13,7 @@ if job_exists == 7
 end
 mkdir(results_path_to_make)
 mkdir(cp_folder)
-source = '../simulation_config.m';
+source = sprintf('../%s', config_loc);
 destination = sprintf('./%s', cp_folder)
 copyfile(source, destination);
 %% number of jobs
@@ -28,3 +27,5 @@ for job=1:jobs;
     center = centers(job);
     fprintf(fileID, 'center=%d;', center);
 end
+disp('Done');
+beep;
