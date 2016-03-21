@@ -43,3 +43,7 @@ slprj/
 # Network Trash Folder
 # Temporary Items
 # .apdisk
+#
+
+#slurm
+slurm*.out
