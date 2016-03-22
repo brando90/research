@@ -123,6 +123,11 @@ result_path_file = sprintf('%s%s',results_path,result_file_name)
 [fileID,~] = fopen(result_path_file, 'w')
 fprintf(fileID, 'task_id=%d;\ncenter=%d;\ntest_error_HBF1=%d;\ntrain_error_HBF1=%d;\ntest_error_RBF=%d;\ntrain_error_RBF=%d;', task_id,center,test_error_HBF1,train_error_HBF1,test_error_RBF,train_error_RBF);
 time_passed = toc;
+%% save my own code
+my_self = 'get_best_trained_hbf1_model.m';
+source = sprintf('./%s', my_self);
+destination = sprintf('%s', results_path)
+copyfile(source, destination);
 %% write time elapsed to file
 [secs, minutes, hours, ~] = time_elapsed(iterations, time_passed )
 time_file_name = sprintf('time_duration_om_id%d.m',task_id);
