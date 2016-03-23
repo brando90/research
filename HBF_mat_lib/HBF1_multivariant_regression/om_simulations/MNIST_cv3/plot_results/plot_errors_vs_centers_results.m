@@ -1,4 +1,4 @@
-function [fig] = plot_results( path_to_results, num_models )
+function [fig] = plot_errors_vs_centers_results( path_to_results, num_models )
 % path_to_results = './results/results'
 files = dir( sprintf('%s%s', path_to_results, 'results*') ); %collect results
 centers = zeros(1,num_models); %TODO

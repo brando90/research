@@ -16,7 +16,7 @@ end
 %%
 betas = linspace(beta_start, beta_end, num_betas);
 rbf_train_errors = zeros(1, num_betas);
-rbf_cv_errors = zeros(1, num_betas);
+rbf_test_errors = zeros(1, num_betas);
 rbf_cell_list = cell([1, num_betas]);
 tic;
 for i=1:num_betas
@@ -40,8 +40,10 @@ for i=1:num_betas
     if gpu_on
         rbf = rbf.gather(); 
     end
-    rbf_train_errors(i) = test_error_RBF;
-    rbf_cv_errors(i) = train_error_RBF;
+%     rbf_train_errors(i) = test_error_RBF;
+%     rbf_cv_errors(i) = train_error_RBF;
+    rbf_train_errors(i) = train_error_RBF;
+    rbf_test_errors(i) = test_error_RBF;
     rbf_cell_list{i} = rbf;
 end
 time_passed = toc;
