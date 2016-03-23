@@ -19,11 +19,11 @@ betas_files_names = 'beta_start_%d_end_%d_num_betas_%d_center_%d.mat'
 %% jobs
 num_betas = 5
 beta_start = 0
-beta_end = 30
+beta_end = 1
 %% RBF number of centers
-center = 56
+center = 250
 %% data
-data_set_path = '../../../common/data/data_h_D10_x2sinx2_0.7_0.15_0.15_28000_6000_6000.mat'
+data_set_path = '../../../common/data/data_MNIST_0.7_0.15_0.15_49000_10500_10500.mat'
 data_normalized = 0
 %% data
 gpu_on = 0
