@@ -50,7 +50,7 @@ time_passed = toc;
 %% get best beta
 [min_cv_error, index] = min(rbf_cv_errors)
 smallest_beta = betas(index)
-rbf = rbf_cell_list{index}
+best_rbf = rbf_cell_list{index}
 if visualize
     plot(betas, rbf_cv_errors)
 end
