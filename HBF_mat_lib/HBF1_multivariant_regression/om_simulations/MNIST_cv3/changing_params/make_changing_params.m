@@ -1,4 +1,4 @@
-config_loc = 'simulation_config_pca.m' %<-- CHANGE
+config_loc = 'simulation_config.m' %<-- CHANGE
 run( sprintf('../%s', config_loc) ) 
 job_exists = exist(cp_folder,'dir');
 if job_exists == 7
