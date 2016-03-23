@@ -52,6 +52,6 @@ if visualize
 end
 beta_workspace_name = sprintf(betas_files_names, beta_start, beta_end, num_betas, center)
 loc = sprintf('./%s/%s/%s', parent_beta_dir, beta_simulation_dir_name, beta_workspace_name)
-save( loc )
+save(loc,'-regexp','^(?!(data4cv|X_[\w|\d]*|y_[\w|\d]*)$).') % save everything except the exceptions
 beep;
 disp('DONE');
