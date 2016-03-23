@@ -1,6 +1,6 @@
 %% get a better STD
 clear;
-beta_config_name = 'beta_config';
+beta_config_name = 'beta_config'; %<--- config file
 run(sprintf('./%s.m', beta_config_name) )
 beta_config_loc = sprintf('./%s/%s/%s.m', parent_beta_dir, beta_simulation_dir_name, beta_config_name)
 run( beta_config_loc );
@@ -50,9 +50,9 @@ time_passed = toc;
 %% write time elapsed to file
 [secs, minutes, hours, ~] = time_elapsed(num_betas, time_passed )
 %% get best beta
-[min_cv_error, index] = min(rbf_cv_errors)
-smallest_beta = betas(index)
-smallest_beta_rbf = rbf_cell_list{index}
+[min_cv_error, index] = min(rbf_test_errors)
+smallest_test_error_beta = betas(index)
+smallest_test_error_beta_rbf = rbf_cell_list{index}
 if visualize
     plot(betas, rbf_cv_errors)
 end
@@ -60,8 +60,14 @@ end
 [s,git_hash_string] = system('git rev-parse HEAD')
 %% save relevant workspace
 beta_workspace_name = sprintf(betas_files_names, beta_start, beta_end, num_betas, center)
-loc = sprintf('./%s/%s/%s', parent_beta_dir, beta_simulation_dir_name, beta_workspace_name)
+results_path = sprintf('./%s/%s',parent_beta_dir, beta_simulation_dir_name)
+loc = sprintf('%s/%s',  results_path, beta_workspace_name)
 save(loc,'-regexp','^(?!(data4cv|X_[\w|\d]*|y_[\w|\d]*|rbf_cell_list)$).') % save everything except the exceptions
+%% save my own code
+my_self = 'choosing_beta.m';
+source = sprintf('./%s', my_self);
+destination = sprintf('%s/', results_path)
+copyfile(source, destination);
 %% DONE
 beep;
 disp('DONE');
