@@ -17,6 +17,7 @@ end
 betas = linspace(beta_start, beta_end, num_betas);
 rbf_train_errors = zeros(1, num_betas);
 rbf_cv_errors = zeros(1, num_betas);
+rbf_cell_list = cell([1, num_betas]);
 tic;
 for i=1:num_betas
     current_beta = betas(i);
@@ -41,17 +42,24 @@ for i=1:num_betas
     end
     rbf_train_errors(i) = test_error_RBF;
     rbf_cv_errors(i) = train_error_RBF;
+    rbf_cell_list{i} = rbf;
 end
 time_passed = toc;
 %% write time elapsed to file
 [secs, minutes, hours, ~] = time_elapsed(num_betas, time_passed )
+%% get best beta
 [min_cv_error, index] = min(rbf_cv_errors)
-smallest = betas(index)
+smallest_beta = betas(index)
+smallest_beta_rbf = rbf_cell_list{index}
 if visualize
     plot(betas, rbf_cv_errors)
 end
+%% git hash
+[s,git_hash_string] = system('git rev-parse HEAD')
+%% save relevant workspace
 beta_workspace_name = sprintf(betas_files_names, beta_start, beta_end, num_betas, center)
 loc = sprintf('./%s/%s/%s', parent_beta_dir, beta_simulation_dir_name, beta_workspace_name)
-save(loc,'-regexp','^(?!(data4cv|X_[\w|\d]*|y_[\w|\d]*)$).') % save everything except the exceptions
+save(loc,'-regexp','^(?!(data4cv|X_[\w|\d]*|y_[\w|\d]*|rbf_cell_list)$).') % save everything except the exceptions
+%% DONE
 beep;
 disp('DONE');
