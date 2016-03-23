@@ -110,18 +110,17 @@ test_error_HBF1 = compute_Hf_sq_error(X_test,y_test, best_iteration_mdl, best_it
 best_iteration_mdl = best_iteration_mdl.gather();
 rbf_mdl = rbf_mdl.gather();
 %% save everything/write errors during iterations
-rbf_mdl = rbf_mdl.gather();
-best_iteration_mdl = best_iteration_mdl.gather()
+[s,git_hash_string] = system('git rev-parse HEAD')
 vname=@(x) inputname(1);
 error_iterations_file_name = sprintf('test_error_vs_iterations%d',task_id);
 path_error_iterations = sprintf('%s%s',results_path,error_iterations_file_name)
-save(path_error_iterations, vname(best_train),vname(best_test), vname(center), vname(iterations), vname(eta_c), vname(eta_t), vname(best_iteration_mdl), vname(rbf_mdl), vname(rand_seed) );
+save(path_error_iterations, vname(best_train),vname(best_test), vname(center), vname(iterations), vname(eta_c), vname(eta_t), vname(best_iteration_mdl), vname(rbf_mdl), vname(rand_seed), vname(git_hash_string) );
 %% write results to file
 result_file_name = sprintf('results_om_id%d.m',task_id);
 results_path
 result_path_file = sprintf('%s%s',results_path,result_file_name)
 [fileID,~] = fopen(result_path_file, 'w')
-fprintf(fileID, 'task_id=%d;\ncenter=%d;\ntest_error_HBF1=%d;\ntrain_error_HBF1=%d;\ntest_error_RBF=%d;\ntrain_error_RBF=%d;', task_id,center,test_error_HBF1,train_error_HBF1,test_error_RBF,train_error_RBF);
+fprintf(fileID, 'task_id=%d;\ncenter=%d;\ntest_error_HBF1=%d;\ntrain_error_HBF1=%d;\ntest_error_RBF=%d;\ntrain_error_RBF=%d;\n', task_id,center,test_error_HBF1,train_error_HBF1,test_error_RBF,train_error_RBF);
 time_passed = toc;
 %% save my own code
 my_self = 'get_best_trained_hbf1_model.m';
