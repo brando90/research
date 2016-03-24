@@ -1,7 +1,7 @@
 addpath('../');
 %%
-D = 2000;
-K = 3000;
+D = 2;
+K = 3;
 beta = 0.5;
 x = rand(D,1);
 t = rand(D, K);
