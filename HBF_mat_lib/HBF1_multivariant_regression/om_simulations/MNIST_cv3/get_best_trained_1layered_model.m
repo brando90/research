@@ -15,16 +15,25 @@ if data_normalized
     data4cv.normalize_data();
 end
 [ X_train,X_cv,X_test, y_train,y_cv,y_test ] = data4cv.get_data_for_hold_out_cross_validation();
-[D, ~] = size(X_train);
 %% preparing models to train/test for mdl_iterator
-[D_out, ~] = size(y_train);
 center
 %% rand seed
 rand_seed = get_rand_seed( slurm_job_id, task_id)
 rng(rand_seed); %rand_gen.Seed
 %% Run Hold Out Cross Validation
 tic;
-if gpu_on   
+[D, N] = size(X_train);
+[D_out, ~] = size(y_test);
+if strcmp( train_func_name, 'learn_HSig_SGD') || strcmp( train_func_name, 'learn_ReLu_SGD')
+    [~, N_train] = size(X_train);
+    [~, N_cv] = size(X_cv);
+    [~, N_test] = size(X_test);
+    X_train = [X_train; ones(1,N_train)];
+    X_cv = [X_cv; ones(1,N_cv)];
+    X_test = [X_test; ones(1,N_test)];
+    D = D+1;
+end
+if gpu_on
     X_train = gpuArray(X_train);
     y_train = gpuArray(y_train);
     X_cv = gpuArray(X_cv);
@@ -48,8 +57,6 @@ if rbf_as_initilization
     end
     kernel_mdl = RBF(c_init,t_init,gau_precision,lambda);
     kernel_mdl = learn_RBF_linear_algebra( X_train, y_train, kernel_mdl);
-    %test_error_RBF = compute_Hf_sq_error(X_test,y_test, rbf_mdl, rbf_mdl.lambda )
-    %train_error_RBF = compute_Hf_sq_error(X_train,y_train, rbf_mdl, rbf_mdl.lambda )
     %% train HBF1
     c_init = kernel_mdl.c;
     t_init = kernel_mdl.t;
@@ -58,20 +65,21 @@ if rbf_as_initilization
 else
     error_best_mdl_on_cv = inf;
     best_iteration_mdl = -1;
-    %mdl_func = str2func(mdl_func_name)
-    y_std = repmat( std(y_train'), [K,1]);
-    y_mean = repmat( mean(y_train'), [K,1]);
-    %y_std = std(y_train');
-    %y_mean = mean(y_train');
+    %y_std = std(y_train, 0, 2); % (1 x D) unbiased std of coordinate/var/feature
+    %y_mean = mean(y_train, 2); % (1 x D) mean of coordinate/var/feature
+    y_std = std(y_train,0,2); % (D_out x 1) unbiased std of coordinate/var/feature
+    y_mean = mean(y_train,2); % (D_out x 1) mean of coordinate/var/feature
+    y_std = repmat( y_std', [K,1]); % (K x D_out) for c = (K x D_out)
+    y_mean = repmat( y_mean', [K,1]); % (K x D_out) for c = (K x D_out)  
+    %min_y = min(y_train)
+    %max_y = max(y_train)
     for initialization_index=1:num_inits
         fprintf('initialization_index = %d\n\n', initialization_index);
-        %
-        %min_y = min(y_train)
-        %max_y = max(y_train)
-        c_init = normrnd(y_mean,y_std,[K,D_out]);
-        %
         %c_init = (1 + 1)*rand(K,D_out) - 1;
-        t_init = datasample(X_train', K, 'Replace', false)'; % (D x N)
+        %c_init = y_mean .* rand(K,D_out) + (2*rand(K,D_out)-1) y_std;
+        %c_init = (y_std + y_std) .* rand(K,D_out) + y_mean;
+        c_init = normrnd(y_mean,y_std,[K,D_out]);
+        t_init = datasample(X_train', K, 'Replace', false)'; % (D x K)
         if c_init_normalized
             c_init = normc(c_init);
         end
@@ -89,6 +97,12 @@ else
             mdl = RBF(c_init,t_init,gau_precision,lambda);
             [ mdl, errors_train, errors_test ] = learn_RBF_SGD( X_train, y_train, mdl, iterations,visualize, X_test,y_test, eta_c, sgd_errors);
         elseif strcmp( train_func_name, 'learn_HSig_SGD')
+            %t_init(D+1,:) = -1 * rand(1,D); %the offset is a threshold to activation function, so put it in that range, -1 because <x,w> - b > 0 <=> <x,w> > b
+            eps = 0.1;
+            t_mean  = norm(mean(t_init(1:D-1,:) ,2),2)^2;
+            t_std = norm(std(t_init(1:D-1,:),0,2),2)^2;
+            t_init(D,:) =  - normrnd(eps*t_mean - eps*t_std, t_std); % (1 x K)
+            %
             mdl = HSig(c_init,t_init,lambda);
             [ mdl, errors_train, errors_test ] = learn_HSig_SGD( X_train, y_train, mdl, iterations,visualize, X_test,y_test, eta_c, eta_t, sgd_errors);
             %%
