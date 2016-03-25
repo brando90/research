@@ -1,4 +1,4 @@
-function [ mdl, errors_train, errors_test ] = learn_HBF1_SGD(X_train,Y_train, mdl, iterations,visualize, X_test,Y_test, eta_c, eta_t, sgd_errors)
+function [ mdl, errors_train, errors_test ] = learn_HSig_SGD(X_train,Y_train, mdl, iterations,visualize, X_test,Y_test, eta_c, eta_t, sgd_errors)
 %learn_HBF_parameters_1_hidden_later - learns HBF params from Poggio's Paper
 fprintf('sgd_errors = %d',sgd_errors);
 fprintf('visualize = %d',visualize);
@@ -47,7 +47,7 @@ for i=2:length(errors_test)
 %     dHf_dt_mu_t_iter(:, i) = mu_t * dHf_diter_col_norms;
     %% Calculate current errors
     if visualize || sgd_errors
-        mdl_new = HBF1(c_new, t_new, mdl.beta, mdl.lambda);
+        mdl_new = HSig(c_new, t_new, mdl.lambda);
         current_train_error = compute_Hf_sq_error(X_train,Y_train, mdl_new, mdl.lambda);
         current_error_test = compute_Hf_sq_error(X_test,Y_test, mdl_new, mdl.lambda);
         errors_train(i) = current_train_error;

@@ -6,7 +6,7 @@ function [ dV_dt_vec ] = compute_dV_dt_vec( f,a, x,y, mdl  )
 % X_minus_t = bsxfun(@minus, x, mdl_params.t); % (D x K) = (D x 1) op (D x K)
 % dV_dt_vec = 4 *mdl_params.beta * mdl_params.beta * bsxfun(@times, X_minus_t, a_x_delta); % (D x K)
 
-s_dv_dak = bsxfun(@times, 2*(f-y), mdl.c'); % (D x K) = (D x 1) op (D x K)
+s_dv_dak = bsxfun(@times, -2*(f-y), mdl.c'); % (D x K) = (D x 1) op (D x K)
 dV_da = sum(s_dv_dak); % (1 x K)
 da_dz = ( a .* (1 - a) )'; % (1 x K)
 dV_dt_vec = bsxfun(@times, dV_da .* da_dz , x); % (D x K)

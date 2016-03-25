@@ -27,13 +27,14 @@ classdef HSig
         function [ f_x, z, a ] = f(obj,x)
             [ f_x, z, a ] = f(x,obj.c,obj.t);
         end
-        function [f] = predict_data_set(obj,X)
-            Kern = produce_kernel_matrix( X, obj.t, obj.beta ); % (N x K)
+        function [f] = predict_data_set(obj, X)
+            %Kern = produce_kernel_matrix_inner_products( X, obj.t,  ); % (N x K)
+            Kern = sigmf( X' * obj.t, [-1, 0] );
             f = Kern * obj.c; % (N x D)
             f = f'; % (D x N)
         end
         function [mdl] = gather(obj)
-            mdl = HBF1(gather(obj.c), gather(obj.t), gather(obj.lambda));
+            mdl = HSig(gather(obj.c), gather(obj.t), gather(obj.lambda));
         end
     end
    
