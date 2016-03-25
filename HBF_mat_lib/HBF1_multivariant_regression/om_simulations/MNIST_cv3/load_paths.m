@@ -11,6 +11,10 @@ elseif strcmp( train_func_name, 'learn_RBF_SGD')
     addpath('../../../RBF_multivariant_regression/RBF/update_rules_GD/batch_gradient_descent');
     addpath('../../../RBF_multivariant_regression/RBF/update_rules_GD/Stochastic_gradient_descent');
     addpath('../../../RBF_multivariant_regression/RBF/derivatives_c');
+elseif strcmp( train_func_name, 'learn_HSig_SGD')
+    folderName = fullfile('../../../HSig_multivariant_regression');
+    p = genpath(folderName);
+    addpath(p);
 end
 addpath('../../../RBF_multivariant_regression/RBF');
 addpath('../../../common/squared_error_risk');
