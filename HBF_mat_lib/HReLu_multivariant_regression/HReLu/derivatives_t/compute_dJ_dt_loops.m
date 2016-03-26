@@ -1,4 +1,4 @@
-function [ dJ_dt ] = compute_dJ_dt_loops(f_x,a,x,y,t,c)
+function [ dJ_dt ] = compute_dJ_dt_loops(f_x,a,z,x,y,t,c)
 %Computes dJ_dc
 %   Input:
 %       z = (K x 1)
@@ -15,7 +15,7 @@ for k=1:K
     dJ_dt_k = zeros(D_p,1);
     for d=1:D
         dV_dak = 2*(f_x(d) - y(d)) * c(k,d); % (1 x 1)
-        dak_dzk = a(k) >= 0;
+        dak_dzk = z(k) >= 0;
         dak_dtk =  dak_dzk * x ; %(D+1 x 1)
         dJ_dt_k = dJ_dt_k + dV_dak * dak_dtk;
     end
