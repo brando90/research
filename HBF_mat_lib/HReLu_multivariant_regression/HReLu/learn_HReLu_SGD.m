@@ -30,9 +30,9 @@ for i=2:length(errors_test)
     x = X_train(:,i_rand);
     y = Y_train(:,i_rand);
     %% get new parameters
-    [ f_x, ~, a ] = mdl.f(x);
+    [ f_x, z, a ] = mdl.f(x);
     [c_new, dV_dc,G_c, mu_c] = update_c_stochastic(f_x,a, x,y, mdl, G_c,eta_c);
-    [t_new, dV_dt,G_t, mu_t] = update_t_stochastic(f_x,a, x,y, mdl, G_t,eta_t);
+    [t_new, dV_dt,G_t, mu_t] = update_t_stochastic(f_x,a,z, x,y, mdl, G_t,eta_t);
     %dV_dc
     %dV_dt
 %     %% get changes for c/iter.
